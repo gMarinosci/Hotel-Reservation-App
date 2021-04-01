@@ -6,4 +6,7 @@ import se.scandium.hotelproject.exception.UserNotFoundException;
 public interface UserService {
 
     User authentication(String username, String password) throws UserNotFoundException;
+
+    User saveOrUpdate(User user) throws UserNotFoundException;
+
 }

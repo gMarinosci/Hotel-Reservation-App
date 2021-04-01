@@ -17,7 +17,7 @@ public class User {
     private String password;
     @Column(nullable = false, columnDefinition = "tinyint(1) default 1")
     private boolean active;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinTable(name = "users_authotities"
             , joinColumns = @JoinColumn(name = "user_id")
             , inverseJoinColumns = @JoinColumn(name = "authority_id")
