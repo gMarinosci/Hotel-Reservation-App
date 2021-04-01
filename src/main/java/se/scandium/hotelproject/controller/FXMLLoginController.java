@@ -1,5 +1,6 @@
 package se.scandium.hotelproject.controller;
 
+import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -44,6 +45,9 @@ public class FXMLLoginController {
 
     @FXML
     private Button loginButton;
+
+    @FXML
+    private JFXButton testJFX;
 
     @FXML
     private void initialize() {

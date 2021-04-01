@@ -18,14 +18,14 @@
 
     <Label text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
-    <TextField fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <TextField styleClass="login-field" fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
     <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
 
-    <PasswordField fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <PasswordField styleClass="login-field" fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
     <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="1" GridPane.rowIndex="4">
-        <Button fx:id="loginButton" text="Sign In"/>
+        <Button styleClass="login-button" fx:id="loginButton" text="Sign In"/>
     </HBox>
 
     <Text fx:id="actionTarget" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
