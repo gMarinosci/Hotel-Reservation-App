@@ -1,24 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.AdminController">
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.FXMLAdminController">
-   <children>
-      <TabPane layoutX="-2.0" layoutY="3.0" prefHeight="391.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Admin Panel Tab 1">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-          <Tab text="Admin Panel Tab 2">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
-        </tabs>
-      </TabPane>
-   </children>
-</AnchorPane>
+    <HBox prefHeight="80.0" prefWidth="900.0" styleClass="header-panel">
+        <Label styleClass="header-text" text="Hotel Reservation System" />
+    </HBox>
+
+    <SplitPane dividerPositions="0.0" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
+        <AnchorPane id="MENU" maxWidth="250.0" prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #acacac;">
+            <JFXButton buttonType="RAISED" minWidth="250.0" prefWidth="250.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Add" textFill="WHITE">
+                <font>
+                    <Font size="24.0" />
+                </font></JFXButton>
+            <Separator layoutX="-1.0" layoutY="48.0" prefHeight="12.0" prefWidth="250.0" />
+            <JFXButton buttonType="RAISED" layoutX="-1.0" layoutY="54.0" minWidth="250.0" prefWidth="250.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #6c4fc5;" text="Person Control" textFill="WHITE">
+                <font>
+                    <Font size="24.0" />
+                </font></JFXButton>
+        </AnchorPane>
+
+        <ScrollPane prefHeight="700.0" prefWidth="900.0">
+            <AnchorPane id="Content" styleClass="welcome-bg" prefHeight="700.0" prefWidth="900.0">
+
+                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" maxHeight="517.0" maxWidth="127.0"
+                       prefHeight="28.0" prefWidth="591.0" text="Welcome Page" textAlignment="CENTER"/>
+
+            </AnchorPane>
+        </ScrollPane>
+    </SplitPane>
+    <stylesheets>
+        <URL value="@/css/style.css" />
+    </stylesheets>
+</VBox>

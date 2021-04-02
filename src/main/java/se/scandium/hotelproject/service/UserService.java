@@ -9,4 +9,6 @@ public interface UserService {
 
     User saveOrUpdate(User user) throws UserNotFoundException;
 
+    boolean resetPassword(String username, String password, String newPassword) throws UserNotFoundException;
+
 }

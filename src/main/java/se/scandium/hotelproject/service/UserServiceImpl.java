@@ -2,6 +2,7 @@ package se.scandium.hotelproject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import se.scandium.hotelproject.entity.User;
 import se.scandium.hotelproject.exception.ArgumentInvalidException;
 import se.scandium.hotelproject.exception.UserNotFoundException;
@@ -29,6 +30,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Transactional
     @Override
     public User saveOrUpdate(User user) throws UserNotFoundException {
         // When the user ID is present, the update operation is executed, otherwise the save is executed
@@ -43,4 +45,20 @@ public class UserServiceImpl implements UserService {
         return userRepository.save(user);
     }
 
+    @Transactional
+    @Override
+    public boolean resetPassword(String username, String password, String newPassword) throws UserNotFoundException {
+        System.out.println("username = " + username);
+        System.out.println("password = " + password);
+        System.out.println("newPassword = " + newPassword);
+
+        Optional<User> userOptional = userRepository.findByUsernameIgnoreCase(username);
+        if (userOptional.isEmpty()) throw new UserNotFoundException("User not found");
+        if (userOptional.get().getPassword().equals(newPassword))
+            throw new ArgumentInvalidException("new password and old password must nut be same");
+
+        userRepository.resetPassword(username, newPassword);
+        userRepository.updateActiveByUsername(username, true);
+        return true;
+    }
 }

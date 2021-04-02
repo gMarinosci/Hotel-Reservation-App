@@ -12,10 +12,18 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     /*no need to implement basic CRUD operations*/
     @Modifying(clearAutomatically = true)
     @Query("UPDATE  User u SET u.status = :status WHERE u.username = :username")
-    void updateStatusByUsername(@Param("username") String username,@Param("status") boolean status);
+    void updateStatusByUsername(@Param("username") String username, @Param("status") boolean status);
 
     Optional<User> findByUsernameIgnoreCase(String username);
 
     Optional<User> findByUsernameIgnoreCaseAndPassword(String username, String password);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE  User u SET u.password = :newPassword WHERE u.username = :username")
+    void resetPassword(@Param("username") String username, @Param("newPassword") String newPassword);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE  User u SET u.active = :active WHERE u.username = :username")
+    void updateActiveByUsername(@Param("username") String username, @Param("active") boolean active);
 
 }

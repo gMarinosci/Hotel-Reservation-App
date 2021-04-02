@@ -35,27 +35,35 @@ public class InitData implements CommandLineRunner {
     }
 
     @Transactional
-    void saveUsers(){
+    void saveUsers() {
+        Authority userAuthority = null;
+        Authority hotelAuthority = null;
+        if (authorityRepository.findByNameIgnoreCase("user_management").isEmpty())
+            userAuthority = authorityRepository.save(new Authority("user_management"));
+        if (authorityRepository.findByNameIgnoreCase("hotel_management").isEmpty())
+            hotelAuthority = authorityRepository.save(new Authority("hotel_management"));
 
-        Authority authority1 = authorityRepository.save(new Authority("user_management"));
-        Authority authority2 = authorityRepository.save(new Authority("hotel_management"));
+        if (userRepository.findByUsernameIgnoreCase("superAdmin").isEmpty()) {
+            UserInfo superAdminUserInfo = new UserInfo("SuperAdmin", "SuperAdminsson", UserType.ADMINISTRATOR, LocalDateTime.now(), false);
+            User superAdminUser = new User("superAdmin", "superAdmin", superAdminUserInfo);
+            superAdminUser.addAuthority(userAuthority);
+            superAdminUser.addAuthority(hotelAuthority);
+            userRepository.save(superAdminUser);
+        }
 
+        if (userRepository.findByUsernameIgnoreCase("admin").isEmpty()) {
+            UserInfo adminUserInfo = new UserInfo("Admin", "Adminsson", UserType.ADMINISTRATOR, LocalDateTime.now(), false);
+            User adminUser = new User("admin", "admin", adminUserInfo);
+            adminUser.setActive(true);
+            adminUser.addAuthority(userAuthority);
+            userRepository.save(adminUser);
+        }
+        if (userRepository.findByUsernameIgnoreCase("user").isEmpty()) {
+            UserInfo receptionUserInfo = new UserInfo("Test", "Testsson", UserType.RECEPTION, LocalDateTime.now(), false);
+            User receptionUser = new User("user", "user", receptionUserInfo);
+            receptionUser.addAuthority(hotelAuthority);
+            userRepository.save(receptionUser);
+        }
 
-        UserInfo superAdminUserInfo = new UserInfo("SuperAdmin", "SuperAdminsson", UserType.ADMINISTRATOR, LocalDateTime.now(), false);
-        User superAdminUser = new User("superAdmin", "superAdmin", superAdminUserInfo);
-        superAdminUser.addAuthority(authority1);
-        superAdminUser.addAuthority(authority2);
-        userRepository.save(superAdminUser);
-
-        UserInfo adminUserInfo = new UserInfo("Admin", "Adminsson", UserType.ADMINISTRATOR, LocalDateTime.now(), false);
-        User adminUser = new User("admin", "admin", adminUserInfo);
-        adminUser.addAuthority(authority1);
-        userRepository.save(adminUser);
-
-        UserInfo receptionUserInfo = new UserInfo("Test", "Testsson", UserType.RECEPTION, LocalDateTime.now(), false);
-        User receptionUser = new User("user", "user", receptionUserInfo);
-        receptionUser.addAuthority(authority2);
-        userRepository.save(receptionUser);
     }
-
 }

@@ -8,7 +8,7 @@ plugins {
 
 javafx {
     version = "16"
-    modules = ['javafx.controls', 'javafx.fxml', 'javafx.graphics', 'javafx.base']
+    modules = ['javafx.controls', 'javafx.fxml']
 }
 
 group = 'se.scandium'

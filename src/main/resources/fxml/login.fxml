@@ -6,32 +6,42 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-
-<GridPane fx:controller="se.scandium.hotelproject.controller.FXMLLoginController"
-          xmlns:fx="http://javafx.com/fxml" alignment="center" hgap="10" vgap="10"
-          styleClass="root">
+<GridPane alignment="center" hgap="10" styleClass="login-bg" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.LoginController">
     <padding>
-        <Insets top="25" right="25" bottom="25" left="25"/>
+        <Insets bottom="25" left="25" right="25" top="25" />
     </padding>
 
-    <Text id="welcome-text" text="Welcome" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2"/>
+    <Text id="welcome-text" text="Welcome" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
 
-    <Label text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
+    <Label styleClass="lbl" text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
-    <TextField styleClass="login-field" fx:id="usernameField" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
+    <TextField fx:id="usernameField" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
-    <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+    <Label  styleClass="lbl" text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
 
-    <PasswordField styleClass="login-field" fx:id="passwordField" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
+    <PasswordField fx:id="passwordField" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
-    <HBox spacing="10" alignment="bottom_right" GridPane.columnIndex="1" GridPane.rowIndex="4">
-        <Button styleClass="login-button" fx:id="loginButton" text="Sign In"/>
+    <HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
+        <Button fx:id="loginButton" styleClass="btn-blue" text="Sign In" />
     </HBox>
 
-    <Text fx:id="actionTarget" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+    <Text fx:id="errorText" styleClass="error-text" GridPane.columnIndex="1" GridPane.rowIndex="6" />
 
     <stylesheets>
-        <URL value="@/css/login.css"/>
+        <URL value="@/css/style.css" />
     </stylesheets>
+   <columnConstraints>
+      <ColumnConstraints />
+      <ColumnConstraints />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
 
 </GridPane>

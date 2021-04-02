@@ -1,20 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.ReceptionController">
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.FXMLAdminController">
-   <children>
-      <TabPane layoutX="-2.0" layoutY="3.0" prefHeight="391.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE">
-        <tabs>
-          <Tab text="Reception Panel">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-            </content>
-          </Tab>
+    <HBox prefHeight="80.0" prefWidth="900.0" styleClass="header-panel">
+        <Label styleClass="header-text" text="Hotel Reservation System" />
+    </HBox>
 
-        </tabs>
-      </TabPane>
-   </children>
-</AnchorPane>
+    <SplitPane dividerPositions="0.0" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
+        <AnchorPane id="MENU" maxWidth="250.0" prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #acacac;">
+            <JFXButton buttonType="RAISED" minWidth="250.0" prefWidth="250.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #c70b7c;" text="Test" textFill="WHITE">
+                <font>
+                    <Font size="24.0" />
+                </font></JFXButton>
+
+        </AnchorPane>
+
+        <ScrollPane prefHeight="700.0" prefWidth="900.0">
+            <AnchorPane id="Content" style="-fx-background-color: #ffc6c6;" prefHeight="700.0" prefWidth="900.0">
+
+                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" maxHeight="517.0" maxWidth="127.0"
+                       prefHeight="28.0" prefWidth="591.0" text="Welcome Page" textAlignment="CENTER"/>
+
+            </AnchorPane>
+        </ScrollPane>
+    </SplitPane>
+    <stylesheets>
+        <URL value="@/css/style.css" />
+    </stylesheets>
+</VBox>
