@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.*?>
-<?import java.net.*?>
+<?import com.jfoenix.controls.JFXButton?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
-
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
+<?import javafx.scene.text.Font?>
+<?import java.net.URL?>
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.AdminController">
 
     <HBox prefHeight="80.0" prefWidth="900.0" styleClass="header-panel">
@@ -16,7 +13,7 @@
 
     <SplitPane dividerPositions="0.0" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
         <AnchorPane id="MENU" maxWidth="250.0" prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #acacac;">
-            <JFXButton buttonType="RAISED" minWidth="250.0" prefWidth="250.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Add" textFill="WHITE">
+            <JFXButton fx:id="addRoomButton" buttonType="RAISED" minWidth="250.0" prefWidth="250.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Add" textFill="WHITE">
                 <font>
                     <Font size="24.0" />
                 </font></JFXButton>

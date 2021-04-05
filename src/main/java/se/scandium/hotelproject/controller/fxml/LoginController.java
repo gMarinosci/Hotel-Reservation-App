@@ -9,7 +9,6 @@ import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import se.scandium.hotelproject.entity.User;
 import se.scandium.hotelproject.entity.UserType;

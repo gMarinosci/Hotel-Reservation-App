@@ -1,6 +1,5 @@
 package se.scandium.hotelproject.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,16 +12,16 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Room {
+public class Customer {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String name;
-    private double price;
-    private RoomType type;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinColumn(name = "hotel_id")
-    private Hotel hotel;
-    private boolean reserve;
-    private boolean status;
+    private String firstName;
+    private String lastName;
+    private int age;
+    private Gender gender;
+    @Embedded
+    private Address address;
+
 }
