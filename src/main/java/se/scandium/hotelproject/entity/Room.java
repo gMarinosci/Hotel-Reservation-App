@@ -25,4 +25,8 @@ public class Room {
     private Hotel hotel;
     private boolean reserve;
     private boolean status;
+    private String location;
+    private String description;
+
+
 }

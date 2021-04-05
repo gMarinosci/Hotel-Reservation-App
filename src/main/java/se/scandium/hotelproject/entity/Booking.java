@@ -7,7 +7,13 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
 
+
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 
 @Entity
 public class Booking {
@@ -16,11 +22,12 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private int numberOfDays;
-    private LocalDate startDay;
-    private LocalDate endDay;
+    private LocalDate startDate;
+    private LocalDate endDate;
     private double amount;
     private boolean breakfast;
     private boolean lunch;
+    private boolean pay;
 
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "customer_id")
