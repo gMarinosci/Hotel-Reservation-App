@@ -1,28 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
+<?import com.jfoenix.validation.*?>
 <?import java.net.*?>
 <?import javafx.geometry.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
+<?import org.kordamp.ikonli.javafx.*?>
 
+<?import javafx.scene.control.Label?>
 <GridPane alignment="center" hgap="10" styleClass="login-bg" vgap="10" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.LoginController">
     <padding>
-        <Insets bottom="25" left="25" right="25" top="25" />
+        <Insets bottom="30" left="25" right="25" top="25" />
     </padding>
 
     <Text id="welcome-text" text="Welcome" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="0" />
 
-    <Label styleClass="lbl" text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
 
-    <TextField fx:id="usernameField" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <Label text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
 
-    <Label  styleClass="lbl" text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+    <JFXTextField id="validatedUsername" fx:id="usernameField" labelFloat="true" prefHeight="25.0" prefWidth="250.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
 
-    <PasswordField fx:id="passwordField" styleClass="text-field" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+    <Label text="Password:" GridPane.columnIndex="0" GridPane.rowIndex="2"/>
+
+    <JFXPasswordField id="validatedPassword" fx:id="passwordField" labelFloat="true" prefHeight="25.0" prefWidth="250.0" style="-fx-background-color: white;" GridPane.columnIndex="1" GridPane.rowIndex="2"/>
 
     <HBox alignment="bottom_right" spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4">
-        <Button fx:id="loginButton" styleClass="btn-blue" text="Sign In" />
+        <JFXButton fx:id="loginButton" buttonType="FLAT" prefHeight="23.0" prefWidth="250.0" style="-fx-text-fill:WHITE;-fx-background-color:#5264AE;-fx-font-size:14px;" text="Sign In" />
     </HBox>
 
     <Text fx:id="errorText" styleClass="error-text" GridPane.columnIndex="1" GridPane.rowIndex="6" />

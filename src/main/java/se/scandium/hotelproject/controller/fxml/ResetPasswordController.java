@@ -1,5 +1,7 @@
 package se.scandium.hotelproject.controller.fxml;
 
+import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -42,13 +44,13 @@ public class ResetPasswordController {
     private Text username;
 
     @FXML
-    private PasswordField passwordField;
+    private JFXPasswordField passwordField;
 
     @FXML
-    private PasswordField rePasswordField;
+    private JFXPasswordField rePasswordField;
 
     @FXML
-    private Button submitButton;
+    private JFXButton submitButton;
 
     public void setViewObject(User viewObject) {
         if (viewObject != null) {

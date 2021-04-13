@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import org.kordamp.ikonli.javafx.*?>
+<JFXListView fx:id="popupList" styleClass="popup-list-view"
+             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+    <Label>
+        Reset Password
+        <graphic>
+            <StackPane styleClass="custom-jfx-list-view-icon-container">
+                <FontIcon iconLiteral="fas-key" iconSize="18" styleClass="option-jfx-list-view-icon"/>
+            </StackPane>
+        </graphic>
+    </Label>
+    <Label>
+        Exit
+        <graphic>
+            <StackPane styleClass="custom-jfx-list-view-icon-container">
+                <FontIcon iconLiteral="fas-reply" iconSize="18" styleClass="option-jfx-list-view-icon"/>
+            </StackPane>
+        </graphic>
+    </Label>
+</JFXListView>

@@ -1,6 +1,8 @@
 package se.scandium.hotelproject.controller.fxml;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXPasswordField;
+import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -35,16 +37,13 @@ public class LoginController {
     private Text errorText;
 
     @FXML
-    private TextField usernameField;
+    private JFXTextField usernameField;
 
     @FXML
-    private PasswordField passwordField;
+    private JFXPasswordField passwordField;
 
     @FXML
-    private Button loginButton;
-
-    @FXML
-    private JFXButton testJFX;
+    private JFXButton loginButton;
 
 
     @FXML

@@ -1,27 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.Font?>
+<?import org.kordamp.ikonli.javafx.*?>
 <?import java.net.URL?>
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.AdminController">
 
-    <HBox prefHeight="80.0" prefWidth="900.0" styleClass="header-panel">
-        <Label styleClass="header-text" text="Hotel Reservation System" />
-    </HBox>
+    <VBox spacing="20">
+        <JFXToolbar styleClass="header-panel">
+            <leftItems>
+                <Label styleClass="header-text" text="Hotel Reservation System" />
+            </leftItems>
+            <rightItems>
+                <!--<JFXToggleNode styleClass="toggle-icon3" pickOnBounds="false">
+                    <FontIcon iconLiteral="fas-key" iconSize="24" styleClass="icon"/>
+                </JFXToggleNode>-->
+                <JFXRippler fx:id="rippler" maskType="CIRCLE"
+                            AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
+                    <JFXHamburger fx:id="burger" style="-fx-padding:15;">
+                    </JFXHamburger>
+                </JFXRippler>
+            </rightItems>
+        </JFXToolbar>
+    </VBox>
+
+
 
     <SplitPane dividerPositions="0.0" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
         <AnchorPane id="MENU" maxWidth="250.0" prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #acacac;">
-            <JFXButton fx:id="addRoomButton" buttonType="RAISED" minWidth="250.0" prefWidth="250.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Add" textFill="WHITE">
-                <font>
-                    <Font size="24.0" />
-                </font></JFXButton>
-            <Separator layoutX="-1.0" layoutY="48.0" prefHeight="12.0" prefWidth="250.0" />
-            <JFXButton buttonType="RAISED" layoutX="-1.0" layoutY="54.0" minWidth="250.0" prefWidth="250.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #6c4fc5;" text="Person Control" textFill="WHITE">
-                <font>
-                    <Font size="24.0" />
-                </font></JFXButton>
+
+            <JFXListView minWidth="250.0" prefWidth="250.0" prefHeight="800" maxHeight="1200">
+                <JFXButton fx:id="addRoomButton" buttonType="RAISED" minWidth="220.0" prefWidth="220.0" minHeight="35.0" prefHeight="35.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Add" textFill="WHITE" alignment="CENTER_LEFT">
+                Add Room
+                    <graphic>
+                        <StackPane styleClass="custom-jfx-list-view-icon-container">
+                            <FontIcon iconLiteral="fas-star" iconSize="18" styleClass="custom-jfx-list-view-icon"/>
+                        </StackPane>
+                    </graphic>
+                </JFXButton>
+                <Label>
+                    Item 2
+                    <graphic>
+                        <StackPane styleClass="custom-jfx-list-view-icon-container">
+                            <FontIcon iconLiteral="fas-heart" iconSize="18" styleClass="custom-jfx-list-view-icon"/>
+                        </StackPane>
+                    </graphic>
+                </Label>
+                <Label>
+                    Item 3
+                    <graphic>
+                        <StackPane styleClass="custom-jfx-list-view-icon-container">
+                            <FontIcon iconLiteral="fas-exclamation-triangle" iconSize="18" styleClass="custom-jfx-list-view-icon"/>
+                        </StackPane>
+                    </graphic>
+                </Label>
+                <Label>
+                    Item 4
+                    <graphic>
+                        <StackPane styleClass="custom-jfx-list-view-icon-container">
+                            <FontIcon iconLiteral="fas-university" iconSize="18" styleClass="custom-jfx-list-view-icon"/>
+                        </StackPane>
+                    </graphic>
+                </Label>
+                <Label>
+                    Item 5
+                    <graphic>
+                        <StackPane styleClass="custom-jfx-list-view-icon-container">
+                            <FontIcon iconLiteral="fas-tablet-alt" iconSize="18" styleClass="custom-jfx-list-view-icon"/>
+                        </StackPane>
+                    </graphic>
+                </Label>
+            </JFXListView>
+
         </AnchorPane>
 
         <ScrollPane prefHeight="700.0" prefWidth="900.0">
