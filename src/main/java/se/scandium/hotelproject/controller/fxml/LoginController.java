@@ -98,22 +98,23 @@ public class LoginController {
         }
         if (node != null) {
             switch (fxmlName) {
-                case ADMIN_PANEL -> {
+                case ADMIN_PANEL:
                     stage.setTitle("Admin Panel");
                     stage.setScene(new Scene(node, 1200, 800));
-                }
-                case RECEPTION_PANEL -> {
+                    break;
+                case RECEPTION_PANEL:
                     stage.setTitle("Reception panel");
                     stage.setScene(new Scene(node, 1200, 800));
-                }
-                case RESET_PWD_PANEL -> {
+                    break;
+                case RESET_PWD_PANEL:
                     stage.setTitle("Reset Password");
                     stage.setScene(new Scene(node, 500, 350));
 
                     ResetPasswordController resetPasswordController = loader.getController();
                     resetPasswordController.setUserService(userService);
-                }
-                default -> showErrorAlert("INTERNAL_ERROR");
+                    break;
+
+                default: showErrorAlert("INTERNAL_ERROR");
             }
             stage.show();
             loginButton.getScene().getWindow().hide();
