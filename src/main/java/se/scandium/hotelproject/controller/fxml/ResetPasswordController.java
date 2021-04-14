@@ -15,6 +15,8 @@ import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
+import se.scandium.hotelproject.controller.fxml.view.UserHolder;
+import se.scandium.hotelproject.controller.fxml.view.UserView;
 import se.scandium.hotelproject.entity.User;
 import se.scandium.hotelproject.entity.UserType;
 import se.scandium.hotelproject.exception.ArgumentInvalidException;
@@ -29,7 +31,7 @@ import static se.scandium.hotelproject.controller.util.FXMLResources.RECEPTION_P
 @Controller
 public class ResetPasswordController {
 
-    private User viewObject;
+    private UserView userView;
     private UserService userService;
 
     @Autowired
@@ -52,19 +54,15 @@ public class ResetPasswordController {
     @FXML
     private JFXButton submitButton;
 
-    public void setViewObject(User viewObject) {
-        if (viewObject != null) {
-            username.setText(viewObject.getUsername());
-        }
-        this.viewObject = viewObject;
-    }
-
     @FXML
     private void initialize() {
+        userView = UserHolder.getInstance().getUserView();
+        username.setText(userView.getUsername());
+
         submitButton.setOnAction(event -> {
             String password = passwordField.getText();
             String rePassword = rePasswordField.getText();
-            String username = viewObject.getUsername();
+            String username = userView.getUsername();
             boolean isValid = true;
             if (password.trim().length() == 0 || rePassword.trim().length() == 0) {
                 errorText.setText("invalid param.");
@@ -78,7 +76,7 @@ public class ResetPasswordController {
             if (isValid) {
                 try {
                     userService.resetPassword(username, password, rePassword);
-                    if (viewObject.getUserInfo().getUserType() == UserType.ADMINISTRATOR)
+                    if (userView.getUserType() == UserType.ADMINISTRATOR.getCode())
                         loadControl(ADMIN_PANEL);
                     else
                         loadControl(RECEPTION_PANEL);
@@ -112,19 +110,6 @@ public class ResetPasswordController {
         if (node != null) {
             Scene scene = new Scene(node);
             stage.setScene(scene);
-
-            switch (fxmlName) {
-                case ADMIN_PANEL -> {
-                    AdminController adminController = loader.getController();
-                    adminController.setViewObject(viewObject);
-                }
-                case RECEPTION_PANEL -> {
-                    ReceptionController receptionController = loader.getController();
-                    receptionController.setViewObject(viewObject);
-                }
-                default -> showErrorAlert("INTERNAL_ERROR");
-            }
-
             stage.show();
             submitButton.getScene().getWindow().hide();
         }

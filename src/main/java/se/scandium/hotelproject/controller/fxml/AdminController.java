@@ -15,18 +15,17 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import org.springframework.stereotype.Controller;
+import se.scandium.hotelproject.controller.fxml.view.UserHolder;
+import se.scandium.hotelproject.controller.fxml.view.UserView;
 import se.scandium.hotelproject.entity.User;
 
 import javax.annotation.PostConstruct;
 import java.io.IOException;
 
-import static se.scandium.hotelproject.controller.util.FXMLResources.ADD_ROOM;
-import static se.scandium.hotelproject.controller.util.FXMLResources.DEMO_POPUP;
+import static se.scandium.hotelproject.controller.util.FXMLResources.*;
 
 @Controller
 public class AdminController {
-
-    private User viewObject;
 
     @FXML
     private JFXButton addRoomButton;
@@ -52,21 +51,11 @@ public class AdminController {
         burger.setOnMouseClicked((e) -> popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
     }
 
-    public void setViewObject(User viewObject) {
-        if (viewObject != null) {
-        }
-        this.viewObject = viewObject;
-    }
-
-
     @FXML
     void loadAddRoomControlInDialog(ActionEvent event) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ADD_ROOM));
             Parent parent = fxmlLoader.load();
-            //RoomController dialogController = fxmlLoader.getController();
-            //dialogController.setAppMainObservableList(tvObservableList);
-
             Scene scene = new Scene(parent);
             Stage stage = new Stage();
             stage.initModality(Modality.APPLICATION_MODAL);

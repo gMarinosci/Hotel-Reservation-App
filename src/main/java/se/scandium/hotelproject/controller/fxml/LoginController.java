@@ -12,12 +12,17 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import se.scandium.hotelproject.controller.fxml.view.UserHolder;
+import se.scandium.hotelproject.controller.fxml.view.UserView;
+import se.scandium.hotelproject.entity.Authority;
 import se.scandium.hotelproject.entity.User;
 import se.scandium.hotelproject.entity.UserType;
 import se.scandium.hotelproject.exception.UserNotFoundException;
 import se.scandium.hotelproject.service.UserService;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import static se.scandium.hotelproject.controller.util.FXMLResources.*;
 
@@ -53,6 +58,7 @@ public class LoginController {
             String pwd = passwordField.getText();
             try {
                User user = userService.authentication(username, pwd);
+               setUserView(user);
                 if (user.isActive()) {
                     if (user.getUserInfo().getUserType() == UserType.ADMINISTRATOR)
                         loadControl(ADMIN_PANEL,user);
@@ -68,6 +74,17 @@ public class LoginController {
         });
     }
 
+    private void setUserView(User user){
+        UserHolder holder = UserHolder.getInstance();
+        UserView userView= new UserView();
+        userView.setUsername(user.getUsername());
+        userView.setActive(user.isActive());
+        userView.setFirstName(user.getUserInfo().getFirstName());
+        userView.setLastName(user.getUserInfo().getLastName());
+        userView.setUserType(user.getUserInfo().getUserType().getCode());
+        userView.setAuthorities(user.getAuthorities().stream().map(Authority::getId).collect(Collectors.toList()));
+        holder.setUserView(userView);
+    }
 
     private void loadControl(String fxmlName,User user) {
         Stage stage = new Stage();
@@ -84,17 +101,10 @@ public class LoginController {
                 case ADMIN_PANEL -> {
                     stage.setTitle("Admin Panel");
                     stage.setScene(new Scene(node, 1200, 800));
-                    //stage.setFullScreen(true);
-
-                    AdminController adminController = loader.getController();
-                    adminController.setViewObject(user);
                 }
                 case RECEPTION_PANEL -> {
                     stage.setTitle("Reception panel");
                     stage.setScene(new Scene(node, 1200, 800));
-
-                    ReceptionController receptionController = loader.getController();
-                    receptionController.setViewObject(user);
                 }
                 case RESET_PWD_PANEL -> {
                     stage.setTitle("Reset Password");
@@ -102,7 +112,6 @@ public class LoginController {
 
                     ResetPasswordController resetPasswordController = loader.getController();
                     resetPasswordController.setUserService(userService);
-                    resetPasswordController.setViewObject(user);
                 }
                 default -> showErrorAlert("INTERNAL_ERROR");
             }
