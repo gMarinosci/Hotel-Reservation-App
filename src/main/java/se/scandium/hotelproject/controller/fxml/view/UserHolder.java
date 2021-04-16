@@ -20,4 +20,11 @@ public final class UserHolder {
   public void setUserView(UserView userView) {
     this.userView = userView;
   }
+
+  @Override
+  public String toString() {
+    return "UserHolder{" +
+            "userView=" + userView +
+            '}';
+  }
 }

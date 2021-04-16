@@ -25,13 +25,6 @@ public class HotelProject extends Application {
         applicationContext = new SpringApplicationBuilder(HotelProjectSpringApplication.class).run();
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/login.fxml"));
         fxmlLoader.setControllerFactory(applicationContext::getBean);
-        applicationContext
-                .getAutowireCapableBeanFactory()
-                .autowireBeanProperties(
-                        this,
-                        AutowireCapableBeanFactory.AUTOWIRE_BY_TYPE,
-                        true
-                );
         root = fxmlLoader.load();
     }
 

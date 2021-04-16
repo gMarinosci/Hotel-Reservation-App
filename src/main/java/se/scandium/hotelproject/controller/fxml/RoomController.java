@@ -4,11 +4,7 @@ import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleGroup;
-import org.springframework.stereotype.Controller;
 
-import java.awt.*;
-
-@Controller
 public class RoomController {
     @FXML
     private JFXTextField name;

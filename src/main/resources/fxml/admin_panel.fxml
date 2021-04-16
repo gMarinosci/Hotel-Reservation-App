@@ -5,20 +5,22 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 <?import java.net.URL?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.AdminController">
 
-    <VBox spacing="20">
-        <JFXToolbar styleClass="header-panel">
+    <VBox spacing="20" styleClass="header-panel">
+        <JFXToolbar>
             <leftItems>
-                <Label styleClass="header-text" text="Hotel Reservation System" />
+                <Label styleClass="header-text" fx:id="screenTitleText" />
             </leftItems>
             <rightItems>
                 <!--<JFXToggleNode styleClass="toggle-icon3" pickOnBounds="false">
                     <FontIcon iconLiteral="fas-key" iconSize="24" styleClass="icon"/>
                 </JFXToggleNode>-->
-                <JFXRippler fx:id="rippler" maskType="CIRCLE"
+                <JFXRippler style="-fx-padding:15;-fx-background-color: white;" fx:id="rippler" maskType="CIRCLE"
                             AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
-                    <JFXHamburger fx:id="burger" style="-fx-padding:15;">
+                    <JFXHamburger fx:id="burger" onMouseClicked="#loadPopup" style="-fx-padding:15;-fx-background-color: white;">
                     </JFXHamburger>
                 </JFXRippler>
             </rightItems>

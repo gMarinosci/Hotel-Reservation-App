@@ -13,5 +13,7 @@ public class UserView {
     private String firstName;
     private String lastName;
     private int userType;
+    private String screenTitle;
+
 
 }
