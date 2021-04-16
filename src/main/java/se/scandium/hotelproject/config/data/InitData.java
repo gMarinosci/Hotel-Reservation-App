@@ -53,6 +53,7 @@ public class InitData implements CommandLineRunner {
 
         if (userRepository.findByUsernameIgnoreCase("admin").isEmpty()) {
             UserInfo adminUserInfo = new UserInfo("Admin", "Adminsson", UserType.ADMINISTRATOR, LocalDateTime.now(), false);
+            adminUserInfo.setScreenTitle("ADMIN SYSTEM");
             User adminUser = new User("admin", "admin", adminUserInfo);
             adminUser.setActive(true);
             adminUser.addAuthority(userAuthority);
