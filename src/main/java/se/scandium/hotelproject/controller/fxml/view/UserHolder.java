@@ -1,7 +1,5 @@
 package se.scandium.hotelproject.controller.fxml.view;
 
-import se.scandium.hotelproject.entity.User;
-
 public final class UserHolder {
   
   private UserView userView;
