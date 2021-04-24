@@ -3,43 +3,40 @@ package se.scandium.hotelproject.controller.fxml;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import net.rgielen.fxweaver.core.FxWeaver;
+import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.config.BeanDefinition;
-import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
-import se.scandium.hotelproject.controller.fxml.view.UserHolder;
+import se.scandium.hotelproject.controller.fxml.singleton.UserHolder;
 import se.scandium.hotelproject.controller.fxml.view.UserView;
 import se.scandium.hotelproject.entity.UserType;
 import se.scandium.hotelproject.exception.ArgumentInvalidException;
 import se.scandium.hotelproject.exception.UserNotFoundException;
 import se.scandium.hotelproject.service.UserService;
-import se.scandium.hotelproject.service.UserServiceImpl;
-
-import java.io.IOException;
 
 import static se.scandium.hotelproject.controller.util.FXMLResources.ADMIN_PANEL;
 import static se.scandium.hotelproject.controller.util.FXMLResources.RECEPTION_PANEL;
 
 @Component
+@FxmlView("/fxml/reset_pwd_screen.fxml")
 public class ResetPasswordScreenController {
 
     private UserView userView;
-    private UserService userService;
+    private final UserService userService;
+    private final FxWeaver fxWeaver;
     private boolean resetFirstStep = true;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public ResetPasswordScreenController(UserService userService, FxWeaver fxWeaver) {
         this.userService = userService;
+        this.fxWeaver = fxWeaver;
     }
 
     public void setResetFirstStep(boolean resetFirstStep) {
@@ -87,14 +84,13 @@ public class ResetPasswordScreenController {
                     else
                         loadControl(RECEPTION_PANEL);
                 else {
-                   System.exit(0);
+                    System.exit(0);
                 }
 
             } catch (ArgumentInvalidException e) {
                 System.out.println("##### ArgumentInvalidException: " + e.getMessage());
                 errorText.setText(e.getMessage());
                 showAlert(Alert.AlertType.WARNING, submitButton.getScene().getWindow(), "Error!", errorText.getText());
-
             } catch (UserNotFoundException e) {
                 System.out.println("##### UserNotFoundException: " + e.getMessage());
                 errorText.setText(e.getMessage());
@@ -104,7 +100,6 @@ public class ResetPasswordScreenController {
                 e.printStackTrace();
                 showAlert(Alert.AlertType.ERROR, submitButton.getScene().getWindow(), "Internal Error!", "Internal Error!");
             }
-
         }
     }
 
@@ -141,40 +136,26 @@ public class ResetPasswordScreenController {
             showAlert(Alert.AlertType.ERROR, submitButton.getScene().getWindow(), "Validation Error!", "password and repeat password are not same");
             return false;
         }
-
         return true;
-
     }
 
 
     private void loadControl(String fxmlName) {
         Stage stage = new Stage();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlName));
-        Parent node = null;
-        try {
-            node = loader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-            showAlert(Alert.AlertType.ERROR, submitButton.getScene().getWindow(), "Internal Error!", e.getMessage());
+        switch (fxmlName) {
+            case ADMIN_PANEL:
+                stage.setTitle("Admin Panel");
+                stage.setScene(new Scene(fxWeaver.loadView(AdminController.class), 1200, 800));
+                break;
+            case RECEPTION_PANEL:
+                stage.setTitle("Reception panel");
+                stage.setScene(new Scene(fxWeaver.loadView(ReceptionController.class), 1200, 800));
+                break;
+            default:
+                showAlert(Alert.AlertType.ERROR, submitButton.getScene().getWindow(), "Internal Error!", "Internal Error!");
         }
-        if (node != null) {
-            switch (fxmlName) {
-                case ADMIN_PANEL:
-                    stage.setTitle("Admin Panel");
-                    stage.setScene(new Scene(node, 1200, 800));
-                    AdminController adminController = loader.getController();
-                    adminController.setUserService(userService);
-                    break;
-                case RECEPTION_PANEL:
-                    stage.setTitle("Reception panel");
-                    stage.setScene(new Scene(node, 1200, 800));
-                    break;
-                default:
-                    showAlert(Alert.AlertType.ERROR, submitButton.getScene().getWindow(), "Internal Error!", "Internal Error!");
-            }
-            stage.show();
-            submitButton.getScene().getWindow().hide();
-        }
+        stage.show();
+        submitButton.getScene().getWindow().hide();
     }
 
 

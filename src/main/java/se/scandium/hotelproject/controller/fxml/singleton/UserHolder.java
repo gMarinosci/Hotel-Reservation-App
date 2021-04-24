@@ -1,4 +1,6 @@
-package se.scandium.hotelproject.controller.fxml.view;
+package se.scandium.hotelproject.controller.fxml.singleton;
+
+import se.scandium.hotelproject.controller.fxml.view.UserView;
 
 public final class UserHolder {
   

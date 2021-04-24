@@ -6,38 +6,38 @@ import com.jfoenix.controls.JFXPopup;
 import com.jfoenix.controls.JFXRippler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import net.rgielen.fxweaver.core.FxWeaver;
+import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import se.scandium.hotelproject.controller.fxml.view.UserHolder;
+import se.scandium.hotelproject.controller.fxml.singleton.UserHolder;
 import se.scandium.hotelproject.controller.fxml.view.UserView;
 import se.scandium.hotelproject.service.UserService;
 
-import java.io.IOException;
-
-import static se.scandium.hotelproject.controller.util.FXMLResources.ADD_ROOM;
-import static se.scandium.hotelproject.controller.util.FXMLResources.DEMO_POPUP;
-
 @Component
+@FxmlView("/fxml/admin_panel.fxml")
 public class AdminController {
 
-    private UserService userService;
     private UserView userView;
+    private final UserService userService;
+    private final FxWeaver fxWeaver;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public AdminController(UserService userService, FxWeaver fxWeaver) {
         this.userService = userService;
+        this.fxWeaver = fxWeaver;
     }
 
     @FXML
     private Label screenTitleText;
     @FXML
     private JFXButton addRoomButton;
+    @FXML
+    private JFXButton showRoomButton;
     @FXML
     private JFXRippler rippler;
     @FXML
@@ -51,33 +51,30 @@ public class AdminController {
         userView = UserHolder.getInstance().getUserView();
         screenTitleText.setText(userView.getScreenTitle());
         addRoomButton.setOnAction(this::loadAddRoomControlInDialog);
+        showRoomButton.setOnAction(this::loadRoomListControlInDialog);
     }
 
     @FXML
     void loadPopup() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(DEMO_POPUP));
-            popup = new JFXPopup(fxmlLoader.load());
-            PopupController popupController = fxmlLoader.getController();
-            popupController.setUserService(userService);
-            burger.setOnMouseClicked((e) -> popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
-        } catch (IOException ioExc) {
-            ioExc.printStackTrace();
-        }
+        popup = new JFXPopup(fxWeaver.loadView(PopupController.class));
+        burger.setOnMouseClicked((e) -> popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
     }
 
     @FXML
     void loadAddRoomControlInDialog(ActionEvent event) {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(ADD_ROOM));
-            Parent parent = fxmlLoader.load();
-            Scene scene = new Scene(parent);
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            stage.setScene(scene);
-            stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Scene scene = new Scene(fxWeaver.loadView(RoomController.class));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
+    @FXML
+    void loadRoomListControlInDialog(ActionEvent event) {
+        Scene scene = new Scene(fxWeaver.loadView(RoomListController.class));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 }
