@@ -2,27 +2,26 @@ package se.scandium.hotelproject.controller.fxml;
 
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import net.rgielen.fxweaver.core.FxWeaver;
+import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import se.scandium.hotelproject.service.UserService;
 
-import java.io.IOException;
-
-import static se.scandium.hotelproject.controller.util.FXMLResources.RESET_PWD_SCREEN;
-
 @Component
+@FxmlView("/fxml/popup.fxml")
 public class PopupController {
 
-    UserService userService;
+    private final UserService userService;
+    private final FxWeaver fxWeaver;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public PopupController(UserService userService, FxWeaver fxWeaver) {
         this.userService = userService;
+        this.fxWeaver = fxWeaver;
     }
 
     @FXML
@@ -31,23 +30,19 @@ public class PopupController {
     }
 
     @FXML
+    void initialize() {
+    }
+
+    @FXML
     void resetPWDClickHandler() {
-        try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(RESET_PWD_SCREEN));
-            Parent node = fxmlLoader.load();
-            Scene scene = new Scene(node);
+        Scene scene = new Scene(fxWeaver.loadView(ResetPasswordScreenController.class));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        ResetPasswordScreenController resetPasswordScreenController = fxWeaver.getBean(ResetPasswordScreenController.class);
+        resetPasswordScreenController.setResetFirstStep(false);
 
-            Stage stage = new Stage();
-            stage.initModality(Modality.APPLICATION_MODAL);
-            ResetPasswordScreenController resetPasswordScreenController = fxmlLoader.getController();
-            resetPasswordScreenController.setUserService(userService);
-            resetPasswordScreenController.setResetFirstStep(false);
-
-            stage.setScene(scene);
-            stage.showAndWait();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
 

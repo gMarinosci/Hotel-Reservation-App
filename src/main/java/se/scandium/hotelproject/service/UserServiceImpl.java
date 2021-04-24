@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import se.scandium.hotelproject.controller.fxml.view.UserView;
 import se.scandium.hotelproject.converter.UserConverter;
+import se.scandium.hotelproject.dto.UserDto;
 import se.scandium.hotelproject.entity.User;
 import se.scandium.hotelproject.exception.ArgumentInvalidException;
 import se.scandium.hotelproject.exception.UserNotFoundException;
@@ -39,7 +40,17 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public UserView saveOrUpdate(UserView user) throws UserNotFoundException {
+    public UserDto saveOrUpdate(UserDto userDto) throws UserNotFoundException {
+        // in repository save and update have the same name
+
+        System.out.println("userDto = " + userDto);
+        // check object if is null throw exception
+        //if  id == 0
+            // generate password
+            // call save method from userRepository
+        // else
+            // call save method from userRepository
+
         return null;
     }
 
