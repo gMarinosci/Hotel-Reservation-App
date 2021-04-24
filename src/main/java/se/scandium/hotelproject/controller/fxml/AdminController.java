@@ -39,6 +39,8 @@ public class AdminController {
     @FXML
     private JFXButton showRoomButton;
     @FXML
+    private JFXButton addUserButton;
+    @FXML
     private JFXRippler rippler;
     @FXML
     private JFXHamburger burger;
@@ -52,6 +54,7 @@ public class AdminController {
         screenTitleText.setText(userView.getScreenTitle());
         addRoomButton.setOnAction(this::loadAddRoomControlInDialog);
         showRoomButton.setOnAction(this::loadRoomListControlInDialog);
+        addUserButton.setOnAction(this::loadUserControlInDialog);
     }
 
     @FXML
@@ -77,4 +80,14 @@ public class AdminController {
         stage.setScene(scene);
         stage.showAndWait();
     }
+
+    @FXML
+    void loadUserControlInDialog(ActionEvent event) {
+        Scene scene = new Scene(fxWeaver.loadView(UserController.class));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
+
 }

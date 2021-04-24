@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="595.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1"
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.UserController">
+    <children>
+        <AnchorPane layoutY="-6.0" prefHeight="63.0" prefWidth="700.0" style="-fx-background-color: #424242;">
+            <children>
+                <Label alignment="CENTER" layoutX="269.0" layoutY="11.0" prefHeight="41.0" prefWidth="163.0"
+                       text="Add User" textFill="WHITE">
+                    <font>
+                        <Font size="24.0"/>
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <VBox layoutX="134.0" layoutY="66.0" prefHeight="518.0" prefWidth="433.0" spacing="5.0" style="-fx-padding: 10px;">
+            <children>
+
+                <JFXTextField fx:id="usernameField" focusColor="#9a0007" prefHeight="34.0" prefWidth="329.0" promptText="Username" unFocusColor="#424242">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXTextField>
+                <JFXButton fx:id="addButton" prefHeight="41.0" prefWidth="514.0" style="-fx-background-color: #0bc76f;-fx-font-weight: bold;-fx-font-size: 14px;" text="Save" textFill="#f8f7f7"/>
+                <Text fx:id="errorText" fill="#a10707" style="-fx-font-weight: bold;-fx-background-color: #930000;" textAlignment="CENTER" wrappingWidth="405.0">
+                    <font>
+                        <Font name="System Bold" size="14.0"/>
+                    </font>
+                </Text>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

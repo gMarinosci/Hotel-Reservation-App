@@ -94,7 +94,7 @@ public class RoomController {
 
     private boolean validateAndBuildRoomData() {
         String name = this.roomNameField.getText();
-        if (name.trim().length() == 0) {
+        if (name.trim().length() == 0) { // name == null
             errorText.setText("Name is not valid");
             showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", errorText.getText());
             return false;

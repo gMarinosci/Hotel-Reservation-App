@@ -8,7 +8,9 @@ import java.util.List;
 public interface RoomService {
 
     RoomDto saveOrUpdate(RoomDto dto) throws RecordNotFoundException;
+
     List<RoomDto> getAll();
+
     RoomDto findById(int roomId) throws RecordNotFoundException;
 
     void deleteById(int roomId) throws RecordNotFoundException;
