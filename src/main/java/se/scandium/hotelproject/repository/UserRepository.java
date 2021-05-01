@@ -26,4 +26,8 @@ public interface UserRepository extends CrudRepository<User, Integer> {
     @Query("UPDATE  User u SET u.active = :active WHERE u.username = :username")
     void updateActiveByUsername(@Param("username") String username, @Param("active") boolean active);
 
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE UserInfo ui SET ui.screenTitle = :screenTitle WHERE ui.id = (SELECT u.id from User u where u.username = :username) ")
+    void updateScreenTitleByUsername(@Param("username") String username, @Param("screenTitle") String screenTitle);
+
 }

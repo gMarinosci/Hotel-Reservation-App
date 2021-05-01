@@ -1,8 +1,10 @@
 package se.scandium.hotelproject.entity;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Objects;
-
+@Data
 @Entity
 public class Authority {
     @Id
@@ -23,32 +25,5 @@ public class Authority {
         this.name = name;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Authority authority = (Authority) o;
-        return id == authority.id && Objects.equals(name, authority.name);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name);
-    }
 }

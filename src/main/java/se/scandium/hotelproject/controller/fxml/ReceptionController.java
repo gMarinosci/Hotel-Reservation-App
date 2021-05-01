@@ -1,20 +1,11 @@
 package se.scandium.hotelproject.controller.fxml;
 
+import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Controller;
-import se.scandium.hotelproject.entity.User;
 
-
-@Controller
+@Component
+@FxmlView("/fxml/reception_panel.fxml")
 public class ReceptionController {
-
-    private User viewObject;
-
-    public void setViewObject(User viewObject) {
-        if(viewObject != null){
-        }
-        this.viewObject = viewObject;
-    }
 
 
 }

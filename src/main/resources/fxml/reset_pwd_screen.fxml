@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="460.0" prefWidth="695.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.ResetPasswordScreenController">
+    <children>
+        <AnchorPane layoutY="-6.0" prefHeight="63.0" prefWidth="700.0" style="-fx-background-color: #424242;">
+            <children>
+                <Label alignment="CENTER" layoutX="186.0" layoutY="11.0" prefHeight="41.0" prefWidth="250.0" text="Reset Password" textFill="WHITE">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+
+        <Text fx:id="usernameText" layoutX="225.0" layoutY="100.0" style="-fx-font-size: 14px;-fx-font-weight: bold;" wrappingWidth="250.0"/>
+
+        <JFXTextField fx:id="screenTitleField" focusColor="#9a0007" layoutX="225.0" layoutY="132.0" prefHeight="34.0" prefWidth="329.0" promptText="Screen Title" unFocusColor="#424242">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </JFXTextField>
+        <JFXPasswordField fx:id="currentPasswordField" focusColor="#9a0007" layoutX="225.0" layoutY="210.0" prefHeight="34.0" prefWidth="329.0" promptText="Current Password" unFocusColor="#424242">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </JFXPasswordField>
+
+        <JFXPasswordField fx:id="newPasswordField" focusColor="#9a0007" layoutX="225.0" layoutY="253.0" prefHeight="34.0" prefWidth="329.0" promptText="New Password" unFocusColor="#424242">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </JFXPasswordField>
+
+        <JFXPasswordField fx:id="reNewPasswordField" focusColor="#9a0007" layoutX="225.0" layoutY="294.0" prefHeight="34.0" prefWidth="329.0" promptText="Repeat New Password" unFocusColor="#424242">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </JFXPasswordField>
+        <JFXButton fx:id="submitButton" layoutX="225.0" layoutY="352.0" prefHeight="41.0" prefWidth="250.0" style="-fx-background-color: #0bc76f;-fx-font-weight: bold;-fx-font-size: 14px;" text="Submit" textFill="#f8f7f7" />
+
+        <Text fx:id="errorText" layoutX="225.0" layoutY="413.0" styleClass="error-text" wrappingWidth="250.0" />
+
+    </children>
+    <stylesheets>
+        <URL value="@/css/style.css" />
+    </stylesheets>
+</AnchorPane>

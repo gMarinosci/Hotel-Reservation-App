@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="517.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.RoomController">
+<AnchorPane prefHeight="595.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.RoomController">
     <children>
         <AnchorPane layoutY="-6.0" prefHeight="63.0" prefWidth="700.0" style="-fx-background-color: #424242;">
             <children>
@@ -16,59 +17,94 @@
                 </Label>
             </children>
         </AnchorPane>
-        <JFXTextField fx:id="name" focusColor="#9a0007" layoutX="186.0" layoutY="123.0" prefHeight="34.0" prefWidth="329.0" promptText="Room Name" unFocusColor="#424242">
-            <font>
-                <Font size="14.0" />
-            </font>
-        </JFXTextField>
-        <JFXTextField fx:id="price" focusColor="#9a0007" layoutX="186.0" layoutY="167.0" prefHeight="34.0" prefWidth="329.0" promptText="Price" unFocusColor="#424242">
-            <font>
-                <Font size="14.0" />
-            </font>
-        </JFXTextField>
-        <JFXComboBox fx:id="type" focusColor="#9a0007" layoutX="186.0" layoutY="208.0" prefHeight="34.0" prefWidth="329.0" promptText="Room Type" style="-fx-font-size: 14px;" unFocusColor="#424242" />
-
-
-        <JFXTextField fx:id="hotel" disable="true" focusColor="#9a0007" layoutX="186.0" layoutY="79.0" prefHeight="34.0" prefWidth="329.0" promptText="Hotel Name" unFocusColor="#424242">
-            <font>
-                <Font size="14.0" />
-            </font>
-        </JFXTextField>
-
-        <JFXTextField fx:id="test" focusColor="#9a0007" layoutX="186.0" layoutY="259.0" prefHeight="34.0" prefWidth="329.0" promptText="Location" unFocusColor="#424242">
-            <font>
-                <Font size="14.0" />
-            </font>
-        </JFXTextField>
-        <HBox layoutX="186.0" layoutY="307.0" prefHeight="34.0" prefWidth="329.0">
+        <VBox layoutX="134.0" layoutY="66.0" prefHeight="518.0" prefWidth="433.0" spacing="5.0" style="-fx-padding: 10px;">
             <children>
-                <Label prefHeight="34.0" prefWidth="79.0" text="Reserve">
+                <JFXTextField fx:id="hotelNameField" disable="true" focusColor="#9a0007" prefHeight="34.0" prefWidth="329.0" promptText="Hotel Name" unFocusColor="#424242">
                     <font>
                         <Font size="14.0" />
                     </font>
-                </Label>
-                <JFXRadioButton fx:id="reserveY" prefHeight="34.0" prefWidth="66.0" text="Yes">
+                </JFXTextField>
+                <JFXTextField fx:id="roomNameField" focusColor="#9a0007" prefHeight="34.0" prefWidth="329.0" promptText="Room Name" unFocusColor="#424242">
                     <font>
                         <Font size="14.0" />
                     </font>
-                </JFXRadioButton>
-                <JFXRadioButton fx:id="reserveN" prefHeight="34.0" prefWidth="66.0" selected="true" text="No">
-                    <toggleGroup>
-                        <ToggleGroup fx:id="group" />
-                    </toggleGroup>
+                </JFXTextField>
+                <JFXComboBox fx:id="roomTypeComboBox" focusColor="#9a0007" prefHeight="34.0" prefWidth="510.0" promptText="Room Type" style="-fx-font-size: 14px;" unFocusColor="#424242" />
+            <JFXTextField fx:id="roomSizeField" focusColor="#9a0007" layoutX="20.0" layoutY="137.0" prefHeight="34.0" prefWidth="329.0" promptText="Size" unFocusColor="#424242">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXTextField>
+                <JFXTextField fx:id="roomPriceField" focusColor="#9a0007" prefHeight="34.0" prefWidth="329.0" promptText="Price" unFocusColor="#424242">
                     <font>
                         <Font size="14.0" />
                     </font>
-                </JFXRadioButton>
-            </children>
-        </HBox>
+                </JFXTextField>
+                <HBox prefHeight="34.0" prefWidth="329.0">
+                    <children>
+                        <Label prefHeight="34.0" prefWidth="79.0" text="Reserve">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <JFXRadioButton fx:id="isReserveRadioButtonY" prefHeight="34.0" prefWidth="66.0" text="Yes">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                            <toggleGroup>
+                                <ToggleGroup fx:id="group" />
+                            </toggleGroup>
+                        </JFXRadioButton>
+                        <JFXRadioButton fx:id="isReserveRadioButtonN" prefHeight="34.0" prefWidth="66.0" selected="true" text="No" toggleGroup="$group">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </JFXRadioButton>
+                    </children>
+                </HBox>
+                <HBox prefHeight="34.0" prefWidth="329.0">
+                    <children>
+                        <Label prefHeight="34.0" prefWidth="79.0" text="Bed">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Label>
+                        <JFXCheckBox fx:id="roomDetailsIsBedCheckBox" prefHeight="34.0" prefWidth="66.0" text="Yes">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </JFXCheckBox>
+                    </children>
+                </HBox>
+                <JFXTextField fx:id="roomDetailsNumberOfBedsField" focusColor="#9a0007" prefHeight="34.0" prefWidth="329.0" promptText="Number of Beds" unFocusColor="#424242">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXTextField>
 
-        <JFXTextArea fx:id="description" layoutX="186.0" layoutY="348.0" prefHeight="88.0" prefWidth="329.0" promptText="Description" unFocusColor="#424242">
-            <font>
-                <Font size="14.0" />
-            </font>
-        </JFXTextArea>
-        <JFXButton fx:id="addButton" layoutX="186.0" layoutY="446.0" prefHeight="41.0" prefWidth="329.0" style="-fx-background-color: #0bc76f;-fx-font-weight: bold;-fx-font-size: 14px;" text="Save" textFill="#f8f7f7" />
+                <JFXTextField fx:id="roomDetailsLocationField" focusColor="#9a0007" prefHeight="34.0" prefWidth="329.0" promptText="Location" unFocusColor="#424242">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXTextField>
+
+                <JFXTextArea fx:id="roomDetailsDescTextArea" prefHeight="88.0" prefWidth="329.0" promptText="Description" unFocusColor="#424242">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXTextArea>
+                <JFXButton fx:id="addButton" prefHeight="41.0" prefWidth="514.0" style="-fx-background-color: #0bc76f;-fx-font-weight: bold;-fx-font-size: 14px;" text="Save" textFill="#f8f7f7" />
+              <Text fx:id="errorText" fill="#a10707" style="-fx-font-weight: bold;-fx-background-color: #930000;" textAlignment="CENTER" wrappingWidth="405.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Text>
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </VBox>
 
     </children>
+
 </AnchorPane>

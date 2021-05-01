@@ -1,11 +1,12 @@
 package se.scandium.hotelproject.entity;
 
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
+@Data
 @Entity
 public class UserInfo {
     @Id
@@ -22,6 +23,7 @@ public class UserInfo {
     private LocalDateTime createDate;
     @Column(nullable = false, columnDefinition = "tinyint(1) default 1")
     private boolean status;
+    private String screenTitle;
 
     public UserInfo() {
     }
@@ -49,64 +51,4 @@ public class UserInfo {
         this.status = status;
     }
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public UserType getUserType() {
-        return userType;
-    }
-
-    public void setUserType(UserType userType) {
-        this.userType = userType;
-    }
-
-    public LocalDateTime getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(LocalDateTime createDate) {
-        this.createDate = createDate;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        UserInfo userInfo = (UserInfo) o;
-        return id == userInfo.id && status == userInfo.status && Objects.equals(firstName, userInfo.firstName) && Objects.equals(lastName, userInfo.lastName) && userType == userInfo.userType && Objects.equals(createDate, userInfo.createDate);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, userType, createDate, status);
-    }
 }

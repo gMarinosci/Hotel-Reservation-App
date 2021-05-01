@@ -5,20 +5,22 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 <?import java.net.URL?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.AdminController">
 
-    <VBox spacing="20">
-        <JFXToolbar styleClass="header-panel">
+    <VBox spacing="20" styleClass="header-panel">
+        <JFXToolbar>
             <leftItems>
-                <Label styleClass="header-text" text="Hotel Reservation System" />
+                <Label styleClass="header-text" fx:id="screenTitleText" />
             </leftItems>
             <rightItems>
                 <!--<JFXToggleNode styleClass="toggle-icon3" pickOnBounds="false">
                     <FontIcon iconLiteral="fas-key" iconSize="24" styleClass="icon"/>
                 </JFXToggleNode>-->
-                <JFXRippler fx:id="rippler" maskType="CIRCLE"
+                <JFXRippler style="-fx-padding:15;-fx-background-color: white;" fx:id="rippler" maskType="CIRCLE"
                             AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
-                    <JFXHamburger fx:id="burger" style="-fx-padding:15;">
+                    <JFXHamburger fx:id="burger" onMouseClicked="#loadPopup" style="-fx-padding:15;-fx-background-color: white;">
                     </JFXHamburger>
                 </JFXRippler>
             </rightItems>
@@ -31,30 +33,27 @@
         <AnchorPane id="MENU" maxWidth="250.0" prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #acacac;">
 
             <JFXListView minWidth="250.0" prefWidth="250.0" prefHeight="800" maxHeight="1200">
-                <JFXButton fx:id="addRoomButton" buttonType="RAISED" minWidth="220.0" prefWidth="220.0" minHeight="35.0" prefHeight="35.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Add" textFill="WHITE" alignment="CENTER_LEFT">
-                Add Room
+                <JFXButton fx:id="addRoomButton" buttonType="RAISED" minWidth="220.0" prefWidth="220.0" minHeight="40.0" prefHeight="35.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Add Room" textFill="WHITE" alignment="CENTER_LEFT">
                     <graphic>
                         <StackPane styleClass="custom-jfx-list-view-icon-container">
                             <FontIcon iconLiteral="fas-star" iconSize="18" styleClass="custom-jfx-list-view-icon"/>
                         </StackPane>
                     </graphic>
                 </JFXButton>
-                <Label>
-                    Item 2
+                <JFXButton fx:id="showRoomButton" buttonType="RAISED" minWidth="220.0" prefWidth="220.0" minHeight="40.0" prefHeight="35.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Room List" textFill="WHITE" alignment="CENTER_LEFT">
                     <graphic>
                         <StackPane styleClass="custom-jfx-list-view-icon-container">
                             <FontIcon iconLiteral="fas-heart" iconSize="18" styleClass="custom-jfx-list-view-icon"/>
                         </StackPane>
                     </graphic>
-                </Label>
-                <Label>
-                    Item 3
+                </JFXButton>
+                <JFXButton fx:id="addUserButton" buttonType="RAISED" minWidth="220.0" prefWidth="220.0" minHeight="40.0" prefHeight="35.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Add User" textFill="WHITE" alignment="CENTER_LEFT">
                     <graphic>
                         <StackPane styleClass="custom-jfx-list-view-icon-container">
                             <FontIcon iconLiteral="fas-exclamation-triangle" iconSize="18" styleClass="custom-jfx-list-view-icon"/>
                         </StackPane>
                     </graphic>
-                </Label>
+                </JFXButton>
                 <Label>
                     Item 4
                     <graphic>

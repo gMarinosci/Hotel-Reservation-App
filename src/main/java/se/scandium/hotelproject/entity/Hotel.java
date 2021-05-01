@@ -28,4 +28,16 @@ public class Hotel {
             orphanRemoval = true
     )    private List<Room> rooms;
 
+    public Hotel(int id, String name, int star, Address address) {
+        this.id = id;
+        this.name = name;
+        this.star = star;
+        this.address = address;
+    }
+
+    public Hotel(String name, int star, Address address) {
+        this.name = name;
+        this.star = star;
+        this.address = address;
+    }
 }
