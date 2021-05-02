@@ -185,7 +185,7 @@ public class RoomListController {
         roomNameField.setText(null);
         roomPriceField.setText(null);
         roomSizeField.setText(null);
-        //roomTypeComboBox.setItems(selectedRoomDto.);
+        roomTypeComboBox.setItems(null);
         isReserveRadioButtonN.setSelected(true);
         roomDetailsDescTextArea.setText(null);
         roomDetailsLocationField.setText(null);
@@ -284,6 +284,7 @@ public class RoomListController {
                 selectedRoomDto = null;
                 data.clear();
                 loadDateTable();
+                resetUpdateForm();
             } else {
                 errorTextTable.setText("data is not selected");
                 showAlert(Alert.AlertType.ERROR, deleteButton.getScene().getWindow(), "Warning!", errorTextTable.getText());
