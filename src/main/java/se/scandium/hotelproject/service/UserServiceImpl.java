@@ -10,6 +10,7 @@ import se.scandium.hotelproject.entity.User;
 import se.scandium.hotelproject.exception.ArgumentInvalidException;
 import se.scandium.hotelproject.exception.UserNotFoundException;
 import se.scandium.hotelproject.repository.UserRepository;
+import se.scandium.hotelproject.util.PasswordGenerator;
 
 import java.util.Optional;
 
@@ -42,16 +43,15 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserDto saveOrUpdate(UserDto userDto) throws UserNotFoundException {
         // in repository save and update have the same name
-
+        if (userDto == null) throw new ArgumentInvalidException("UserDto should not be null");
+        if (userDto.getId() != 0) {
+            userRepository.findById(userDto.getId()).orElseThrow(() -> new UserNotFoundException("UserDto Id is not valid"));
+        }
         System.out.println("userDto = " + userDto);
-        // check object if is null throw exception
-        //if  id == 0
-            // generate password
-            // call save method from userRepository
-        // else
-            // call save method from userRepository
-
-        return null;
+        User userEntity = userConverter.convertDtoToUser(userDto);
+        userEntity.setPassword(PasswordGenerator.generate());
+        User savedUser = userRepository.save(userEntity);
+        return userConverter.convertUserToDto(savedUser);
     }
 
     @Transactional
