@@ -41,6 +41,8 @@ public class AdminController {
     @FXML
     private JFXButton addUserButton;
     @FXML
+    private JFXButton editUserButton;
+    @FXML
     private JFXRippler rippler;
     @FXML
     private JFXHamburger burger;
@@ -55,12 +57,18 @@ public class AdminController {
         addRoomButton.setOnAction(this::loadAddRoomControlInDialog);
         showRoomButton.setOnAction(this::loadRoomListControlInDialog);
         addUserButton.setOnAction(this::loadUserControlInDialog);
+        editUserButton.setOnAction(this::loadUserListControlInDialog);
     }
 
     @FXML
     void loadPopup() {
         popup = new JFXPopup(fxWeaver.loadView(PopupController.class));
         burger.setOnMouseClicked((e) -> popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
+    }
+
+    @FXML
+    void loadUserListControlInDialog(ActionEvent event) {
+        System.out.println("USER LIST");
     }
 
     @FXML

@@ -6,7 +6,7 @@
 <?import org.kordamp.ikonli.javafx.*?>
 <?import com.jfoenix.controls.JFXButton?>
 <JFXListView fx:id="popupList" styleClass="popup-list-view"
-             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.PopupController">
+             xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.PopupController">
     <Label onMouseClicked="#resetPWDClickHandler">
         Reset Password
         <graphic>
