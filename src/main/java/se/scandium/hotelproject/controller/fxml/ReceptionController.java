@@ -33,7 +33,7 @@ public class ReceptionController {
     @FXML
     private Label screenTitleText;
     @FXML
-    private JFXButton testButton;
+    private JFXButton roomDetailsButton;
     @FXML
     private JFXRippler rippler;
     @FXML
@@ -46,9 +46,17 @@ public class ReceptionController {
     void initialize() {
         userView = UserHolder.getInstance().getUserView();
         screenTitleText.setText(userView.getScreenTitle());
-        testButton.setOnAction(event -> System.out.println("TEST"));
+        roomDetailsButton.setOnAction(this::loadRoomDetailsControlInDialog);
     }
-
+    @FXML
+    void loadRoomDetailsControlInDialog(ActionEvent event) {
+        System.out.println("Hello world");
+        Scene scene = new Scene(fxWeaver.loadView(RoomDetailsListController.class));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
     @FXML
     void loadPopup() {
         popup = new JFXPopup(fxWeaver.loadView(PopupController.class));

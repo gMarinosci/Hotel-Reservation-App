@@ -28,7 +28,7 @@
         <AnchorPane id="MENU" maxWidth="250.0" prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #acacac;">
 
             <JFXListView minWidth="250.0" prefWidth="250.0" prefHeight="800" maxHeight="1200">
-                <JFXButton fx:id="testButton" buttonType="RAISED" minWidth="220.0" prefWidth="220.0" minHeight="40.0" prefHeight="35.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Test" textFill="WHITE" alignment="CENTER_LEFT">
+                <JFXButton fx:id="roomDetailsButton" buttonType="RAISED" minWidth="220.0" prefWidth="220.0" minHeight="40.0" prefHeight="35.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Room Details" textFill="WHITE" alignment="CENTER_LEFT">
                     <graphic>
                         <StackPane styleClass="custom-jfx-list-view-icon-container">
                             <FontIcon iconLiteral="fas-list-ul" iconSize="18" styleClass="custom-jfx-list-view-icon"/>
