@@ -5,7 +5,7 @@ import se.scandium.hotelproject.entity.Customer;
 
 public interface CustomerConverter {
 
-    CustomerDto convertEntityToDto (Customer entity);
+    CustomerDto convertEntityToDto (Customer customer);
 
     Customer convertDtoToEntity (CustomerDto dto);
 }
