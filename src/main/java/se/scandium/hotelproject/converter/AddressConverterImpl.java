@@ -1,8 +1,10 @@
 package se.scandium.hotelproject.converter;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import se.scandium.hotelproject.dto.AddressDto;
 import se.scandium.hotelproject.entity.Address;
-
+@Component
 public class AddressConverterImpl implements  AddressConverter{
 
     @Override

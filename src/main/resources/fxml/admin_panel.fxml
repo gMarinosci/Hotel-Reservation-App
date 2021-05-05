@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.*?>
+<?import java.net.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
-<?import java.net.URL?>
-<?import javafx.scene.text.Text?>
-<?import javafx.scene.text.TextFlow?>
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.AdminController">
+
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.AdminController">
 
     <VBox spacing="20" styleClass="header-panel">
         <JFXToolbar>
@@ -15,9 +14,9 @@
                 <Label styleClass="header-text" fx:id="screenTitleText" />
             </leftItems>
             <rightItems>
-                <!--<JFXToggleNode styleClass="toggle-icon3" pickOnBounds="false">
+                <JFXToggleNode styleClass="toggle-icon3" pickOnBounds="false">
                     <FontIcon iconLiteral="fas-key" iconSize="24" styleClass="icon"/>
-                </JFXToggleNode>-->
+                </JFXToggleNode>
                 <JFXRippler style="-fx-padding:15;-fx-background-color: white;" fx:id="rippler" maskType="CIRCLE"
                             AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
                     <JFXHamburger fx:id="burger" onMouseClicked="#loadPopup" style="-fx-padding:15;-fx-background-color: white;">
@@ -32,32 +31,33 @@
     <SplitPane dividerPositions="0.0" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
         <AnchorPane id="MENU" maxWidth="250.0" prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #acacac;">
 
-            <JFXListView minWidth="250.0" prefWidth="250.0" prefHeight="800" maxHeight="1200">
-                <JFXButton fx:id="addRoomButton" buttonType="RAISED" minWidth="220.0" prefWidth="220.0" minHeight="40.0" prefHeight="35.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Add Room" textFill="WHITE" alignment="CENTER_LEFT">
+            <JFXListView maxHeight="1200" minWidth="250.0" prefHeight="800" prefWidth="250.0">
+                <JFXButton fx:id="addRoomButton" alignment="CENTER_LEFT" buttonType="RAISED" minHeight="40.0" minWidth="220.0" prefHeight="35.0" prefWidth="220.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Add Room" textFill="WHITE">
                     <graphic>
                         <StackPane styleClass="custom-jfx-list-view-icon-container">
-                            <FontIcon iconLiteral="fas-building" iconSize="18" styleClass="custom-jfx-list-view-icon"/>
+                            <FontIcon iconLiteral="fas-building" iconSize="18" styleClass="custom-jfx-list-view-icon" />
                         </StackPane>
                     </graphic>
                 </JFXButton>
-                <JFXButton fx:id="showRoomButton" buttonType="RAISED" minWidth="220.0" prefWidth="220.0" minHeight="40.0" prefHeight="35.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Room List" textFill="WHITE" alignment="CENTER_LEFT">
+                <JFXButton fx:id="showRoomButton" alignment="CENTER_LEFT" buttonType="RAISED" minHeight="40.0" minWidth="220.0" prefHeight="35.0" prefWidth="220.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Room List" textFill="WHITE">
                     <graphic>
                         <StackPane styleClass="custom-jfx-list-view-icon-container">
-                            <FontIcon iconLiteral="fas-list-ul" iconSize="18" styleClass="custom-jfx-list-view-icon"/>
+                            <FontIcon iconLiteral="fas-list-ul" iconSize="18" styleClass="custom-jfx-list-view-icon" />
                         </StackPane>
                     </graphic>
                 </JFXButton>
-                <JFXButton fx:id="addUserButton" buttonType="RAISED" minWidth="220.0" prefWidth="220.0" minHeight="40.0" prefHeight="35.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Add User" textFill="WHITE" alignment="CENTER_LEFT">
+                <JFXButton fx:id="addUserButton" alignment="CENTER_LEFT" buttonType="RAISED" minHeight="40.0" minWidth="220.0" prefHeight="35.0" prefWidth="220.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Add User" textFill="WHITE">
                     <graphic>
                         <StackPane styleClass="custom-jfx-list-view-icon-container">
-                            <FontIcon iconLiteral="fas-id-badge" iconSize="18" styleClass="custom-jfx-list-view-icon"/>
+                            <FontIcon iconLiteral="fas-id-badge" iconSize="18" styleClass="custom-jfx-list-view-icon" />
+                     <FontIcon iconLiteral="fas-id-badge" iconSize="18" layoutX="10.0" layoutY="26.0" styleClass="custom-jfx-list-view-icon" />
                         </StackPane>
                     </graphic>
                 </JFXButton>
-                <JFXButton fx:id="editUserButton" buttonType="RAISED" minWidth="220.0" prefWidth="220.0" minHeight="40.0" prefHeight="35.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="User List" textFill="WHITE" alignment="CENTER_LEFT">
+                <JFXButton fx:id="editUserButton" alignment="CENTER_LEFT" buttonType="RAISED" maxHeight="100.0" minHeight="40.0" minWidth="220.0" prefHeight="35.0" prefWidth="220.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="User List" textFill="WHITE">
                     <graphic>
                         <StackPane styleClass="custom-jfx-list-view-icon-container">
-                            <FontIcon iconLiteral="fas-id-card" iconSize="18" styleClass="custom-jfx-list-view-icon"/>
+                            <FontIcon iconLiteral="fas-id-card" iconSize="18" styleClass="custom-jfx-list-view-icon" />
                         </StackPane>
                     </graphic>
                 </JFXButton>
@@ -65,7 +65,7 @@
                     Item 4
                     <graphic>
                         <StackPane styleClass="custom-jfx-list-view-icon-container">
-                            <FontIcon iconLiteral="fas-university" iconSize="18" styleClass="custom-jfx-list-view-icon"/>
+                            <FontIcon iconLiteral="fas-university" iconSize="18" styleClass="custom-jfx-list-view-icon" />
                         </StackPane>
                     </graphic>
                 </Label>
@@ -73,7 +73,7 @@
                     Item 5
                     <graphic>
                         <StackPane styleClass="custom-jfx-list-view-icon-container">
-                            <FontIcon iconLiteral="fas-tablet-alt" iconSize="18" styleClass="custom-jfx-list-view-icon"/>
+                            <FontIcon iconLiteral="fas-tablet-alt" iconSize="18" styleClass="custom-jfx-list-view-icon" />
                         </StackPane>
                     </graphic>
                 </Label>
@@ -82,10 +82,9 @@
         </AnchorPane>
 
         <ScrollPane prefHeight="700.0" prefWidth="900.0">
-            <AnchorPane id="Content" styleClass="welcome-bg" prefHeight="700.0" prefWidth="900.0">
+            <AnchorPane id="Content" prefHeight="700.0" prefWidth="900.0" styleClass="welcome-bg">
 
-                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" maxHeight="517.0" maxWidth="127.0"
-                       prefHeight="28.0" prefWidth="591.0" text="Welcome Page" textAlignment="CENTER"/>
+                <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" maxHeight="517.0" maxWidth="127.0" prefHeight="28.0" prefWidth="591.0" text="Welcome Page" textAlignment="CENTER" />
 
             </AnchorPane>
         </ScrollPane>

@@ -35,6 +35,8 @@ public class ReceptionController {
     @FXML
     private JFXButton roomDetailsButton;
     @FXML
+    private JFXButton addCustomerButton;
+    @FXML
     private JFXRippler rippler;
     @FXML
     private JFXHamburger burger;
@@ -47,6 +49,7 @@ public class ReceptionController {
         userView = UserHolder.getInstance().getUserView();
         screenTitleText.setText(userView.getScreenTitle());
         roomDetailsButton.setOnAction(this::loadRoomDetailsControlInDialog);
+        addCustomerButton.setOnAction(this::loadAddCustomerControlInDialog);
     }
     @FXML
     void loadRoomDetailsControlInDialog(ActionEvent event) {
@@ -61,6 +64,14 @@ public class ReceptionController {
     void loadPopup() {
         popup = new JFXPopup(fxWeaver.loadView(PopupController.class));
         burger.setOnMouseClicked((e) -> popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
+    }
+    @FXML
+    void loadAddCustomerControlInDialog(ActionEvent event) {
+        Scene scene = new Scene(fxWeaver.loadView(CustomerController.class));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
 }

@@ -1,11 +1,13 @@
 package se.scandium.hotelproject.converter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import se.scandium.hotelproject.dto.AddressDto;
 import se.scandium.hotelproject.dto.CustomerDto;
 import se.scandium.hotelproject.entity.Address;
 import se.scandium.hotelproject.entity.Customer;
-
+@Component
 public class CustomerConverterImpl implements CustomerConverter {
 
     AddressConverter addressConverter;
