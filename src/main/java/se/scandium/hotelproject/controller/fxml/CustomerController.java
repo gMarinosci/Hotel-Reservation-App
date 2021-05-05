@@ -66,7 +66,7 @@ public class CustomerController {
                 errorText.setText("RecordNotFoundException");
                 showAlert(Alert.AlertType.ERROR, addButton.getScene().getWindow(), "Error!", errorText.getText());
             }*/
-            System.out.println("roomDto = " + customerDto);
+            System.out.println("CustomerDto = " + customerDto);
             customerService.saveOrUpdate(customerDto);
             addButton.getScene().getWindow().hide();
         }
