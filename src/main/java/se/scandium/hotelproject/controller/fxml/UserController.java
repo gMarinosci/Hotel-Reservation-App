@@ -12,10 +12,8 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import se.scandium.hotelproject.controller.fxml.singleton.HotelHolder;
-import se.scandium.hotelproject.dto.HotelDto;
-import se.scandium.hotelproject.dto.RoomDto;
-import se.scandium.hotelproject.dto.UserDto;
-import se.scandium.hotelproject.entity.RoomType;
+import se.scandium.hotelproject.dto.*;
+import se.scandium.hotelproject.entity.*;
 import se.scandium.hotelproject.exception.RecordNotFoundException;
 import se.scandium.hotelproject.exception.UserNotFoundException;
 import se.scandium.hotelproject.service.RoomService;
@@ -28,15 +26,21 @@ public class UserController {
     private UserService userService;
     private final FxWeaver fxWeaver;
     private UserDto userDto;
+    private UserInfoDto userInfoDto;
 
     @Autowired
     public UserController(FxWeaver fxWeaver, UserService userService) {
         this.fxWeaver = fxWeaver;
         this.userService = userService;
     }
-
     @FXML
-    private JFXTextField usernameField;
+    private JFXTextField UserNameField;
+    @FXML
+    private JFXTextField FirstNameField;
+    @FXML
+    private JFXTextField LastNameField;
+    @FXML
+    private JFXComboBox<UserType> UserTypeComboBox;
     @FXML
     private JFXButton addButton;
     @FXML
@@ -45,6 +49,8 @@ public class UserController {
     @FXML
     void initialize() {
         userDto = new UserDto();
+        userInfoDto = new UserInfoDto();
+        setUserType();
         addButton.setOnAction(this::addUserAction);
     }
 
@@ -64,14 +70,47 @@ public class UserController {
     }
 
     private boolean validateAndBuildUserData() {
-        String username = usernameField.getText();
+
+        String username = UserNameField.getText();
         if (username.trim().length() == 0) {
             errorText.setText("username is not Valid");
             showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", "username is not valid");
             return false;
         }
         userDto.setUsername(username);
+
+        String firstname = FirstNameField.getText();
+        if (firstname.trim().length() == 0) {
+            errorText.setText("firstname is not Valid");
+            showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", "firstname is not valid");
+            return false;
+        }
+        userInfoDto.setFirstName(firstname);
+
+        String lastName = LastNameField.getText();
+        if (lastName.trim().length() == 0) {
+            errorText.setText("last name is not Valid");
+            showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", "last name is not valid");
+            return false;
+        }
+        userInfoDto.setLastName(lastName);
+
+        UserType type = this.UserTypeComboBox.getValue();
+        if (type == null) {
+            errorText.setText("User type is not valid");
+            showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", errorText.getText());
+            return false;
+        }
+        userInfoDto.setUserType(type);
+        userDto.setUserInfoDto(userInfoDto);
         return true;
+    }
+
+
+    private void setUserType(){
+        UserTypeComboBox.getItems().add(UserType.RECEPTION);
+        UserTypeComboBox.getItems().add(UserType.ADMINISTRATOR);
+
     }
 
     private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {

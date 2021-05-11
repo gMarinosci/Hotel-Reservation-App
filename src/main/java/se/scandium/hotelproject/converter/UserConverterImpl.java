@@ -58,7 +58,7 @@ public class UserConverterImpl implements UserConverter {
                 userDto.setUserInfoDto(userInfoDto);
             }
             List<Authority> authorities = user.getAuthorities();
-            if (authorities.size() != 0) {
+            if (authorities != null) {
                 List<AuthorityDto> authorityDtoList = authorities.stream().map(authority -> authorityConverter.convertAuthorityToDto(authority)).collect(Collectors.toList());
                 userDto.setAuthoritiesDtoList(authorityDtoList);
             }
@@ -83,7 +83,7 @@ public class UserConverterImpl implements UserConverter {
                 user.setUserInfo(userInfo);
             }
             List<AuthorityDto> authorityDtoList = userDto.getAuthoritiesDtoList();
-            if (authorityDtoList.size() != 0) {
+            if (authorityDtoList != null) {
                 List<Authority> authorityList = authorityDtoList.stream().map(authorityDto -> authorityConverter.convertDtoToAuthority(authorityDto)).collect(Collectors.toList());
                 user.setAuthorities(authorityList);
             }

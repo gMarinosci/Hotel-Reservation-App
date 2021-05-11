@@ -5,8 +5,14 @@ import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import se.scandium.hotelproject.dto.AddressDto;
 import se.scandium.hotelproject.dto.CustomerDto;
+import se.scandium.hotelproject.dto.RoomDto;
 import se.scandium.hotelproject.entity.Address;
 import se.scandium.hotelproject.entity.Customer;
+import se.scandium.hotelproject.entity.Room;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Component
 public class CustomerConverterImpl implements CustomerConverter {
 
@@ -41,7 +47,7 @@ public class CustomerConverterImpl implements CustomerConverter {
         if (customerDto != null) {
             customer = new Customer();
             customer.setId(customerDto.getId());
-            customer.setFirstName(customer.getFirstName());
+            customer.setFirstName(customerDto.getFirstName());
             customer.setLastName(customerDto.getLastName());
             customer.setAge(customerDto.getAge());
             customer.setGender(customerDto.getGender());
@@ -53,5 +59,14 @@ public class CustomerConverterImpl implements CustomerConverter {
             customer.setAddress(address);
         }
         return customer;
+    }
+
+    @Override
+    public List<CustomerDto> convertEntityListToDtoList(List<Customer> entityList) {
+        List<CustomerDto> customerDtoList = null;
+        if (entityList != null) {
+            customerDtoList = entityList.stream().map(this::convertEntityToDto).collect(Collectors.toList());
+        }
+        return customerDtoList;
     }
 }

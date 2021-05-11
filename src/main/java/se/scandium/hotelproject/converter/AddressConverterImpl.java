@@ -13,9 +13,9 @@ public class AddressConverterImpl implements  AddressConverter{
         if (address != null) {
             addressDto = new AddressDto();
             addressDto.setCity(address.getCity());
-            addressDto.setCountry(addressDto.getCountry());
-            addressDto.setStreet(addressDto.getStreet());
-            addressDto.setZipCode(addressDto.getZipCode());
+            addressDto.setCountry(address.getCountry());
+            addressDto.setStreet(address.getStreet());
+            addressDto.setZipCode(address.getZipCode());
         }
         return addressDto;
     }
@@ -28,7 +28,7 @@ public class AddressConverterImpl implements  AddressConverter{
             address.setCity(addressDto.getCity());
             address.setCountry(addressDto.getCity());
             address.setStreet(addressDto.getStreet());
-            address.setZipCode(address.getZipCode());
+            address.setZipCode(addressDto.getZipCode());
         }
         return address;
     }

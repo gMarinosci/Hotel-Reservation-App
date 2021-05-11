@@ -33,7 +33,7 @@ public class ReceptionController {
     @FXML
     private Label screenTitleText;
     @FXML
-    private JFXButton roomDetailsButton;
+    private JFXButton customerDetailsButton;
     @FXML
     private JFXButton addCustomerButton;
     @FXML
@@ -48,16 +48,16 @@ public class ReceptionController {
     void initialize() {
         userView = UserHolder.getInstance().getUserView();
         screenTitleText.setText(userView.getScreenTitle());
-        roomDetailsButton.setOnAction(this::loadRoomDetailsControlInDialog);
+        //customerDetailsButton.setOnAction(this::loadRoomDetailsControlInDialog);
         addCustomerButton.setOnAction(this::loadAddCustomerControlInDialog);
     }
     @FXML
-    void loadRoomDetailsControlInDialog(ActionEvent event) {
+    void loadCustomerDetailsControlInDialog(ActionEvent event) {
         System.out.println("Hello world");
-        Scene scene = new Scene(fxWeaver.loadView(RoomDetailsListController.class));
+        //Scene scene = new Scene(fxWeaver.loadView(CustomerDetailsListController.class));
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
+        //stage.setScene(scene);
         stage.showAndWait();
     }
     @FXML

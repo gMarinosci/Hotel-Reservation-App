@@ -41,7 +41,13 @@ public class CustomerController {
     @FXML
     private JFXComboBox<Gender> GenderComboBox;
     @FXML
-    private JFXTextField Address;
+    private JFXTextField CountryField;
+    @FXML
+    private JFXTextField CityField;
+    @FXML
+    private JFXTextField StreetField;
+    @FXML
+    private JFXTextField Zip_codeField;
     @FXML
     private JFXButton addButton;
     @FXML
@@ -50,7 +56,7 @@ public class CustomerController {
     @FXML
     void initialize() {
         customerDto = new CustomerDto();
-        //addressDto = AddressHolder
+        addressDto =  new AddressDto();
         setGender();
         addButton.setOnAction(this::addCustomerAction);
     }
@@ -92,7 +98,7 @@ public class CustomerController {
 
         String age = this.AgeField.getText();
         if (age.trim().length() == 0) {
-            errorText.setText("username is not Valid");
+            errorText.setText("age is not Valid");
             showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", "age is not valid");
             return false;
         }
@@ -112,9 +118,44 @@ public class CustomerController {
         }
         customerDto.setGender(type);
 
-        //if (addressDto.get) Not finished
+        String country = this.CountryField.getText();
+        if (country.trim().length() == 0) {
+            errorText.setText("country is not Valid");
+            showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", "country is not valid");
+            return false;
+        }
+        addressDto.setCountry(country);
+
+        String city = this.CityField.getText();
+        if (city.trim().length() == 0) {
+            errorText.setText("city is not Valid");
+            showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", "city is not valid");
+            return false;
+        }
+        addressDto.setCity(city);
+
+        String street = this.StreetField.getText();
+        if (street.trim().length() == 0) {
+            errorText.setText("street is not Valid");
+            showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", "street is not valid");
+            return false;
+        }
+        addressDto.setStreet(street);
+
+        String zip_code = this.Zip_codeField.getText();
+        if (zip_code.trim().length() == 0) {
+            errorText.setText("zip code is not Valid");
+            showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", "zip code is not valid");
+            return false;
+        }
+        addressDto.setZipCode(zip_code);
+
+        customerDto.setAddressDto(addressDto);
         return true;
+
     }
+
+
 
     private void setGender() {
         GenderComboBox.getItems().add(Gender.MALE);
