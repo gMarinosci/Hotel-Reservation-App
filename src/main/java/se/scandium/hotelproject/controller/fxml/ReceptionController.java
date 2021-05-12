@@ -48,16 +48,16 @@ public class ReceptionController {
     void initialize() {
         userView = UserHolder.getInstance().getUserView();
         screenTitleText.setText(userView.getScreenTitle());
-        //customerDetailsButton.setOnAction(this::loadRoomDetailsControlInDialog);
+        customerDetailsButton.setOnAction(this::loadCustomerDetailsControlInDialog);
         addCustomerButton.setOnAction(this::loadAddCustomerControlInDialog);
     }
     @FXML
     void loadCustomerDetailsControlInDialog(ActionEvent event) {
         System.out.println("Hello world");
-        //Scene scene = new Scene(fxWeaver.loadView(CustomerDetailsListController.class));
+        Scene scene = new Scene(fxWeaver.loadView(CustomerListController.class));
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        //stage.setScene(scene);
+        stage.setScene(scene);
         stage.showAndWait();
     }
     @FXML

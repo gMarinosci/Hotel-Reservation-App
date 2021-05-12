@@ -8,10 +8,13 @@ import se.scandium.hotelproject.dto.RoomDto;
 import se.scandium.hotelproject.entity.Customer;
 import se.scandium.hotelproject.entity.Room;
 import se.scandium.hotelproject.exception.ArgumentInvalidException;
+import se.scandium.hotelproject.exception.RecordNotFoundException;
+import se.scandium.hotelproject.exception.UserNotFoundException;
 import se.scandium.hotelproject.repository.CustomerRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService{
@@ -26,9 +29,12 @@ public class CustomerServiceImpl implements CustomerService{
     public void setCustomerConverter (CustomerConverter customerConverter) { this.customerConverter = customerConverter; }
 
     @Override
-    public CustomerDto saveOrUpdate(CustomerDto customerDto) {
+    public CustomerDto saveOrUpdate(CustomerDto customerDto) throws RecordNotFoundException {
+        if (customerDto == null) throw new ArgumentInvalidException("UserDto should not be null");
+        if (customerDto.getId() != 0) {
+            customerRepository.findById(customerDto.getId()).orElseThrow(() -> new RecordNotFoundException("UserDto Id is not valid"));
+        }
 
-        if (customerDto == null) throw new ArgumentInvalidException("CustomerDto should not be null");
         Customer customerEntity = customerConverter.convertDtoToEntity(customerDto);
         Customer resultEntity = customerRepository.save(customerEntity);
         return customerConverter.convertEntityToDto(resultEntity);
@@ -39,5 +45,25 @@ public class CustomerServiceImpl implements CustomerService{
         List<Customer> customerList = new ArrayList<>();
         customerRepository.findAll().iterator().forEachRemaining(customerList::add);
         return customerConverter.convertEntityListToDtoList(customerList);
+    }
+
+    @Override
+    public CustomerDto findById(int customerId) throws RecordNotFoundException {
+        if (customerId == 0) throw new ArgumentInvalidException("customer id should not be null or zero");
+        Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
+
+        if (optionalCustomer.isPresent())
+            return customerConverter.convertEntityToDto(optionalCustomer.get());
+        else throw new RecordNotFoundException("record not found");
+    }
+
+    @Override
+    public void deleteById(int customerId) throws RecordNotFoundException {
+        if (customerId == 0) throw new ArgumentInvalidException("id should not be null or zero");
+        Optional<Customer> optionalCustomer = customerRepository.findById(customerId);
+
+        if (optionalCustomer.isPresent())
+            customerRepository.deleteById(customerId);
+        else throw new RecordNotFoundException("record not found");
     }
 }

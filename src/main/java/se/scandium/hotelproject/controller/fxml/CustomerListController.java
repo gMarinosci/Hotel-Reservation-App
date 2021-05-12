@@ -105,8 +105,8 @@ public class CustomerListController {
         zipCodeColumn = new TableColumn<>("Zip-code");
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
-        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("Surname"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
         ageColumn.setCellValueFactory(new PropertyValueFactory<>("Age"));
         genderColumn.setCellValueFactory(new PropertyValueFactory<>("Gender"));
         countryColumn.setCellValueFactory(new PropertyValueFactory<>("Country"));
@@ -116,7 +116,7 @@ public class CustomerListController {
 
         data = FXCollections.observableArrayList(customerDtoList);
         customerDtoTableView.setItems(data);
-        //roomDtoTableView.getItems().addAll(roomDtoList);
+        //customerDtoTableView.getItems().addAll(customerDtoList);
 
         customerDtoTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
@@ -129,34 +129,32 @@ public class CustomerListController {
 
     @FXML
     void initialize() {
-        setRoomType();
+        setGender();
         group = new ToggleGroup();
         loadDateTable();
-        deleteButton.setOnAction(this::deleteRoomAction);
-        updateButton.setOnAction(this::updateRoomAction);
+        deleteButton.setOnAction(this::deleteCustomerAction);
+        updateButton.setOnAction(this::updateCustomerAction);
     }
 
     private void setSelectedDataToUpdateForm() {
         if (this.selectedCustomerDto != null) {
-            nameField.setText(selectedCustomerDto.getHotelDto().getName());
-            roomNameField.setText(selectedCustomerDto.getName());
-            roomPriceField.setText(selectedCustomerDto.getPrice() + "");
-            roomSizeField.setText(selectedCustomerDto.getSize() + "");
-            //roomTypeComboBox.setItems(selectedRoomDto.);
-            roomDetailsDescTextArea.setText(selectedCustomerDto.getDescription());
-            roomDetailsLocationField.setText(selectedCustomerDto.getLocation());
-            roomDetailsIsBedCheckBox.setSelected(selectedCustomerDto.isBeds());
-            roomDetailsNumberOfBedsField.setText(selectedCustomerDto.getNumberOfBeds() + "");
+            nameField.setText(selectedCustomerDto.getFirstName());
+            surnameField.setText(selectedCustomerDto.getLastName());
+            ageField.setText(String.valueOf(selectedCustomerDto.getAge()));
+            countryField.setText(selectedCustomerDto.getAddressDto().getCountry());
+            cityField.setText(selectedCustomerDto.getAddressDto().getCity());
+            streetField.setText(selectedCustomerDto.getAddressDto().getStreet());
+            zipCodeField.setText(selectedCustomerDto.getAddressDto().getZipCode());
         }
     }
 
 
-    private void updateRoomAction(ActionEvent event) {
-        if (validateAndBuildRoomData()) {
+    private void updateCustomerAction(ActionEvent event) {
+        if (validateAndBuildCustomerData()) {
             try {
-                System.out.println("selectedRoomDto = " + selectedRoomDto);
-                roomService.saveOrUpdate(selectedRoomDto);
-                selectedRoomDto = null;
+                System.out.println("selectedCustomerDto = " + selectedCustomerDto);
+                customerService.saveOrUpdate(selectedCustomerDto);
+                selectedCustomerDto = null;
                 data.clear();
                 resetUpdateForm();
                 loadDateTable();
@@ -170,107 +168,109 @@ public class CustomerListController {
 
 
     private void resetUpdateForm() {
-        hotelNameField.setText(null);
-        roomNameField.setText(null);
-        roomPriceField.setText(null);
-        roomSizeField.setText(null);
-        roomTypeComboBox.setItems(null);
-        isReserveRadioButtonN.setSelected(true);
-        roomDetailsDescTextArea.setText(null);
-        roomDetailsLocationField.setText(null);
-        roomDetailsIsBedCheckBox.setSelected(false);
-        roomDetailsNumberOfBedsField.setText(null);
+        nameField.setText(null);
+        surnameField.setText(null);
+        ageField.setText(null);
+        genderComboBox.setItems(null);
+        countryField.setText(null);
+        cityField.setText(null);
+        streetField.setText(null);
+        zipCodeField.setText(null);
         errorTextForm.setText(null);
     }
 
-    private boolean validateAndBuildRoomData() {
+    private boolean validateAndBuildCustomerData() {
 
-        if (this.selectedRoomDto == null){
-            errorTextForm.setText("room is not selected");
+        if (this.selectedCustomerDto == null){
+            errorTextForm.setText("customer is not selected");
             showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
             return false;
         }
 
-        String name = this.roomNameField.getText();
+        String name = this.nameField.getText();
         if (name.trim().length() == 0) {
             errorTextForm.setText("Name is not valid");
             showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
             return false;
         }
-        selectedRoomDto.setName(name);
+        selectedCustomerDto.setFirstName(name);
 
-        RoomType type = this.roomTypeComboBox.getValue();
-        if (type == null) {
-            errorTextForm.setText("Room Type is not valid");
+        String surname = this.surnameField.getText();
+        if (surname.trim().length() == 0) {
+            errorTextForm.setText("Surname is not valid");
             showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
             return false;
         }
-        selectedRoomDto.setType(type);
+        selectedCustomerDto.setLastName(surname);
 
-        String price = this.roomPriceField.getText();
-        if (price.trim().length() == 0) {
-            errorTextForm.setText("Price is not valid");
-            showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
-            return false;
-        }
-        try {
-            selectedRoomDto.setPrice(Double.parseDouble(price));
-        } catch (NumberFormatException e) {
-            errorTextForm.setText("Price is not valid");
-            showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
-            return false;
-        }
-
-        String size = this.roomSizeField.getText();
-        if (size.trim().length() == 0) {
-            errorTextForm.setText("Size is not valid");
+        String age = this.ageField.getText();
+        if (age.trim().length() == 0) {
+            errorTextForm.setText("Age is not valid");
             showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
             return false;
         }
         try {
-            selectedRoomDto.setSize(Integer.parseInt(size));
+            selectedCustomerDto.setAge(Integer.parseInt(age));
         } catch (NumberFormatException e) {
-            errorTextForm.setText("Size is not valid");
+            errorTextForm.setText("Age is not valid");
             showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
             return false;
         }
-        boolean reserveY = this.isReserveRadioButtonY.isSelected();
-        selectedRoomDto.setReserve(reserveY);
 
-        String location = this.roomDetailsLocationField.getText();
-        if (location.trim().length() == 0) {
-            errorTextForm.setText("Location is not valid");
+        Gender gender = this.genderComboBox.getValue();
+        if (gender == null) {
+            errorTextForm.setText("Gender is not valid");
             showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
             return false;
         }
-        selectedRoomDto.setLocation(location);
+        selectedCustomerDto.setGender(gender);
 
-        String isBed = this.roomDetailsIsBedCheckBox.getText();
-        selectedRoomDto.setBeds(isBed.equalsIgnoreCase("Yes"));
+        String country = this.countryField.getText();
+        if (country.trim().length() == 0) {
+            errorTextForm.setText("Country is not valid");
+            showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
+            return false;
+        }
+        selectedCustomerDto.getAddressDto().setCountry(country);
 
-        String numOfBed = this.roomDetailsNumberOfBedsField.getText();
-        if (numOfBed.trim().length() != 0)
-            selectedRoomDto.setNumberOfBeds(Integer.parseInt(numOfBed));
+        String city = this.cityField.getText();
+        if (city.trim().length() == 0) {
+            errorTextForm.setText("City is not valid");
+            showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
+            return false;
+        }
+        selectedCustomerDto.getAddressDto().setCity(city);
 
-        String description = this.roomDetailsDescTextArea.getText();
-        selectedRoomDto.setDescription(description);
+        String street = this.streetField.getText();
+        if (street.trim().length() == 0) {
+            errorTextForm.setText("Street is not valid");
+            showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
+            return false;
+        }
+        selectedCustomerDto.getAddressDto().setStreet(street);
+
+        String zipCode = this.zipCodeField.getText();
+        if (zipCode.trim().length() == 0) {
+            errorTextForm.setText("Zip code is not valid");
+            showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
+            return false;
+        }
+        selectedCustomerDto.getAddressDto().setZipCode(zipCode);
+
         return true;
     }
 
-    private void setRoomType() {
-        roomTypeComboBox.getItems().add(RoomType.Single);
-        roomTypeComboBox.getItems().add(RoomType.Double);
-        roomTypeComboBox.getItems().add(RoomType.Triple);
-        roomTypeComboBox.getItems().add(RoomType.Quad);
-        roomTypeComboBox.getItems().add(RoomType.Queen);
-        roomTypeComboBox.getItems().add(RoomType.King);
+    private void setGender() {
+        genderComboBox.getItems().add(Gender.FEMALE);
+        genderComboBox.getItems().add(Gender.MALE);
+        genderComboBox.getItems().add(Gender.NON_BINARY);
     }
 
-    private void deleteRoomAction(ActionEvent event) {
+    private void deleteCustomerAction(ActionEvent event) {
         try {
-            if (selectedRoomDto != null) {
-                roomService.deleteById(selectedRoomDto.getId());
-                selectedRoomDto = null;
+            if (selectedCustomerDto != null) {
+                customerService.deleteById(selectedCustomerDto.getId());
+                selectedCustomerDto = null;
                 data.clear();
                 loadDateTable();
                 resetUpdateForm();

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.text.Text;
 import javafx.stage.Window;
+import lombok.SneakyThrows;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,20 +62,20 @@ public class CustomerController {
         addButton.setOnAction(this::addCustomerAction);
     }
 
-    private void addCustomerAction(ActionEvent event) {
+    private void addCustomerAction(ActionEvent event)  {
         if (validateAndBuildCustomerData()) {
-            /*try {
-                System.out.println("roomDto = " + customerDto);
+            try {
+                System.out.println("customerDto = " + customerDto);
                 customerService.saveOrUpdate(customerDto);
                 addButton.getScene().getWindow().hide();
             } catch (RecordNotFoundException e) {
                 e.printStackTrace();
                 errorText.setText("RecordNotFoundException");
                 showAlert(Alert.AlertType.ERROR, addButton.getScene().getWindow(), "Error!", errorText.getText());
-            }*/
-            System.out.println("CustomerDto = " + customerDto);
+            }
+            /*System.out.println("CustomerDto = " + customerDto);
             customerService.saveOrUpdate(customerDto);
-            addButton.getScene().getWindow().hide();
+            addButton.getScene().getWindow().hide();*/
         }
 
     }
