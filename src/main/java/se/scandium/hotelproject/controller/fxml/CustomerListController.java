@@ -105,8 +105,8 @@ public class CustomerListController {
         zipCodeColumn = new TableColumn<>("Zip-code");
 
         idColumn.setCellValueFactory(new PropertyValueFactory<>("Id"));
-        nameColumn.setCellValueFactory(new PropertyValueFactory<>("firstname"));
-        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("lastname"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("Name"));
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<>("Surname"));
         ageColumn.setCellValueFactory(new PropertyValueFactory<>("Age"));
         genderColumn.setCellValueFactory(new PropertyValueFactory<>("Gender"));
         countryColumn.setCellValueFactory(new PropertyValueFactory<>("Country"));

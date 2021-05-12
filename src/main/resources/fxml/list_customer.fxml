@@ -36,37 +36,37 @@
                         </TableColumn>
                         <TableColumn fx:id="surnameColumn" prefWidth="108.0" text="Surname">
                             <cellValueFactory>
-                                <PropertyValueFactory property="Type" />
+                                <PropertyValueFactory property="Surname" />
                             </cellValueFactory>
                         </TableColumn>
                         <TableColumn fx:id="ageColumn" prefWidth="50.0" text="Age">
                             <cellValueFactory>
-                                <PropertyValueFactory property="Price" />
+                                <PropertyValueFactory property="Age" />
                             </cellValueFactory>
                         </TableColumn>
                         <TableColumn fx:id="genderColumn" prefWidth="65.0" text="Gender">
                             <cellValueFactory>
-                                <PropertyValueFactory property="Size" />
+                                <PropertyValueFactory property="Gender" />
                             </cellValueFactory>
                         </TableColumn>
                         <TableColumn fx:id="countryColumn" prefWidth="101.0" text="Country">
                             <cellValueFactory>
-                                <PropertyValueFactory property="Location" />
+                                <PropertyValueFactory property="Country" />
                             </cellValueFactory>
                         </TableColumn>
                         <TableColumn fx:id="cityColumn" minWidth="0.0" text="City">
                             <cellValueFactory>
-                                <PropertyValueFactory property="Beds" />
+                                <PropertyValueFactory property="City" />
                             </cellValueFactory>
                         </TableColumn>
                         <TableColumn fx:id="streetColumn" prefWidth="125.0" text="Street">
                             <cellValueFactory>
-                                <PropertyValueFactory property="Description" />
+                                <PropertyValueFactory property="Street" />
                             </cellValueFactory>
                         </TableColumn>
                   <TableColumn fx:id="zipCodeColumn" prefWidth="106.0" text="Zip-code">
                      <cellValueFactory>
-                        <PropertyValueFactory property="Description" />
+                        <PropertyValueFactory property="Zip-code" />
                      </cellValueFactory>
                   </TableColumn>
                     </columns>
