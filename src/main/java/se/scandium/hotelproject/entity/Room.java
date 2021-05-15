@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -27,5 +28,25 @@ public class Room {
     private boolean status;
     @Embedded
     private RoomDetails roomDetails;
+
+    @OneToMany(fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL,
+            mappedBy = "room",
+            orphanRemoval = true
+    )
+    private List<Booking> bookings;
+
+    public Room(int id, String name, double price, RoomType type, int size, Hotel hotel, boolean reserve, boolean status, RoomDetails roomDetails) {
+        this.id = id;
+        this.name = name;
+        this.price = price;
+        this.type = type;
+        this.size = size;
+        this.hotel = hotel;
+        this.reserve = reserve;
+        this.status = status;
+        this.roomDetails = roomDetails;
+    }
+
 
 }
