@@ -15,5 +15,5 @@ public class CustomerDto {
     private String lastName;
     private int age;
     private Gender gender;
-    private AddressDto addressDto;
+    private AddressDto address;
 }

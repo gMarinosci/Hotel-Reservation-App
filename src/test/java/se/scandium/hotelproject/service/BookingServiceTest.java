@@ -94,7 +94,7 @@ public class BookingServiceTest {
         CustomerDto customerDto1 = new CustomerDto();
         customerDto1.setFirstName("Test");
         customerDto1.setLastName("Testsson");
-        customerDto1.setIdNumber("20001010-1234");
+        //customerDto1.setIdNumber("20001010-1234");
         customerDto1.setAge(30);
         customerDto1.setGender(Gender.MALE);
         AddressDto addressDto = new AddressDto("Teleborg", "35252", "VAXJO", "SWEDEN");
@@ -124,7 +124,7 @@ public class BookingServiceTest {
         CustomerDto customerDto2 = new CustomerDto();
         customerDto2.setFirstName("Test2");
         customerDto2.setLastName("Testsson");
-        customerDto2.setIdNumber("20001111-2222");
+        //customerDto2.setIdNumber("20001111-2222");
         customerDto2.setAge(30);
         customerDto2.setGender(Gender.FEMALE);
         customerDto2.setAddress(addressDto);

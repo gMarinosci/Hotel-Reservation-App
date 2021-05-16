@@ -151,7 +151,7 @@ public class CustomerController {
         }
         addressDto.setZipCode(zip_code);
 
-        customerDto.setAddressDto(addressDto);
+        customerDto.setAddress(addressDto);
         return true;
 
     }

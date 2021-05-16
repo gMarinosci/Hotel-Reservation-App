@@ -35,7 +35,7 @@ public class CustomerConverterImpl implements CustomerConverter {
             Address address = customer.getAddress();
             if (address != null) {
                 AddressDto addressDto = addressConverter.convertEntityToDto(address);
-                customerDto.setAddressDto(addressDto);
+                customerDto.setAddress(addressDto);
             }
         }
         return customerDto;
@@ -53,7 +53,7 @@ public class CustomerConverterImpl implements CustomerConverter {
             customer.setGender(customerDto.getGender());
         }
 
-        AddressDto addressDto = customerDto.getAddressDto();
+        AddressDto addressDto = customerDto.getAddress();
         if (addressDto != null) {
             Address address = addressConverter.convertDtoToEntity(addressDto);
             customer.setAddress(address);

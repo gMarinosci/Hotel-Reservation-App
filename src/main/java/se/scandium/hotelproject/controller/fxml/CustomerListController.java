@@ -141,10 +141,10 @@ public class CustomerListController {
             nameField.setText(selectedCustomerDto.getFirstName());
             surnameField.setText(selectedCustomerDto.getLastName());
             ageField.setText(String.valueOf(selectedCustomerDto.getAge()));
-            countryField.setText(selectedCustomerDto.getAddressDto().getCountry());
-            cityField.setText(selectedCustomerDto.getAddressDto().getCity());
-            streetField.setText(selectedCustomerDto.getAddressDto().getStreet());
-            zipCodeField.setText(selectedCustomerDto.getAddressDto().getZipCode());
+            countryField.setText(selectedCustomerDto.getAddress().getCountry());
+            cityField.setText(selectedCustomerDto.getAddress().getCity());
+            streetField.setText(selectedCustomerDto.getAddress().getStreet());
+            zipCodeField.setText(selectedCustomerDto.getAddress().getZipCode());
         }
     }
 
@@ -231,7 +231,7 @@ public class CustomerListController {
             showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
             return false;
         }
-        selectedCustomerDto.getAddressDto().setCountry(country);
+        selectedCustomerDto.getAddress().setCountry(country);
 
         String city = this.cityField.getText();
         if (city.trim().length() == 0) {
@@ -239,7 +239,7 @@ public class CustomerListController {
             showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
             return false;
         }
-        selectedCustomerDto.getAddressDto().setCity(city);
+        selectedCustomerDto.getAddress().setCity(city);
 
         String street = this.streetField.getText();
         if (street.trim().length() == 0) {
@@ -247,7 +247,7 @@ public class CustomerListController {
             showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
             return false;
         }
-        selectedCustomerDto.getAddressDto().setStreet(street);
+        selectedCustomerDto.getAddress().setStreet(street);
 
         String zipCode = this.zipCodeField.getText();
         if (zipCode.trim().length() == 0) {
@@ -255,7 +255,7 @@ public class CustomerListController {
             showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
             return false;
         }
-        selectedCustomerDto.getAddressDto().setZipCode(zipCode);
+        selectedCustomerDto.getAddress().setZipCode(zipCode);
 
         return true;
     }
