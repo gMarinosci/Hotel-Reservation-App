@@ -33,7 +33,9 @@ public class ReceptionController {
     @FXML
     private Label screenTitleText;
     @FXML
-    private JFXButton testButton;
+    private JFXButton customerDetailsButton;
+    @FXML
+    private JFXButton addCustomerButton;
     @FXML
     private JFXRippler rippler;
     @FXML
@@ -46,13 +48,30 @@ public class ReceptionController {
     void initialize() {
         userView = UserHolder.getInstance().getUserView();
         screenTitleText.setText(userView.getScreenTitle());
-        testButton.setOnAction(event -> System.out.println("TEST"));
+        customerDetailsButton.setOnAction(this::loadCustomerDetailsControlInDialog);
+        addCustomerButton.setOnAction(this::loadAddCustomerControlInDialog);
     }
-
+    @FXML
+    void loadCustomerDetailsControlInDialog(ActionEvent event) {
+        System.out.println("Hello world");
+        Scene scene = new Scene(fxWeaver.loadView(CustomerListController.class));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
     @FXML
     void loadPopup() {
         popup = new JFXPopup(fxWeaver.loadView(PopupController.class));
         burger.setOnMouseClicked((e) -> popup.show(rippler, JFXPopup.PopupVPosition.TOP, JFXPopup.PopupHPosition.RIGHT));
+    }
+    @FXML
+    void loadAddCustomerControlInDialog(ActionEvent event) {
+        Scene scene = new Scene(fxWeaver.loadView(CustomerController.class));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
 }

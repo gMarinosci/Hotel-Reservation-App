@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="595.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.CustomerController">
+    <children>
+        <AnchorPane layoutY="-6.0" prefHeight="63.0" prefWidth="700.0" style="-fx-background-color: #424242;">
+            <children>
+                <Label alignment="CENTER" layoutX="269.0" layoutY="11.0" prefHeight="41.0" prefWidth="163.0" text="Add Customer" textFill="WHITE">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <VBox layoutX="134.0" layoutY="77.0" prefHeight="518.0" prefWidth="433.0" spacing="5.0" style="-fx-padding: 10px;">
+            <children>
+                <JFXTextField fx:id="NameField" focusColor="#9a0007" prefHeight="34.0" prefWidth="329.0" promptText="Name" unFocusColor="#424242">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXTextField>
+            <JFXTextField fx:id="SurnameField" focusColor="#9a0007" layoutX="20.0" layoutY="137.0" prefHeight="34.0" prefWidth="329.0" promptText="Surname" unFocusColor="#424242">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXTextField>
+                <JFXTextField fx:id="AgeField" focusColor="#9a0007" prefHeight="34.0" prefWidth="329.0" promptText="Age" unFocusColor="#424242">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </JFXTextField>
+                <JFXComboBox fx:id="GenderComboBox" focusColor="#9a0007" prefHeight="34.0" prefWidth="510.0" promptText="Gender" style="-fx-font-size: 14px;" unFocusColor="#424242" />
+            <JFXTextField fx:id="CountryField" focusColor="#9a0007" layoutX="20.0" layoutY="98.0" prefHeight="34.0" prefWidth="329.0" promptText="Country" unFocusColor="#424242">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="CityField" focusColor="#9a0007" layoutX="20.0" layoutY="176.0" prefHeight="34.0" prefWidth="329.0" promptText="City" unFocusColor="#424242">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="StreetField" focusColor="#9a0007" layoutX="20.0" layoutY="215.0" prefHeight="34.0" prefWidth="329.0" promptText="Street" unFocusColor="#424242">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXTextField>
+            <JFXTextField fx:id="Zip_codeField" focusColor="#9a0007" layoutX="20.0" layoutY="254.0" prefHeight="34.0" prefWidth="329.0" promptText="Zip-code" unFocusColor="#424242">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXTextField>
+                
+                <JFXButton fx:id="addButton" prefHeight="41.0" prefWidth="413.0" style="-fx-background-color: #0bc76f;-fx-font-weight: bold;-fx-font-size: 14px;" text="Save" textFill="#f8f7f7" />
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </VBox>
+
+    </children>
+
+</AnchorPane>

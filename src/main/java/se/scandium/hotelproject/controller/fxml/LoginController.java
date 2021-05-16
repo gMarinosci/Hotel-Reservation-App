@@ -69,6 +69,7 @@ public class LoginController {
                 showAlert(Alert.AlertType.ERROR, loginButton.getScene().getWindow(), "Warning", e.getMessage());
             } catch (Exception e) {
                 System.out.println("##### Exception: " + e.getMessage());
+                e.printStackTrace();
                 errorText.setText(e.getMessage());
                 showAlert(Alert.AlertType.ERROR, loginButton.getScene().getWindow(), "Internal Error!", e.getMessage());
             }
