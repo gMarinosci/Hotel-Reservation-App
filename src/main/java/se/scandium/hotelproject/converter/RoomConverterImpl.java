@@ -46,11 +46,11 @@ public class RoomConverterImpl implements RoomConverter {
         Room entity = null;
         if (dto != null) {
             Hotel hotel = null;
-            if (dto.getHotelDto() != null) {
+            if (dto.getHotel() != null) {
                 Address address = null;
-                if (dto.getHotelDto().getAddressDto() != null)
-                    address = new Address(dto.getHotelDto().getAddressDto().getStreet(), dto.getHotelDto().getAddressDto().getZipCode(), dto.getHotelDto().getAddressDto().getCity(), dto.getHotelDto().getAddressDto().getCountry());
-                hotel = new Hotel(dto.getHotelDto().getId(), dto.getHotelDto().getName(), dto.getHotelDto().getStar(), address);
+                if (dto.getHotel().getAddress() != null)
+                    address = new Address(dto.getHotel().getAddress().getStreet(), dto.getHotel().getAddress().getZipCode(), dto.getHotel().getAddress().getCity(), dto.getHotel().getAddress().getCountry());
+                hotel = new Hotel(dto.getHotel().getId(), dto.getHotel().getName(), dto.getHotel().getStar(), address);
             }
             RoomDetails roomDetails = new RoomDetails(dto.getLocation(), dto.isBeds(), dto.getNumberOfBeds(), dto.getDescription());
             entity = new Room(dto.getId(), dto.getName(), dto.getPrice(), dto.getType(), dto.getSize(), hotel, dto.isStatus(), roomDetails);

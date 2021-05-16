@@ -29,4 +29,12 @@ public interface BookingRepository extends CrudRepository<Booking, Integer> {
     List<Booking> findAllByStatusFalseAndToDateGreaterThan(LocalDate date);
 
 
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Booking b SET b.status = :status WHERE b.id = :id")
+    void updateStatusByBookingId(@Param("id") int id, @Param("status") boolean status);
+
+    @Modifying(clearAutomatically = true)
+    @Query("UPDATE Booking b SET b.fromDate = null, b.toDate = null WHERE b.id = :id and b.status = false")
+    void resetBookingDate(@Param("id") int id);
+
 }

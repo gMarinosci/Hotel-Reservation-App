@@ -2,9 +2,12 @@ package se.scandium.hotelproject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import se.scandium.hotelproject.converter.BookingConverter;
+import se.scandium.hotelproject.converter.CustomerConverter;
 import se.scandium.hotelproject.converter.RoomConverter;
 import se.scandium.hotelproject.dto.BookingDto;
+import se.scandium.hotelproject.dto.CustomerDto;
 import se.scandium.hotelproject.dto.RoomDto;
 import se.scandium.hotelproject.entity.Booking;
 import se.scandium.hotelproject.entity.Customer;
@@ -27,19 +30,20 @@ public class BookingServiceImpl implements BookingService {
 
     BookingConverter bookingConverter;
     RoomConverter roomConverter;
+    CustomerConverter customerConverter;
     BookingRepository bookingRepository;
-    CustomerRepository customerRepository;
     RoomRepository roomRepository;
+    CustomerRepository customerRepository;
 
     @Autowired
-    public BookingServiceImpl(BookingRepository bookingRepository, RoomConverter roomConverter, BookingConverter bookingConverter, CustomerRepository customerRepository, RoomRepository roomRepository) {
-        this.bookingRepository = bookingRepository;
+    public BookingServiceImpl(BookingConverter bookingConverter, RoomConverter roomConverter, CustomerConverter customerConverter, BookingRepository bookingRepository, RoomRepository roomRepository, CustomerRepository customerRepository) {
         this.bookingConverter = bookingConverter;
-        this.customerRepository = customerRepository;
-        this.roomRepository = roomRepository;
         this.roomConverter = roomConverter;
+        this.customerConverter = customerConverter;
+        this.bookingRepository = bookingRepository;
+        this.roomRepository = roomRepository;
+        this.customerRepository = customerRepository;
     }
-
 
     @Override
     public List<RoomDto> searchAvailableFreeDates(LocalDate date) {
@@ -68,24 +72,35 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    @Transactional
     public BookingDto update(BookingDto bookingDto) throws RecordNotFoundException {
-        // todo: Mehrdad- implement validation for from date and to date
         if (bookingDto == null) throw new ArgumentInvalidException("booking should not be null");
-        if (bookingDto.getId() == 0) throw new ArgumentInvalidException("bookingId should not be zero");
-        Optional<Booking> bookingOptional = bookingRepository.findById(bookingDto.getId());
-        if (bookingOptional.isEmpty()) throw new RecordNotFoundException("booking id is not valid - data not found");
+        if (bookingDto.getId() == 0) throw new ArgumentInvalidException("bookingId should not be zero or null");
 
-        if (bookingDto.getCustomer().getId() != 0) {
-            Optional<Customer> customerOptional = customerRepository.findById(bookingDto.getCustomer().getId());
-            if (customerOptional.isEmpty())
-                throw new RecordNotFoundException("customer id is not valid - data not found");
-        }
+        if (bookingDto.getCustomer() == null) throw new ArgumentInvalidException("customer should not be null");
+        if (bookingDto.getCustomer().getId() == 0)
+            throw new ArgumentInvalidException("customerId should not be zero or null");
+        Optional<Customer> customerOptional = customerRepository.findById(bookingDto.getCustomer().getId());
+        if (customerOptional.isEmpty()) throw new RecordNotFoundException("customer id is not valid - data not found");
 
         if (bookingDto.getRoom() == null) throw new ArgumentInvalidException("room should not be null");
         Optional<Room> roomOptional = roomRepository.findById(bookingDto.getRoom().getId());
         if (roomOptional.isEmpty()) throw new RecordNotFoundException("customer id is not valid - data not found");
 
+        // date validation
+        if (bookingDto.getFromDate().isEqual(bookingDto.getToDate())
+                || bookingDto.getFromDate().isAfter(bookingDto.getToDate())
+                || bookingDto.getToDate().isBefore(bookingDto.getFromDate())
+        ) throw new ArgumentInvalidException("from date and to date are not valid");
+
         Booking booking = bookingConverter.convertDtoToBooking(bookingDto);
+        bookingRepository.resetBookingDate(bookingDto.getId());
+        // check booking dates
+        List<Booking> result = bookingRepository.findAllByStatusFalseAndToDateGreaterThanAndRoomId(booking.getFromDate(), booking.getRoom().getId());
+
+        if (result.size() != 0) throw new ArgumentInvalidException("booking date is not valid");
+        booking.setBookingDays(booking.createBookingDays());
+        booking.setFullPrice(booking.calcFullPrice());
         Booking savedBooking = bookingRepository.save(booking);
         return bookingConverter.convertBookingToDto(savedBooking);
     }
@@ -103,8 +118,12 @@ public class BookingServiceImpl implements BookingService {
         if (bookingDto.getId() != 0) throw new ArgumentInvalidException("bookingId should be zero or null");
 
         if (bookingDto.getCustomer() == null) throw new ArgumentInvalidException("customer should not be null");
-        if (bookingDto.getCustomer().getId() != 0)
-            throw new ArgumentInvalidException("customerId should be zero or null");
+        if (bookingDto.getCustomer().getId() == 0)
+            throw new ArgumentInvalidException("customer id should not be zero or null");
+        Optional<Customer> customerOptional = customerRepository.findById(bookingDto.getCustomer().getId());
+        if (customerOptional.isEmpty())
+            throw new RecordNotFoundException("customer id is not valid - data not found");
+        //Customer savedCustomer = customerRepository.save(customerConverter.convertDtoToEntity(bookingDto.getCustomer()));
 
         if (bookingDto.getRoom() == null) throw new ArgumentInvalidException("room should not be null");
         if (bookingDto.getRoom().getId() == 0)
@@ -119,6 +138,8 @@ public class BookingServiceImpl implements BookingService {
         ) throw new ArgumentInvalidException("from date and to date are not valid");
 
         Booking booking = bookingConverter.convertDtoToBooking(bookingDto);
+        booking.setCustomer(customerOptional.get());
+        booking.setRoom(roomOptional.get());
 
         // check booking dates
         List<Booking> result = bookingRepository.findAllByStatusFalseAndToDateGreaterThanAndRoomId(booking.getFromDate(), booking.getRoom().getId());
@@ -126,6 +147,7 @@ public class BookingServiceImpl implements BookingService {
         if (result.size() != 0) throw new ArgumentInvalidException("booking date is not valid");
         booking.setBookingDays(booking.createBookingDays());
         booking.setFullPrice(booking.calcFullPrice());
+        System.out.println("booking = " + booking);
         Booking savedBooking = bookingRepository.save(booking);
         return bookingConverter.convertBookingToDto(savedBooking);
     }

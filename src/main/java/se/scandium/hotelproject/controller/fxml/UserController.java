@@ -102,7 +102,7 @@ public class UserController {
             return false;
         }
         userInfoDto.setUserType(type);
-        userDto.setUserInfoDto(userInfoDto);
+        userDto.setUserInfo(userInfoDto);
         return true;
     }
 

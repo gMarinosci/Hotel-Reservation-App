@@ -7,15 +7,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import se.scandium.hotelproject.dto.AddressDto;
-import se.scandium.hotelproject.dto.BookingDto;
-import se.scandium.hotelproject.dto.CustomerDto;
-import se.scandium.hotelproject.dto.RoomDto;
+import se.scandium.hotelproject.dto.*;
 import se.scandium.hotelproject.entity.Address;
 import se.scandium.hotelproject.entity.Gender;
 import se.scandium.hotelproject.entity.Hotel;
 import se.scandium.hotelproject.entity.RoomType;
 import se.scandium.hotelproject.exception.RecordNotFoundException;
+import se.scandium.hotelproject.repository.CustomerRepository;
 import se.scandium.hotelproject.repository.HotelRepository;
 
 import java.time.LocalDate;
@@ -33,6 +31,9 @@ public class BookingServiceTest {
     @Autowired
     HotelRepository hotelRepository;
 
+    @Autowired
+    CustomerService customerService;
+
     BookingDto bookingDto1;
     BookingDto bookingDto2;
 
@@ -40,6 +41,10 @@ public class BookingServiceTest {
     RoomDto savedRoomDto2;
     BookingDto actual1;
     BookingDto actual2;
+    BookingDto actual3;
+    CustomerDto savedCustomer1;
+    CustomerDto savedCustomer2;
+    Hotel savedHotel;
 
     @BeforeEach
     public void setup() throws RecordNotFoundException {
@@ -48,7 +53,7 @@ public class BookingServiceTest {
         hotel.setName("TEST");
         hotel.setStar(4);
         hotel.setAddress(new Address("Teleborg", "35252", "VAXJO", "SWEDEN"));
-        hotelRepository.save(hotel);
+        savedHotel = hotelRepository.save(hotel);
 
         // create room1
         RoomDto roomDto1 = new RoomDto();
@@ -75,6 +80,30 @@ public class BookingServiceTest {
         savedRoomDto2 = roomService.saveOrUpdate(roomDto2);
 
 
+        AddressDto customerAddress = new AddressDto("Teleborg", "35252", "VAXJO", "SWEDEN");
+
+        CustomerDto customerDto1 = new CustomerDto();
+        customerDto1.setFirstName("Test");
+        customerDto1.setLastName("Testsson");
+        customerDto1.setAge(30);
+        customerDto1.setGender(Gender.MALE);
+        customerDto1.setCity(customerAddress.getCity());
+        customerDto1.setCountry(customerAddress.getCountry());
+        customerDto1.setStreet(customerAddress.getStreet());
+        customerDto1.setZipCode(customerAddress.getZipCode());
+        savedCustomer1 = customerService.saveOrUpdate(customerDto1);
+
+
+        CustomerDto customerDto2 = new CustomerDto();
+        customerDto2.setFirstName("Test2");
+        customerDto2.setLastName("Testsson2");
+        customerDto2.setAge(33);
+        customerDto2.setGender(Gender.FEMALE);
+        customerDto2.setCity(customerAddress.getCity());
+        customerDto2.setCountry(customerAddress.getCountry());
+        customerDto2.setStreet(customerAddress.getStreet());
+        customerDto2.setZipCode(customerAddress.getZipCode());
+        savedCustomer2 = customerService.saveOrUpdate(customerDto2);
 
 
     }
@@ -91,17 +120,8 @@ public class BookingServiceTest {
         bookingDto1.setNumberOfPersons(2);
         bookingDto1.setStatus(false);
 
-        CustomerDto customerDto1 = new CustomerDto();
-        customerDto1.setFirstName("Test");
-        customerDto1.setLastName("Testsson");
-        //customerDto1.setIdNumber("20001010-1234");
-        customerDto1.setAge(30);
-        customerDto1.setGender(Gender.MALE);
-        AddressDto addressDto = new AddressDto("Teleborg", "35252", "VAXJO", "SWEDEN");
-        customerDto1.setAddress(addressDto);
-
-        bookingDto1.setCustomer(customerDto1);
-        bookingDto1.setRoom(savedRoomDto1);
+        bookingDto1.setCustomer(customerService.findById(savedCustomer1.getId()));
+        bookingDto1.setRoom(roomService.findById(savedRoomDto1.getId()));
 
         actual1 = testObject.createBooking(bookingDto1);
         System.out.println("actual1 = " + actual1);
@@ -110,33 +130,46 @@ public class BookingServiceTest {
         Assertions.assertEquals(100.0, actual1.getRoom().getPrice());
 
 
-
         // instantiate booking
         bookingDto2 = new BookingDto();
-        bookingDto2.setFromDate(LocalDate.parse("2021-01-04"));
+        bookingDto2.setFromDate(LocalDate.parse("2021-01-01"));
         bookingDto2.setToDate(LocalDate.parse("2021-01-05"));
         bookingDto2.setBreakfast(true);
         bookingDto2.setLunch(true);
         bookingDto2.setPay(true);
         bookingDto2.setNumberOfPersons(3);
-        bookingDto2.setStatus(false);
 
-        CustomerDto customerDto2 = new CustomerDto();
-        customerDto2.setFirstName("Test2");
-        customerDto2.setLastName("Testsson");
-        //customerDto2.setIdNumber("20001111-2222");
-        customerDto2.setAge(30);
-        customerDto2.setGender(Gender.FEMALE);
-        customerDto2.setAddress(addressDto);
-
-        bookingDto2.setCustomer(customerDto2);
-        bookingDto2.setRoom(savedRoomDto1);
+        bookingDto2.setCustomer(customerService.findById(savedCustomer2.getId()));
+        bookingDto2.setRoom(roomService.findById(savedRoomDto2.getId()));
 
         actual2 = testObject.createBooking(bookingDto2);
-        System.out.println("actual2 = " + actual2);
+        System.out.println("#################### actual2 = " + actual2);
         Assertions.assertEquals("Test2", actual2.getCustomer().getFirstName());
-        Assertions.assertEquals(300.0, actual2.getFullPrice());
-        Assertions.assertEquals(100.0, actual2.getRoom().getPrice());
+        Assertions.assertEquals(2400.0, actual2.getFullPrice());
+        Assertions.assertEquals(200.0, actual2.getRoom().getPrice());
+
+
+
+        // update booking
+        BookingDto bookingDto3 = testObject.findById(actual2.getId());
+        bookingDto3.setFromDate(LocalDate.parse("2021-01-01"));
+        bookingDto3.setToDate(LocalDate.parse("2021-01-07"));
+        bookingDto3.setBreakfast(true);
+        bookingDto3.setLunch(false);
+        bookingDto3.setPay(false);
+        bookingDto3.setNumberOfPersons(4);
+
+        bookingDto3.setCustomer(customerService.findById(savedCustomer1.getId()));
+        bookingDto3.setRoom(roomService.findById(savedRoomDto2.getId()));
+
+        actual3 = testObject.update(bookingDto3);
+        System.out.println("#################### actual2 = " + actual2);
+        System.out.println("#################### actual3 = " + actual3);
+        Assertions.assertEquals("Test", actual3.getCustomer().getFirstName());
+        Assertions.assertEquals(4800.0, actual3.getFullPrice());
+        Assertions.assertEquals(200.0, actual3.getRoom().getPrice());
+
+
     }
 
 

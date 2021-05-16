@@ -10,21 +10,21 @@ public class UserDto {
     private String username;
     private String password;
     private boolean active;
-    private List<AuthorityDto> authoritiesDtoList;
+    private List<AuthorityDto> authoritiesList;
     private boolean status;
-    private UserInfoDto userInfoDto;
+    private UserInfoDto userInfo;
 
     public UserDto() {
     }
 
-    public UserDto(int id, String username, String password, boolean active, List<AuthorityDto> authoritiesDtoList, boolean status, UserInfoDto userInfoDto) {
+    public UserDto(int id, String username, String password, boolean active, List<AuthorityDto> authoritiesList, boolean status, UserInfoDto userInfo) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.active = active;
-        this.authoritiesDtoList = authoritiesDtoList;
+        this.authoritiesList = authoritiesList;
         this.status = status;
-        this.userInfoDto = userInfoDto;
+        this.userInfo = userInfo;
     }
 
 

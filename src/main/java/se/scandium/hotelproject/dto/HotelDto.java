@@ -15,13 +15,13 @@ public class HotelDto {
     private int id;
     private String name;
     private int star;
-    private AddressDto addressDto;
+    private AddressDto address;
     private List<RoomDto> rooms;
 
-    public HotelDto(int id, String name, int star, AddressDto addressDto) {
+    public HotelDto(int id, String name, int star, AddressDto address) {
         this.id = id;
         this.name = name;
         this.star = star;
-        this.addressDto = addressDto;
+        this.address = address;
     }
 }

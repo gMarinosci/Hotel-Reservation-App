@@ -55,12 +55,12 @@ public class UserConverterImpl implements UserConverter {
             UserInfo userInfo = user.getUserInfo();
             if (userInfo != null) {
                 UserInfoDto userInfoDto = userInfoConverter.convertUserInfoToDto(userInfo);
-                userDto.setUserInfoDto(userInfoDto);
+                userDto.setUserInfo(userInfoDto);
             }
             List<Authority> authorities = user.getAuthorities();
             if (authorities != null) {
                 List<AuthorityDto> authorityDtoList = authorities.stream().map(authority -> authorityConverter.convertAuthorityToDto(authority)).collect(Collectors.toList());
-                userDto.setAuthoritiesDtoList(authorityDtoList);
+                userDto.setAuthoritiesList(authorityDtoList);
             }
         }
         return userDto;
@@ -77,12 +77,12 @@ public class UserConverterImpl implements UserConverter {
             user.setActive(userDto.isActive());
             user.setStatus(userDto.isStatus());
 
-            UserInfoDto userInfoDto = userDto.getUserInfoDto();
+            UserInfoDto userInfoDto = userDto.getUserInfo();
             if (userInfoDto != null) {
                 UserInfo userInfo = userInfoConverter.convertDtoToUserInfo(userInfoDto);
                 user.setUserInfo(userInfo);
             }
-            List<AuthorityDto> authorityDtoList = userDto.getAuthoritiesDtoList();
+            List<AuthorityDto> authorityDtoList = userDto.getAuthoritiesList();
             if (authorityDtoList != null) {
                 List<Authority> authorityList = authorityDtoList.stream().map(authorityDto -> authorityConverter.convertDtoToAuthority(authorityDto)).collect(Collectors.toList());
                 user.setAuthorities(authorityList);

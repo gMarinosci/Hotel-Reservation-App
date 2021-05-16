@@ -37,20 +37,20 @@ public class UserServiceTest {
         authorityDtoTest1.setName("user_management");
 
         authorityDtoListForTest1.add(authorityDtoTest1);
-        userDto.setAuthoritiesDtoList(authorityDtoListForTest1);
+        userDto.setAuthoritiesList(authorityDtoListForTest1);
 
         UserInfoDto userTest1InfoDto = new UserInfoDto();
         userTest1InfoDto.setFirstName("test");
         userTest1InfoDto.setLastName("testsson");
         userTest1InfoDto.setUserType(UserType.ADMINISTRATOR);
         userTest1InfoDto.setScreenTitle("SCREEN TITLE TEST 1");
-        userDto.setUserInfoDto(userTest1InfoDto);
+        userDto.setUserInfo(userTest1InfoDto);
 
         UserDto actual = testObject.saveOrUpdate(userDto);
         userDto = actual;
         assertEquals("test1", actual.getUsername());
-        assertEquals("test", actual.getUserInfoDto().getFirstName());
-        assertEquals("testsson", actual.getUserInfoDto().getLastName());
+        assertEquals("test", actual.getUserInfo().getFirstName());
+        assertEquals("testsson", actual.getUserInfo().getLastName());
 
     }
 
@@ -67,15 +67,15 @@ public class UserServiceTest {
 
     @Test
     public void test_update_user() throws UserNotFoundException {
-        userDto.getUserInfoDto().setFirstName("TEST");
-        userDto.getUserInfoDto().setLastName("TESTSSON");
-        userDto.getUserInfoDto().setScreenTitle("TEST TEST");
+        userDto.getUserInfo().setFirstName("TEST");
+        userDto.getUserInfo().setLastName("TESTSSON");
+        userDto.getUserInfo().setScreenTitle("TEST TEST");
 
         UserDto actual = testObject.saveOrUpdate(userDto);
         System.out.println("actual =>>>>>>>>>>>>>>>>>>>>>>> " + actual);
         assertNotNull(actual);
-        assertEquals("TEST", actual.getUserInfoDto().getFirstName());
-        assertEquals("TESTSSON", actual.getUserInfoDto().getLastName());
+        assertEquals("TEST", actual.getUserInfo().getFirstName());
+        assertEquals("TESTSSON", actual.getUserInfo().getLastName());
 
     }
 

@@ -144,7 +144,7 @@ public class RoomListController {
 
     private void setSelectedDataToUpdateForm() {
         if (this.selectedRoomDto != null) {
-            hotelNameField.setText(selectedRoomDto.getHotelDto().getName());
+            hotelNameField.setText(selectedRoomDto.getHotel().getName());
             roomNameField.setText(selectedRoomDto.getName());
             roomPriceField.setText(selectedRoomDto.getPrice() + "");
             roomSizeField.setText(selectedRoomDto.getSize() + "");

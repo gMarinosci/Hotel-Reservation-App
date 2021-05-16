@@ -15,7 +15,7 @@ public class RoomDto {
     private double price;
     private RoomType type;
     private int size;
-    private HotelDto hotelDto;
+    private HotelDto hotel;
     private boolean status;
 
     private String location;

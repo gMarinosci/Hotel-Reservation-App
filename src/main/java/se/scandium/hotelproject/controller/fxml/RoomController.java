@@ -65,8 +65,8 @@ public class RoomController {
     void initialize() {
         roomDto = new RoomDto();
         hotelDto = HotelHolder.getInstance().getHotelDto();
-        roomDto.setHotelDto(hotelDto);
-        hotelNameField.setText(roomDto.getHotelDto().getName());
+        roomDto.setHotel(hotelDto);
+        hotelNameField.setText(roomDto.getHotel().getName());
         setRoomType();
         addButton.setOnAction(this::addRoomAction);
     }
