@@ -43,7 +43,7 @@ public class BookingConverterImpl implements BookingConverter {
 
             Customer customer = booking.getCustomer();
             if (customer != null) {
-                dto.setCustomer(customerConverter.convertCustomerToDto(customer));
+                dto.setCustomer(customerConverter.convertEntityToDto(customer));
             }
 
             Room room = booking.getRoom();
@@ -73,7 +73,7 @@ public class BookingConverterImpl implements BookingConverter {
 
             CustomerDto customerDto = dto.getCustomer();
             if (customerDto != null) {
-                booking.setCustomer(customerConverter.convertDtoToCustomer(customerDto));
+                booking.setCustomer(customerConverter.convertDtoToEntity(customerDto));
             }
 
             RoomDto roomDto = dto.getRoom();
