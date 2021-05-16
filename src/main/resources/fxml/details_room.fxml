@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="642.0" prefWidth="1258.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.RoomDetailsListController">
+<AnchorPane prefHeight="642.0" prefWidth="1258.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="se.scandium.hotelproject.controller.fxml.RoomDetailsListController">
     <children>
         <AnchorPane layoutY="-6.0" prefHeight="63.0" prefWidth="1258.0" style="-fx-background-color: #424242;">
             <children>

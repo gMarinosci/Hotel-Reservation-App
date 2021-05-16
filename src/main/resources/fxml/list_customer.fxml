@@ -8,7 +8,7 @@
 <?import javafx.scene.text.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 
-<AnchorPane prefHeight="642.0" prefWidth="1258.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.CustomerListController">
+<AnchorPane prefHeight="642.0" prefWidth="1258.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="se.scandium.hotelproject.controller.fxml.CustomerListController">
     <children>
         <AnchorPane layoutY="-6.0" prefHeight="63.0" prefWidth="1258.0" style="-fx-background-color: #424242;">
             <children>
@@ -64,7 +64,7 @@
                                 <PropertyValueFactory property="Street" />
                             </cellValueFactory>
                         </TableColumn>
-                  <TableColumn fx:id="zipCodeColumn" prefWidth="106.0" text="Zip-code">
+                  <TableColumn fx:id="zipCodeColumn" prefWidth="106.0" text="Zip-Code">
                      <cellValueFactory>
                         <PropertyValueFactory property="ZipCode" />
                      </cellValueFactory>

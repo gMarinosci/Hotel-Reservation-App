@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.AdminController">
+<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="se.scandium.hotelproject.controller.fxml.AdminController">
 
     <VBox spacing="20" styleClass="header-panel">
         <JFXToolbar>
@@ -14,9 +14,6 @@
                 <Label styleClass="header-text" fx:id="screenTitleText" />
             </leftItems>
             <rightItems>
-                <JFXToggleNode styleClass="toggle-icon3" pickOnBounds="false">
-                    <FontIcon iconLiteral="fas-key" iconSize="24" styleClass="icon"/>
-                </JFXToggleNode>
                 <JFXRippler style="-fx-padding:15;-fx-background-color: white;" fx:id="rippler" maskType="CIRCLE"
                             AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
                     <JFXHamburger fx:id="burger" onMouseClicked="#loadPopup" style="-fx-padding:15;-fx-background-color: white;">
@@ -61,22 +58,6 @@
                         </StackPane>
                     </graphic>
                 </JFXButton>
-                <Label>
-                    Item 4
-                    <graphic>
-                        <StackPane styleClass="custom-jfx-list-view-icon-container">
-                            <FontIcon iconLiteral="fas-university" iconSize="18" styleClass="custom-jfx-list-view-icon" />
-                        </StackPane>
-                    </graphic>
-                </Label>
-                <Label>
-                    Item 5
-                    <graphic>
-                        <StackPane styleClass="custom-jfx-list-view-icon-container">
-                            <FontIcon iconLiteral="fas-tablet-alt" iconSize="18" styleClass="custom-jfx-list-view-icon" />
-                        </StackPane>
-                    </graphic>
-                </Label>
             </JFXListView>
 
         </AnchorPane>

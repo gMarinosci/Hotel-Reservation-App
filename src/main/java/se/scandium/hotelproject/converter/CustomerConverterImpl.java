@@ -55,10 +55,12 @@ public class CustomerConverterImpl implements CustomerConverter {
             customer.setLastName(customerDto.getLastName());
             customer.setAge(customerDto.getAge());
             customer.setGender(customerDto.getGender());
+
             address.setCity(customerDto.getCity());
             address.setCountry(customerDto.getCountry());
             address.setStreet(customerDto.getStreet());
             address.setZipCode(customerDto.getZipCode());
+
             customer.setAddress(address);
         }
         return customer;

@@ -112,7 +112,7 @@ public class CustomerListController {
         countryColumn.setCellValueFactory(new PropertyValueFactory<>("Country"));
         cityColumn.setCellValueFactory(new PropertyValueFactory<>("City"));
         streetColumn.setCellValueFactory(new PropertyValueFactory<>("Street"));
-        zipCodeColumn.setCellValueFactory(new PropertyValueFactory<>("Zip-code"));
+        zipCodeColumn.setCellValueFactory(new PropertyValueFactory<>("Zip-Code"));
 
         data = FXCollections.observableArrayList(customerDtoList);
         customerDtoTableView.setItems(data);
