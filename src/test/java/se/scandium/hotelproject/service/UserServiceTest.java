@@ -5,6 +5,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 import se.scandium.hotelproject.controller.fxml.view.UserView;
 import se.scandium.hotelproject.dto.AuthorityDto;
 import se.scandium.hotelproject.dto.UserDto;
@@ -18,6 +19,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
+@Transactional
 public class UserServiceTest {
 
     @Autowired

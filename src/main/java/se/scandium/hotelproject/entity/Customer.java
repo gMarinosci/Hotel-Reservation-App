@@ -19,6 +19,8 @@ public class Customer {
     private int id;
     private String firstName;
     private String lastName;
+    //@Column(updatable = false,nullable = false, unique = true)
+    private String idNumber;
     private int age;
     private Gender gender;
     @Embedded
