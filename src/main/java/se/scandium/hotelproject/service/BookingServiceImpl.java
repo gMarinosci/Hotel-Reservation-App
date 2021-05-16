@@ -69,6 +69,7 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public BookingDto update(BookingDto bookingDto) throws RecordNotFoundException {
+        // todo: Mehrdad- implement validation for from date and to date
         if (bookingDto == null) throw new ArgumentInvalidException("booking should not be null");
         if (bookingDto.getId() == 0) throw new ArgumentInvalidException("bookingId should not be zero");
         Optional<Booking> bookingOptional = bookingRepository.findById(bookingDto.getId());
@@ -109,7 +110,7 @@ public class BookingServiceImpl implements BookingService {
         if (bookingDto.getRoom().getId() == 0)
             throw new ArgumentInvalidException("room id should not be zero - room id is not valid");
         Optional<Room> roomOptional = roomRepository.findById(bookingDto.getRoom().getId());
-        if (roomOptional.isEmpty()) throw new RecordNotFoundException("customer id is not valid - data not found");
+        if (roomOptional.isEmpty()) throw new RecordNotFoundException("room id is not valid - data not found");
 
         // date validation
         if (bookingDto.getFromDate().isEqual(bookingDto.getToDate())
@@ -121,8 +122,8 @@ public class BookingServiceImpl implements BookingService {
 
         // check booking dates
         List<Booking> result = bookingRepository.findAllByStatusFalseAndToDateGreaterThanAndRoomId(booking.getFromDate(), booking.getRoom().getId());
+
         if (result.size() != 0) throw new ArgumentInvalidException("booking date is not valid");
-        booking.setBookingDays(booking.createBookingDays());
         booking.setBookingDays(booking.createBookingDays());
         booking.setFullPrice(booking.calcFullPrice());
         Booking savedBooking = bookingRepository.save(booking);

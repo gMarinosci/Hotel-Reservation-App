@@ -25,7 +25,7 @@ public class Booking {
     private boolean pay;
     private int numberOfPersons;
     private double fullPrice;
-    private boolean status;
+    private boolean status; // true = delete , false = data is not deleted
 
     @Transient
     private List<LocalDate> bookingDays;
@@ -46,8 +46,6 @@ public class Booking {
         else {
             noOfDaysBetween = ChronoUnit.DAYS.between(fromDate, toDate);
         }
-        System.out.println("noOfDaysBetween =##################### " + noOfDaysBetween);
-
         return (room.getPrice() * numberOfPersons) * noOfDaysBetween;
     }
 
@@ -57,7 +55,6 @@ public class Booking {
         List<LocalDate> dates =  Stream.iterate(fromDate, date -> date.plusDays(1))
                 .limit(noOfDaysBetween)
                 .collect(Collectors.toList());
-        System.out.println("dates!!!!!!!!!!!!!!!!!!!!!!! = " + dates);
         return dates;
     }
 

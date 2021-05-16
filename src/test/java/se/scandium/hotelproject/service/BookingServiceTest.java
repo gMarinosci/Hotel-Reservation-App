@@ -80,7 +80,7 @@ public class BookingServiceTest {
     }
 
     @Test
-    public void test_save() throws RecordNotFoundException {
+    public void test_save_booking() throws RecordNotFoundException {
         // instantiate booking
         bookingDto1 = new BookingDto();
         bookingDto1.setFromDate(LocalDate.parse("2021-01-01"));

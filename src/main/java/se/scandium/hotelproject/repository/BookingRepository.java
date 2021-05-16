@@ -22,7 +22,7 @@ public interface BookingRepository extends CrudRepository<Booking, Integer> {
 
     //@Modifying(clearAutomatically = true)
     //@Query("select b from Booking b where b.room.id = :roomId and b.status = false and b.toDate > :fromDate") // 2020-01-02 > 2020-01-04
-    List<Booking> findAllByStatusFalseAndToDateGreaterThanAndRoomId(LocalDate toDate, int roomId);
+    List<Booking> findAllByStatusFalseAndToDateGreaterThanAndRoomId(LocalDate fromDate, int roomId);
 
     List<Booking> findAllByStatusFalseAndFromDateGreaterThanEqualAndToDateLessThan(LocalDate fromDate, LocalDate toDate);
 
