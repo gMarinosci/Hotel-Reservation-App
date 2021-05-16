@@ -125,7 +125,7 @@ public class CustomerController {
             showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", "country is not valid");
             return false;
         }
-        addressDto.setCountry(country);
+        customerDto.setCountry(country);
 
         String city = this.CityField.getText();
         if (city.trim().length() == 0) {
@@ -133,7 +133,7 @@ public class CustomerController {
             showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", "city is not valid");
             return false;
         }
-        addressDto.setCity(city);
+        customerDto.setCity(city);
 
         String street = this.StreetField.getText();
         if (street.trim().length() == 0) {
@@ -141,7 +141,7 @@ public class CustomerController {
             showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", "street is not valid");
             return false;
         }
-        addressDto.setStreet(street);
+        customerDto.setStreet(street);
 
         String zip_code = this.Zip_codeField.getText();
         if (zip_code.trim().length() == 0) {
@@ -149,9 +149,8 @@ public class CustomerController {
             showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", "zip code is not valid");
             return false;
         }
-        addressDto.setZipCode(zip_code);
+        customerDto.setZipCode(zip_code);
 
-        customerDto.setAddress(addressDto);
         return true;
 
     }

@@ -48,10 +48,6 @@ public class RoomController {
     @FXML
     private JFXComboBox<RoomType> roomTypeComboBox;
     @FXML
-    private JFXRadioButton isReserveRadioButtonY;
-    @FXML
-    private JFXRadioButton isReserveRadioButtonN;
-    @FXML
     private JFXTextArea roomDetailsDescTextArea;
     @FXML
     private JFXTextField roomDetailsLocationField;
@@ -64,8 +60,6 @@ public class RoomController {
     @FXML
     private Text errorText;
 
-    @FXML
-    private ToggleGroup group;
 
     @FXML
     void initialize() {
@@ -74,9 +68,6 @@ public class RoomController {
         roomDto.setHotelDto(hotelDto);
         hotelNameField.setText(roomDto.getHotelDto().getName());
         setRoomType();
-        group = new ToggleGroup();
-        isReserveRadioButtonY.setToggleGroup(group);
-        isReserveRadioButtonN.setToggleGroup(group);
         addButton.setOnAction(this::addRoomAction);
     }
 
@@ -139,8 +130,6 @@ public class RoomController {
             showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", errorText.getText());
             return false;
         }
-        boolean reserveY = this.isReserveRadioButtonY.isSelected();
-        roomDto.setReserve(reserveY);
 
         String location = this.roomDetailsLocationField.getText();
         if (location.trim().length() == 0) {

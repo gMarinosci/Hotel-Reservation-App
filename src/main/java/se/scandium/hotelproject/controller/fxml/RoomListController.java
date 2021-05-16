@@ -149,11 +149,6 @@ public class RoomListController {
             roomPriceField.setText(selectedRoomDto.getPrice() + "");
             roomSizeField.setText(selectedRoomDto.getSize() + "");
             //roomTypeComboBox.setItems(selectedRoomDto.);
-            if (selectedRoomDto.isReserve()) {
-                isReserveRadioButtonY.setSelected(true);
-            } else {
-                isReserveRadioButtonN.setSelected(true);
-            }
             roomDetailsDescTextArea.setText(selectedRoomDto.getDescription());
             roomDetailsLocationField.setText(selectedRoomDto.getLocation());
             roomDetailsIsBedCheckBox.setSelected(selectedRoomDto.isBeds());
@@ -245,8 +240,6 @@ public class RoomListController {
             showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
             return false;
         }
-        boolean reserveY = this.isReserveRadioButtonY.isSelected();
-        selectedRoomDto.setReserve(reserveY);
 
         String location = this.roomDetailsLocationField.getText();
         if (location.trim().length() == 0) {

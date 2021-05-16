@@ -15,5 +15,9 @@ public class CustomerDto {
     private String lastName;
     private int age;
     private Gender gender;
-    private AddressDto address;
+
+    private String street;
+    private String zipCode;
+    private String city;
+    private String country;
 }

@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="595.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.RoomController">
+<AnchorPane prefHeight="595.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.2" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.RoomController">
     <children>
         <AnchorPane layoutY="-6.0" prefHeight="63.0" prefWidth="700.0" style="-fx-background-color: #424242;">
             <children>
@@ -40,28 +40,6 @@
                         <Font size="14.0" />
                     </font>
                 </JFXTextField>
-                <HBox prefHeight="34.0" prefWidth="329.0">
-                    <children>
-                        <Label prefHeight="34.0" prefWidth="79.0" text="Reserve">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </Label>
-                        <JFXRadioButton fx:id="isReserveRadioButtonY" prefHeight="34.0" prefWidth="66.0" text="Yes">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                            <toggleGroup>
-                                <ToggleGroup fx:id="group" />
-                            </toggleGroup>
-                        </JFXRadioButton>
-                        <JFXRadioButton fx:id="isReserveRadioButtonN" prefHeight="34.0" prefWidth="66.0" selected="true" text="No" toggleGroup="$group">
-                            <font>
-                                <Font size="14.0" />
-                            </font>
-                        </JFXRadioButton>
-                    </children>
-                </HBox>
                 <HBox prefHeight="34.0" prefWidth="329.0">
                     <children>
                         <Label prefHeight="34.0" prefWidth="79.0" text="Bed">

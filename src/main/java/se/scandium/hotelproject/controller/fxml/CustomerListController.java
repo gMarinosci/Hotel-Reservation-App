@@ -141,10 +141,10 @@ public class CustomerListController {
             nameField.setText(selectedCustomerDto.getFirstName());
             surnameField.setText(selectedCustomerDto.getLastName());
             ageField.setText(String.valueOf(selectedCustomerDto.getAge()));
-            countryField.setText(selectedCustomerDto.getAddress().getCountry());
-            cityField.setText(selectedCustomerDto.getAddress().getCity());
-            streetField.setText(selectedCustomerDto.getAddress().getStreet());
-            zipCodeField.setText(selectedCustomerDto.getAddress().getZipCode());
+            countryField.setText(selectedCustomerDto.getCountry());
+            cityField.setText(selectedCustomerDto.getCity());
+            streetField.setText(selectedCustomerDto.getStreet());
+            zipCodeField.setText(selectedCustomerDto.getZipCode());
         }
     }
 
@@ -231,7 +231,7 @@ public class CustomerListController {
             showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
             return false;
         }
-        selectedCustomerDto.getAddress().setCountry(country);
+        selectedCustomerDto.setCountry(country);
 
         String city = this.cityField.getText();
         if (city.trim().length() == 0) {
@@ -239,7 +239,7 @@ public class CustomerListController {
             showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
             return false;
         }
-        selectedCustomerDto.getAddress().setCity(city);
+        selectedCustomerDto.setCity(city);
 
         String street = this.streetField.getText();
         if (street.trim().length() == 0) {
@@ -247,7 +247,7 @@ public class CustomerListController {
             showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
             return false;
         }
-        selectedCustomerDto.getAddress().setStreet(street);
+        selectedCustomerDto.setStreet(street);
 
         String zipCode = this.zipCodeField.getText();
         if (zipCode.trim().length() == 0) {
@@ -255,7 +255,7 @@ public class CustomerListController {
             showAlert(Alert.AlertType.WARNING, updateButton.getScene().getWindow(), "Warning!", errorTextForm.getText());
             return false;
         }
-        selectedCustomerDto.getAddress().setZipCode(zipCode);
+        selectedCustomerDto.setZipCode(zipCode);
 
         return true;
     }

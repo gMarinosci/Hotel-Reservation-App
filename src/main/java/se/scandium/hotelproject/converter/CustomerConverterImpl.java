@@ -35,7 +35,10 @@ public class CustomerConverterImpl implements CustomerConverter {
             Address address = customer.getAddress();
             if (address != null) {
                 AddressDto addressDto = addressConverter.convertEntityToDto(address);
-                customerDto.setAddress(addressDto);
+                customerDto.setCity(address.getCity());
+                customerDto.setCountry(address.getCountry());
+                customerDto.setStreet(address.getStreet());
+                customerDto.setZipCode(address.getZipCode());
             }
         }
         return customerDto;
@@ -44,19 +47,19 @@ public class CustomerConverterImpl implements CustomerConverter {
     @Override
     public Customer convertDtoToEntity(CustomerDto customerDto) {
         Customer customer = null;
+        Address address = null;
         if (customerDto != null) {
             customer = new Customer();
+            address = new Address();
             customer.setId(customerDto.getId());
             customer.setFirstName(customerDto.getFirstName());
             customer.setLastName(customerDto.getLastName());
             customer.setAge(customerDto.getAge());
             customer.setGender(customerDto.getGender());
-        }
-
-        AddressDto addressDto = customerDto.getAddress();
-        if (addressDto != null) {
-            Address address = addressConverter.convertDtoToEntity(addressDto);
-            customer.setAddress(address);
+            address.setCity(customerDto.getCity());
+            address.setCountry(customerDto.getCountry());
+            address.setStreet(customerDto.getStreet());
+            address.setZipCode(customerDto.getZipCode());
         }
         return customer;
     }

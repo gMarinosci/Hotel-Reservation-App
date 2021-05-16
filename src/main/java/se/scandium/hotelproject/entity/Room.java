@@ -24,7 +24,6 @@ public class Room {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name = "hotel_id")
     private Hotel hotel;
-    private boolean reserve;
     private boolean status;
     @Embedded
     private RoomDetails roomDetails;
@@ -36,14 +35,13 @@ public class Room {
     )
     private List<Booking> bookings;
 
-    public Room(int id, String name, double price, RoomType type, int size, Hotel hotel, boolean reserve, boolean status, RoomDetails roomDetails) {
+    public Room(int id, String name, double price, RoomType type, int size, Hotel hotel, boolean status, RoomDetails roomDetails) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.type = type;
         this.size = size;
         this.hotel = hotel;
-        this.reserve = reserve;
         this.status = status;
         this.roomDetails = roomDetails;
     }

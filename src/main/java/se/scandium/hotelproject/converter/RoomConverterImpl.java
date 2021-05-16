@@ -27,7 +27,7 @@ public class RoomConverterImpl implements RoomConverter {
                     addressDto = new AddressDto(entity.getHotel().getAddress().getStreet(), entity.getHotel().getAddress().getZipCode(), entity.getHotel().getAddress().getCity(), entity.getHotel().getAddress().getCountry());
                 hotelDto = new HotelDto(entity.getHotel().getId(), entity.getHotel().getName(), entity.getHotel().getStar(), addressDto);
             }
-            dto = new RoomDto(entity.getId(), entity.getName(), entity.getPrice(), entity.getType(), entity.getSize(), hotelDto, entity.isReserve(), entity.isStatus(), entity.getRoomDetails().getLocation(), entity.getRoomDetails().isBeds(), entity.getRoomDetails().getNumberOfBeds(), entity.getRoomDetails().getDescription());
+            dto = new RoomDto(entity.getId(), entity.getName(), entity.getPrice(), entity.getType(), entity.getSize(), hotelDto, entity.isStatus(), entity.getRoomDetails().getLocation(), entity.getRoomDetails().isBeds(), entity.getRoomDetails().getNumberOfBeds(), entity.getRoomDetails().getDescription());
         }
         return dto;
     }
@@ -53,7 +53,7 @@ public class RoomConverterImpl implements RoomConverter {
                 hotel = new Hotel(dto.getHotelDto().getId(), dto.getHotelDto().getName(), dto.getHotelDto().getStar(), address);
             }
             RoomDetails roomDetails = new RoomDetails(dto.getLocation(), dto.isBeds(), dto.getNumberOfBeds(), dto.getDescription());
-            entity = new Room(dto.getId(), dto.getName(), dto.getPrice(), dto.getType(), dto.getSize(), hotel, dto.isReserve(), dto.isStatus(), roomDetails);
+            entity = new Room(dto.getId(), dto.getName(), dto.getPrice(), dto.getType(), dto.getSize(), hotel, dto.isStatus(), roomDetails);
         }
         return entity;
     }

@@ -16,7 +16,6 @@ public class RoomDto {
     private RoomType type;
     private int size;
     private HotelDto hotelDto;
-    private boolean reserve;
     private boolean status;
 
     private String location;
