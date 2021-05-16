@@ -11,6 +11,7 @@ import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import se.scandium.hotelproject.controller.fxml.singleton.HotelHolder;
 import se.scandium.hotelproject.dto.HotelDto;
 import se.scandium.hotelproject.dto.RoomDto;
@@ -19,7 +20,9 @@ import se.scandium.hotelproject.exception.RecordNotFoundException;
 import se.scandium.hotelproject.service.RoomService;
 
 @Component
+
 @FxmlView("/fxml/add_room.fxml")
+@Service
 public class RoomController {
 
     private RoomService roomService;

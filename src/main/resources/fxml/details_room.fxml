@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="642.0" prefWidth="1258.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.RoomDetailsListController">
+    <children>
+        <AnchorPane layoutY="-6.0" prefHeight="63.0" prefWidth="1258.0" style="-fx-background-color: #424242;">
+            <children>
+                <Label alignment="CENTER" layoutX="254.0" layoutY="11.0" prefHeight="41.0" prefWidth="750.0" text="Room Details" textFill="WHITE">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+
+      
+                <TableView fx:id="roomDtoTableView" layoutX="267.0" layoutY="56.0" prefHeight="530.0" prefWidth="725.0">
+                    <columns>
+                        <TableColumn fx:id="idColumn" prefWidth="46.0" text="Id">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="Id" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="nameColumn" prefWidth="122.0" text="Name">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="Name" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="typeColumn" prefWidth="73.0" text="Type">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="Type" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="priceColumn" prefWidth="62.0" text="Price">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="Price" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="sizeColumn" prefWidth="49.0" text="Size">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="Size" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="locationColumn" prefWidth="107.0" text="Location">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="Location" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="bedsColumn" prefWidth="56.0" text="Beds">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="Beds" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="descriptionColumn" prefWidth="230.0" text="Description">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="Description" />
+                            </cellValueFactory>
+                        </TableColumn>
+                    </columns>
+                </TableView>
+         
+
+
+    </children>
+
+</AnchorPane>
