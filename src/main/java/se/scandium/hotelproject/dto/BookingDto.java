@@ -1,6 +1,7 @@
 package se.scandium.hotelproject.dto;
 
 import lombok.Data;
+import se.scandium.hotelproject.entity.PayType;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -18,6 +19,7 @@ public class BookingDto {
     private boolean breakfast;
     private boolean lunch;
     private boolean pay;
+    private PayType payType;
     private int numberOfPersons;
     private double fullPrice;
     private CustomerDto customer;

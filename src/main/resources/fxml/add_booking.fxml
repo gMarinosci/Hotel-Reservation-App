@@ -20,7 +20,7 @@
         <VBox layoutX="134.0" layoutY="77.0" prefHeight="518.0" prefWidth="433.0" spacing="5.0" style="-fx-padding: 10px;">
             <children>
                 <JFXComboBox fx:id="RoomComboBox" focusColor="#9a0007" prefHeight="34.0" prefWidth="510.0" promptText="Available room" style="-fx-font-size: 14px;" unFocusColor="#424242" />
-            <JFXTextField fx:id="NumberOfPeopleField" focusColor="#9a0007" layoutX="20.0" layoutY="176.0" prefHeight="34.0" prefWidth="329.0" promptText="Number of Persons" unFocusColor="#424242">
+            <JFXTextField fx:id="NumberOfPeopleField" focusColor="#9a0007" layoutX="20.0" layoutY="176.0" prefHeight="34.0" prefWidth="329.0" promptText="Number of Customers" unFocusColor="#424242">
                <font>
                   <Font size="14.0" />
                </font>
@@ -33,11 +33,11 @@
             </SplitPane>
             <HBox prefHeight="36.0" prefWidth="413.0">
                <children>
-                  <Label prefHeight="36.0" prefWidth="71.0" text="Breakfast">
+                  <Label fx:id="breakfastLabel" prefHeight="36.0" prefWidth="71.0" text="Breakfast">
                      <font>
                         <Font size="14.0" />
                      </font></Label>
-                  <CheckBox mnemonicParsing="false" prefHeight="36.0" prefWidth="148.0" text="Yes">
+                  <CheckBox fx:id="bfCheckBox" mnemonicParsing="false" prefHeight="36.0" prefWidth="148.0" text="Yes">
                      <font>
                         <Font size="14.0" />
                      </font></CheckBox>
@@ -45,20 +45,20 @@
             </HBox>
             <HBox layoutX="20.0" layoutY="134.0" prefHeight="36.0" prefWidth="413.0">
                <children>
-                  <Label prefHeight="36.0" prefWidth="71.0" text="Lunch">
+                  <Label fx:id="lunchLabel" prefHeight="36.0" prefWidth="71.0" text="Lunch">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <CheckBox mnemonicParsing="false" prefHeight="36.0" prefWidth="148.0" text="Yes">
+                  <CheckBox fx:id="lnCheckBox" mnemonicParsing="false" prefHeight="36.0" prefWidth="148.0" text="Yes">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </CheckBox>
                </children>
             </HBox>
-            <JFXComboBox fx:id="personsComboBox" focusColor="#9a0007" layoutX="20.0" layoutY="98.0" prefHeight="34.0" prefWidth="510.0" promptText="Payment Type" style="-fx-font-size: 14px;" unFocusColor="#424242" />
-            <Label prefHeight="36.0" prefWidth="412.0" text="Total Amount ">
+            <JFXComboBox fx:id="payTypeComboBox" focusColor="#9a0007" layoutX="20.0" layoutY="98.0" prefHeight="34.0" prefWidth="510.0" promptText="Payment Type" style="-fx-font-size: 14px;" unFocusColor="#424242" />
+            <Label fx:id="priceLabel" prefHeight="36.0" prefWidth="412.0" text="Total Amount ">
                <font>
                   <Font size="14.0" />
                </font>

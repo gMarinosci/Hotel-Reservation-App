@@ -25,6 +25,7 @@ public class Booking {
     private boolean pay;
     private int numberOfPersons;
     private double fullPrice;
+    private PayType payType;
     private boolean status; // true = delete , false = data is not deleted
 
     @Transient
