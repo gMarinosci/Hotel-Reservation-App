@@ -8,7 +8,7 @@
 <?import javafx.scene.text.*?>
 <?import org.kordamp.ikonli.javafx.*?>
 
-<AnchorPane prefHeight="642.0" prefWidth="1258.0" xmlns="http://javafx.com/javafx/" xmlns:fx="http://javafx.com/fxml/" fx:controller="se.scandium.hotelproject.controller.fxml.CustomerListController">
+<AnchorPane prefHeight="642.0" prefWidth="1258.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.CustomerListController">
     <children>
         <AnchorPane layoutY="-6.0" prefHeight="63.0" prefWidth="1258.0" style="-fx-background-color: #424242;">
             <children>
@@ -133,6 +133,7 @@
                           <Font name="System Bold" size="14.0" />
                       </font>
                   </Text>
+            <JFXButton fx:id="addBookingButton" layoutX="15.0" layoutY="287.0" prefHeight="41.0" prefWidth="514.0" style="-fx-background-color: #0bc76f;-fx-font-weight: bold;-fx-font-size: 14px;" text="Add Booking" textFill="#f8f7f7" />
               </children>
               <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
