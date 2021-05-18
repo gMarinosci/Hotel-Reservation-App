@@ -75,7 +75,7 @@ public class BookingServiceImpl implements BookingService {
     @Transactional
     public BookingDto update(BookingDto bookingDto) throws RecordNotFoundException {
         if (bookingDto == null) throw new ArgumentInvalidException("booking should not be null");
-        if (bookingDto.getId() == 0) throw new ArgumentInvalidException("bookingId should not be zero or null");
+        //if (bookingDto.getId() == 0) throw new ArgumentInvalidException("bookingId should not be zero or null");
 
         if (bookingDto.getCustomer() == null) throw new ArgumentInvalidException("customer should not be null");
         if (bookingDto.getCustomer().getId() == 0)

@@ -42,7 +42,7 @@ public class ReceptionController {
     private JFXRippler rippler;
     @FXML
     private JFXHamburger burger;
-
+    @FXML
     private JFXPopup popup;
 
 

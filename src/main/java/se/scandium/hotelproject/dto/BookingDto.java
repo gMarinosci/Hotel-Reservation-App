@@ -27,4 +27,12 @@ public class BookingDto {
     private boolean status;
     private List<LocalDate> bookingDays;
 
+    public List<LocalDate> createBookingDays() {
+        long noOfDaysBetween = ChronoUnit.DAYS.between(fromDate, toDate);
+        List<LocalDate> dates =  Stream.iterate(fromDate, date -> date.plusDays(1))
+                .limit(noOfDaysBetween)
+                .collect(Collectors.toList());
+        return dates;
+    }
+
 }

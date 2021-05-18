@@ -92,7 +92,7 @@ public class CustomerListController {
     @FXML
     private JFXButton updateButton;
     @FXML
-    private JFXButton addBooking;
+    private JFXButton addBookingButton;
 
     private void loadDateTable() {
         customerDtoList = customerService.getAll();
@@ -136,7 +136,7 @@ public class CustomerListController {
         loadDateTable();
         deleteButton.setOnAction(this::deleteCustomerAction);
         updateButton.setOnAction(this::updateCustomerAction);
-        addBooking.setOnAction(this::loadBookingDialog);
+        addBookingButton.setOnAction(this::loadBookingDialog);
     }
 
     @FXML

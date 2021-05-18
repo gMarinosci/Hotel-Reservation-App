@@ -15,12 +15,17 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import se.scandium.hotelproject.dto.BookingDto;
+import se.scandium.hotelproject.dto.CustomerDto;
+import se.scandium.hotelproject.dto.RoomDto;
 import se.scandium.hotelproject.entity.Booking;
 import se.scandium.hotelproject.entity.Customer;
 import se.scandium.hotelproject.entity.PayType;
 import se.scandium.hotelproject.entity.Room;
+import se.scandium.hotelproject.exception.ArgumentInvalidException;
 import se.scandium.hotelproject.exception.RecordNotFoundException;
 import se.scandium.hotelproject.service.BookingService;
+import se.scandium.hotelproject.service.CustomerService;
+import se.scandium.hotelproject.service.RoomService;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -32,20 +37,24 @@ import java.util.List;
 public class BookRoomController {
 
     private final BookingService bookingService;
+    private final CustomerService customerService;
+    private final RoomService roomService;
     private final FxWeaver fxWeaver;
     private BookingDto bookingDto;
     private Booking booking;
 
     @Autowired
-    public BookRoomController(BookingService bookingService, FxWeaver fxWeaver) {
+    public BookRoomController(BookingService bookingService,CustomerService customerService, RoomService roomService, FxWeaver fxWeaver) {
         this.bookingService = bookingService;
+        this.customerService = customerService;
+        this.roomService = roomService;
         this.fxWeaver = fxWeaver;
     }
 
     @FXML
-    private JFXComboBox<Customer> CustomerComboBox;
+    private JFXComboBox<CustomerDto> CustomerComboBox;
     @FXML
-    private JFXComboBox<Room> RoomComboBox;
+    private JFXComboBox<RoomDto> RoomComboBox;
     @FXML
     private JFXTextField NumberOfPeopleField;
     @FXML
@@ -70,7 +79,10 @@ public class BookRoomController {
     private Text errorText;
     @FXML
     void initialize() {
+        bookingDto = new BookingDto();
         setPaymentType();
+        setCustomerComboBox();
+        setRoomComboBox();
         addButton.setOnAction(this::saveBookingAction);
     }
 
@@ -90,13 +102,38 @@ public class BookRoomController {
 
     private boolean validateAndBuildData() {
 
+        CustomerDto customerDto = CustomerComboBox.getValue();
+        if (customerDto == null) {
+            errorText.setText("Customer is not valid");
+            showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", errorText.getText());
+            return false;
+        }
+        bookingDto.setCustomer(customerDto);
+
+        RoomDto roomDto = RoomComboBox.getValue();
+        if (roomDto == null) {
+            errorText.setText("Room is not valid");
+            showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", errorText.getText());
+            return false;
+        }
+        bookingDto.setRoom(roomDto);
+
         LocalDate fromDate = fromDatePicker.getValue();
         LocalDate toDate = toDatePicker.getValue();
-        List<LocalDate> bookingDates = new ArrayList<>();
-        bookingDates.add(fromDate);
-        bookingDates.add(toDate);
-        bookingDto.setBookingDays(bookingDates);
-
+        if (fromDate.isAfter(toDate)) {
+            return false;
+        } else {
+            try {
+                bookingDto.setFromDate(fromDate);
+                bookingDto.setToDate(toDate);
+                bookingDto.setBookingDays(bookingDto.createBookingDays());
+            } catch (ArgumentInvalidException e) {
+                e.printStackTrace();
+                errorText.setText("Dates are not available");
+                showAlert(Alert.AlertType.WARNING, addButton.getScene().getWindow(), "Warning!", errorText.getText());
+                return false;
+            }
+        }
         String breakfast = this.bfCheckBox.getText();
         bookingDto.setBreakfast(breakfast.equalsIgnoreCase("Yes"));
 
@@ -111,8 +148,8 @@ public class BookRoomController {
         }
         bookingDto.setPayType(payType);
 
-        Double finalPrice = booking.calcFullPrice();
-        priceLabel.setText(Double.toString(finalPrice));
+        //Double finalPrice = booking.calcFullPrice();
+        //priceLabel.setText("Final Price:" + (Double.toString(finalPrice)));
 
         return true;
     }
@@ -120,6 +157,14 @@ public class BookRoomController {
     private void setPaymentType() {
         payTypeComboBox.getItems().add(PayType.CASH);
         payTypeComboBox.getItems().add(PayType.CREDIT_CARD);
+    }
+
+    private void setCustomerComboBox() {
+        CustomerComboBox.getItems().addAll(customerService.getAll());
+    }
+
+    private void setRoomComboBox() {
+        RoomComboBox.getItems().addAll(roomService.getAll());
     }
 
     private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
