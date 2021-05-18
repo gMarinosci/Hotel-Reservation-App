@@ -82,6 +82,7 @@ public class BookRoomController {
         setPaymentType();
         setCustomerComboBox();
         setRoomComboBox();
+        calculateButton.setOnAction(this::showFinalPrice);
         addButton.setOnAction(this::saveBookingAction);
     }
 
@@ -164,6 +165,18 @@ public class BookRoomController {
 
     private void setRoomComboBox() {
         RoomComboBox.getItems().addAll(roomService.getAll());
+    }
+
+    private void showFinalPrice(ActionEvent event) {
+        LocalDate fromDate = fromDatePicker.getValue();
+        LocalDate toDate = toDatePicker.getValue();
+        RoomDto roomDto = RoomComboBox.getValue();
+        bookingDto.setRoom(roomDto);
+        bookingDto.setNumberOfPersons(Integer.parseInt(NumberOfPeopleField.getText()));
+        bookingDto.setFromDate(fromDate);
+        bookingDto.setToDate(toDate);
+        bookingDto.setFullPrice(bookingDto.calcFullPrice());
+        priceLabel.setText("Final Price: " + Double.toString(bookingDto.getFullPrice()));
     }
 
     private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
