@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="595.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.CustomerController">
+<AnchorPane prefHeight="595.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.BookRoomController">
     <children>
         <AnchorPane layoutY="-6.0" prefHeight="63.0" prefWidth="700.0" style="-fx-background-color: #424242;">
             <children>
@@ -19,6 +19,7 @@
         </AnchorPane>
         <VBox layoutX="134.0" layoutY="77.0" prefHeight="518.0" prefWidth="433.0" spacing="5.0" style="-fx-padding: 10px;">
             <children>
+            <JFXComboBox fx:id="CustomerComboBox" focusColor="#9a0007" layoutX="20.0" layoutY="20.0" prefHeight="34.0" prefWidth="510.0" promptText="Customers" style="-fx-font-size: 14px;" unFocusColor="#424242" />
                 <JFXComboBox fx:id="RoomComboBox" focusColor="#9a0007" prefHeight="34.0" prefWidth="510.0" promptText="Available room" style="-fx-font-size: 14px;" unFocusColor="#424242" />
             <JFXTextField fx:id="NumberOfPeopleField" focusColor="#9a0007" layoutX="20.0" layoutY="176.0" prefHeight="34.0" prefWidth="329.0" promptText="Number of Customers" unFocusColor="#424242">
                <font>
