@@ -59,11 +59,16 @@
                </children>
             </HBox>
             <JFXComboBox fx:id="payTypeComboBox" focusColor="#9a0007" layoutX="20.0" layoutY="98.0" prefHeight="34.0" prefWidth="510.0" promptText="Payment Type" style="-fx-font-size: 14px;" unFocusColor="#424242" />
-            <Label fx:id="priceLabel" prefHeight="36.0" prefWidth="412.0" text="Total Amount ">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
+            <SplitPane dividerPositions="0.6958637469586375" prefHeight="37.0" prefWidth="413.0">
+               <items>
+                  <Label fx:id="priceLabel" prefHeight="57.0" prefWidth="411.0" text="Total Amount ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="calculateButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="187.0" text="Calculate" />
+               </items>
+            </SplitPane>
                 
                 <JFXButton fx:id="addButton" prefHeight="41.0" prefWidth="413.0" style="-fx-background-color: #0bc76f;-fx-font-weight: bold;-fx-font-size: 14px;" text="Save" textFill="#f8f7f7" />
             <VBox prefHeight="33.0" prefWidth="413.0" />

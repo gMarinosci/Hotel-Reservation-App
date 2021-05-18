@@ -4,10 +4,7 @@ package se.scandium.hotelproject.controller.fxml;
 import com.jfoenix.controls.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
+import javafx.scene.control.*;
 import javafx.scene.text.Text;
 import javafx.stage.Window;
 import net.rgielen.fxweaver.core.FxWeaver;
@@ -73,6 +70,8 @@ public class BookRoomController {
     private JFXComboBox<PayType> payTypeComboBox;
     @FXML
     private Label priceLabel;
+    @FXML
+    private Button calculateButton;
     @FXML
     private JFXButton addButton;
     @FXML
