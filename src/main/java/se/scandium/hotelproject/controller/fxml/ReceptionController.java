@@ -46,6 +46,8 @@ public class ReceptionController {
     private JFXPopup popup;
     @FXML
     private JFXButton BookingListButton;
+    @FXML
+    private JFXButton AddBookingButton;
 
     @FXML
     void initialize() {
@@ -54,6 +56,7 @@ public class ReceptionController {
         customerDetailsButton.setOnAction(this::loadCustomerDetailsControlInDialog);
         addCustomerButton.setOnAction(this::loadAddCustomerControlInDialog);
         BookingListButton.setOnAction(this::loadBookingListInDialog);
+        AddBookingButton.setOnAction(this::loadAddBookingInDialog);
     }
     @FXML
     void loadCustomerDetailsControlInDialog(ActionEvent event) {
@@ -86,4 +89,11 @@ public class ReceptionController {
         stage.showAndWait();
     }
 
+    void loadAddBookingInDialog(ActionEvent event) {
+        Scene scene = new Scene(fxWeaver.loadView(BookRoomController.class));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
+    }
 }

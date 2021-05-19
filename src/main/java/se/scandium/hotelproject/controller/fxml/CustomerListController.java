@@ -91,8 +91,6 @@ public class CustomerListController {
     private JFXTextField zipCodeField;
     @FXML
     private JFXButton updateButton;
-    @FXML
-    private JFXButton addBookingButton;
 
     private void loadDateTable() {
         customerDtoList = customerService.getAll();
@@ -136,7 +134,6 @@ public class CustomerListController {
         loadDateTable();
         deleteButton.setOnAction(this::deleteCustomerAction);
         updateButton.setOnAction(this::updateCustomerAction);
-        addBookingButton.setOnAction(this::loadBookingDialog);
     }
 
     @FXML

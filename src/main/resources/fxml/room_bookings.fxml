@@ -12,7 +12,7 @@
         <columns>
             <TableColumn fx:id="bookingIdColumn" prefWidth="75.0" text="Booking ID">
                 <cellValueFactory>
-                    <PropertyValueFactory property="Booking ID" />
+                    <PropertyValueFactory property="id" />
                 </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="customerColumn" prefWidth="75.0" text="Customer">
@@ -32,30 +32,30 @@
             </TableColumn>
             <TableColumn fx:id="startDateColumn" prefWidth="75.0" text="Start Date">
                 <cellValueFactory>
-                    <PropertyValueFactory property="Start Date" />
+                    <PropertyValueFactory property="fromDate" />
                 </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="endDateColumn" prefWidth="75.0" text="End Date">
                 <cellValueFactory>
-                    <PropertyValueFactory property="End Date" />
+                    <PropertyValueFactory property="toDate" />
                 </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="paidColumn" prefWidth="75.0" text="Paid">
                 <cellValueFactory>
-                    <PropertyValueFactory property="Paid" />
+                    <PropertyValueFactory property="pay" />
                 </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="noOfPersonsColumn" prefWidth="100.0" text="No of Person">
                 <cellValueFactory>
-                    <PropertyValueFactory property="No of Person" />
+                    <PropertyValueFactory property="numberOfPersons" />
                 </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="paymentColumn" prefWidth="75.0" text="Payment">
                 <cellValueFactory>
-                    <PropertyValueFactory property="Payment" />
+                    <PropertyValueFactory property="payType" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="fullPriceColumn" prefWidth="75.0" text="Full Price">
+            <TableColumn fx:id="fullPriceColumn" prefWidth="75.0" text="fullPrice">
                 <cellValueFactory>
                     <PropertyValueFactory property="Full Price" />
                 </cellValueFactory>
