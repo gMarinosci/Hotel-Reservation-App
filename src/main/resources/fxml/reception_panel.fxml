@@ -21,7 +21,7 @@
                 </JFXRippler>
             </rightItems>
         </JFXToolbar>
-        </VBox>
+    </VBox>
 
     <SplitPane dividerPositions="0.0" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
         <AnchorPane id="MENU" maxWidth="250.0" prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #acacac;">
@@ -42,12 +42,11 @@
                      </StackPane>
                  </graphic>
              </JFXButton>
-         <JFXButton fx:id="addBookingButton" alignment="CENTER_LEFT" buttonType="RAISED" layoutX="15.0" layoutY="111.0" maxHeight="39.0" minHeight="34.0" minWidth="220.0" prefHeight="39.0" prefWidth="220.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Add Booking" textFill="WHITE">
+         <JFXButton fx:id="BookingListButton" alignment="CENTER_LEFT" buttonType="RAISED" layoutX="15.0" layoutY="114.0" maxHeight="39.0" minHeight="34.0" minWidth="220.0" prefHeight="39.0" prefWidth="220.0" ripplerFill="TRANSPARENT" style="-fx-background-color: #0bc76f;" text="Booking List" textFill="WHITE">
             <graphic>
                <StackPane styleClass="custom-jfx-list-view-icon-container">
                   <children>
-                     <FontIcon iconLiteral="fas-id-badge" iconSize="18" styleClass="custom-jfx-list-view-icon" />
-                     <FontIcon iconLiteral="fas-id-badge" iconSize="18" layoutX="10.0" layoutY="26.0" styleClass="custom-jfx-list-view-icon" />
+                     <FontIcon iconLiteral="fas-list-ul" iconSize="18" styleClass="custom-jfx-list-view-icon" />
                   </children>
                </StackPane>
             </graphic>

@@ -44,7 +44,8 @@ public class ReceptionController {
     private JFXHamburger burger;
     @FXML
     private JFXPopup popup;
-
+    @FXML
+    private JFXButton BookingListButton;
 
     @FXML
     void initialize() {
@@ -52,7 +53,7 @@ public class ReceptionController {
         screenTitleText.setText(userView.getScreenTitle());
         customerDetailsButton.setOnAction(this::loadCustomerDetailsControlInDialog);
         addCustomerButton.setOnAction(this::loadAddCustomerControlInDialog);
-        addBookingButton.setOnAction(this::loadAddBookingControlInDialog);
+        BookingListButton.setOnAction(this::loadBookingListInDialog);
     }
     @FXML
     void loadCustomerDetailsControlInDialog(ActionEvent event) {
@@ -76,8 +77,9 @@ public class ReceptionController {
         stage.setScene(scene);
         stage.showAndWait();
     }
-    void loadAddBookingControlInDialog(ActionEvent event) {
-        Scene scene = new Scene(fxWeaver.loadView(BookRoomController.class));
+    @FXML
+    void loadBookingListInDialog(ActionEvent event) {
+        Scene scene = new Scene(fxWeaver.loadView(ViewBookingsController.class));
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
