@@ -114,6 +114,7 @@ public class ViewBookingsController {
     void initialize() {
         loadDateTable();
         setRoomComboBox();
+        refreshButton.setOnAction(this::refreshTableAction);
     }
 
     private void setRoomComboBox(){
@@ -121,8 +122,10 @@ public class ViewBookingsController {
     }
 
     private void refreshTableAction(ActionEvent event){
-    RoomDto selectedRoomDto= roomComboBox.getValue();
-    //List<Booking>
+    RoomDto selectedRoomDto = roomComboBox.getValue();
+    List<BookingDto> bookingDtoList = bookingService.getBookingListByRoomId(selectedRoomDto.getId());
+    data = FXCollections.observableArrayList(bookingDtoList);
+    bookingDtoTableView.setItems(data);
     }
 
 }
