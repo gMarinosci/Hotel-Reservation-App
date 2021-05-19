@@ -25,7 +25,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @Component
-@FxmlView("room_bookings.fxml")
+@FxmlView("/fxml/room_bookings.fxml")
 public class ViewBookingsController {
 
     private BookingService bookingService;

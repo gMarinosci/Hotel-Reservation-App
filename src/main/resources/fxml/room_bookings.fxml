@@ -8,7 +8,7 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="1258.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.ViewBookingsController">
    <children>
-      <TableView layoutX="211.0" layoutY="63.0" prefHeight="500.0" prefWidth="925.0">
+      <TableView fx:id ="bookingDtoTableView" layoutX="211.0" layoutY="63.0" prefHeight="500.0" prefWidth="925.0">
         <columns>
             <TableColumn fx:id="bookingIdColumn" prefWidth="75.0" text="Booking ID">
                 <cellValueFactory>

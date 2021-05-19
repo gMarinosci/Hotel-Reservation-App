@@ -8,20 +8,20 @@
 
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.ReceptionController">
 
-<!--    <VBox spacing="20" styleClass="header-panel">-->
-<!--        <JFXToolbar>-->
-<!--            <leftItems>-->
-<!--                <Label styleClass="header-text" fx:id="screenTitleText" />-->
-<!--            </leftItems>-->
-<!--            <rightItems>-->
-<!--                <JFXRippler style="-fx-padding:15;-fx-background-color: white;" fx:id="rippler" maskType="CIRCLE"-->
-<!--                            AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">-->
-<!--                    <JFXHamburger fx:id="burger" onMouseClicked="#loadPopup" style="-fx-padding:15;-fx-background-color: white;">-->
-<!--                    </JFXHamburger>-->
-<!--                </JFXRippler>-->
-<!--            </rightItems>-->
-<!--        </JFXToolbar>-->
-<!--    </VBox>-->
+    <VBox spacing="20" styleClass="header-panel">
+        <JFXToolbar>
+            <leftItems>
+                <Label styleClass="header-text" fx:id="screenTitleText" />
+            </leftItems>
+            <rightItems>
+                <JFXRippler style="-fx-padding:15;-fx-background-color: white;" fx:id="rippler" maskType="CIRCLE"
+                            AnchorPane.rightAnchor="100.0" AnchorPane.topAnchor="100.0">
+                    <JFXHamburger fx:id="burger" onMouseClicked="#loadPopup" style="-fx-padding:15;-fx-background-color: white;">
+                    </JFXHamburger>
+                </JFXRippler>
+            </rightItems>
+        </JFXToolbar>
+    </VBox>
 
     <SplitPane dividerPositions="0.0" focusTraversable="true" nodeOrientation="LEFT_TO_RIGHT" VBox.vgrow="ALWAYS">
         <AnchorPane id="MENU" maxWidth="250.0" prefHeight="600.0" prefWidth="250.0" style="-fx-background-color: #acacac;">
