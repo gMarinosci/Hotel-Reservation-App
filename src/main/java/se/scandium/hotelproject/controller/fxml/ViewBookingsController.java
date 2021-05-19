@@ -6,10 +6,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Window;
@@ -18,6 +15,7 @@ import net.rgielen.fxweaver.core.FxmlView;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import se.scandium.hotelproject.dto.BookingDto;
+import se.scandium.hotelproject.dto.RoomDto;
 import se.scandium.hotelproject.entity.Booking;
 import se.scandium.hotelproject.exception.RecordNotFoundException;
 import se.scandium.hotelproject.service.BookingService;
@@ -35,11 +33,13 @@ public class ViewBookingsController {
     private BookingDto selectedBookingDto;
     private List<BookingDto> bookingDtoList;
     private ObservableList<BookingDto> data;
+    private RoomService roomService;
 
     @Autowired
-    public ViewBookingsController(FxWeaver fxWeaver, BookingService bookingService) {
+    public ViewBookingsController(FxWeaver fxWeaver, BookingService bookingService, RoomService roomService) {
         this.fxWeaver = fxWeaver;
         this.bookingService = bookingService;
+        this.roomService = roomService;
     }
 
     @FXML
@@ -68,6 +68,11 @@ public class ViewBookingsController {
     private TableColumn<BookingDto, Boolean> breakfastColumn;
     @FXML
     private TableColumn<BookingDto, Boolean> lunchColumn;
+    @FXML
+    private JFXButton refreshButton;
+    @FXML
+    private ComboBox<RoomDto> roomComboBox;
+
 
 
     private void loadDateTable() {
@@ -108,6 +113,16 @@ public class ViewBookingsController {
     @FXML
     void initialize() {
         loadDateTable();
+        setRoomComboBox();
+    }
+
+    private void setRoomComboBox(){
+    roomComboBox.getItems().addAll(roomService.getAll());
+    }
+
+    private void refreshTableAction(ActionEvent event){
+    RoomDto selectedRoomDto= roomComboBox.getValue();
+    //List<Booking>
     }
 
 }

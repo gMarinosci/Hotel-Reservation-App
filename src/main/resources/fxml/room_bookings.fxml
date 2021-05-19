@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
@@ -80,6 +81,7 @@
              </Label>
          </children>
       </AnchorPane>
-      <ComboBox layoutX="54.0" layoutY="63.0" prefWidth="150.0" promptText="Select a room" />
+      <ComboBox fx:id="roomComboBox" layoutX="54.0" layoutY="63.0" prefWidth="150.0" promptText="Select a room" />
+      <JFXButton fx:id="refreshButton" layoutX="54.0" layoutY="538.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #0bc76f;" text="Refresh" />
    </children>
 </AnchorPane>
