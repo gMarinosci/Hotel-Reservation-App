@@ -1,25 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.control.cell.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="700.0" prefWidth="1258.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="fxml.RoomBookings">
+<AnchorPane prefHeight="700.0" prefWidth="1258.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.ViewBookingsController">
    <children>
       <TableView layoutX="211.0" layoutY="63.0" prefHeight="500.0" prefWidth="925.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Booking ID" />
-          <TableColumn prefWidth="75.0" text="Customer" />
-            <TableColumn prefWidth="75.0" text="Room ID" />
-            <TableColumn prefWidth="75.0" text="Customer" />
-            <TableColumn prefWidth="75.0" text="Start Date" />
-            <TableColumn prefWidth="75.0" text="End Date" />
-            <TableColumn prefWidth="75.0" text="Paid" />
-            <TableColumn prefWidth="100.0" text="No of Person" />
-            <TableColumn prefWidth="75.0" text="Payment" />
-            <TableColumn prefWidth="75.0" text="Full Price" />
-            <TableColumn prefWidth="75.0" text="Breakfast" />
-            <TableColumn prefWidth="75.0" text="Lunch" />
+            <TableColumn fx:id="bookingIdColumn" prefWidth="75.0" text="Booking ID">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Booking ID" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="customerColumn" prefWidth="75.0" text="Customer">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Customer" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="roomIdColumn" prefWidth="75.0" text="Room ID">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Room ID" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="reservedColumn" prefWidth="75.0" text="Reserved">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Reserved" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="startDateColumn" prefWidth="75.0" text="Start Date">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Start Date" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="endDateColumn" prefWidth="75.0" text="End Date">
+                <cellValueFactory>
+                    <PropertyValueFactory property="End Date" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="paidColumn" prefWidth="75.0" text="Paid">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Paid" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="noOfPersonsColumn" prefWidth="100.0" text="No of Person">
+                <cellValueFactory>
+                    <PropertyValueFactory property="No of Person" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="paymentColumn" prefWidth="75.0" text="Payment">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Payment" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="fullPriceColumn" prefWidth="75.0" text="Full Price">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Full Price" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="breakfastColumn" prefWidth="75.0" text="Breakfast">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Breakfast" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="lunchColumn" prefWidth="75.0" text="Lunch">
+                <cellValueFactory>
+                    <PropertyValueFactory property="Lunch" />
+                </cellValueFactory>
+            </TableColumn>
         </columns>
       </TableView>
       <AnchorPane prefHeight="63.0" prefWidth="1258.0" style="-fx-background-color: #424242;">
