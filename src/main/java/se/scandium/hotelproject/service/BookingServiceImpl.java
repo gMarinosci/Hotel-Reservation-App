@@ -75,7 +75,7 @@ public class BookingServiceImpl implements BookingService {
     @Transactional
     public BookingDto update(BookingDto bookingDto) throws RecordNotFoundException {
         if (bookingDto == null) throw new ArgumentInvalidException("booking should not be null");
-        if (bookingDto.getId() == 0) throw new ArgumentInvalidException("bookingId should not be zero or null");
+        //if (bookingDto.getId() == 0) throw new ArgumentInvalidException("bookingId should not be zero or null");
 
         if (bookingDto.getCustomer() == null) throw new ArgumentInvalidException("customer should not be null");
         if (bookingDto.getCustomer().getId() == 0)
@@ -96,9 +96,9 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = bookingConverter.convertDtoToBooking(bookingDto);
         bookingRepository.resetBookingDate(bookingDto.getId());
         // check booking dates
-        List<Booking> result = bookingRepository.findAllByStatusFalseAndToDateGreaterThanAndRoomId(booking.getFromDate(), booking.getRoom().getId());
+        //List<Booking> result = bookingRepository.findAllByStatusFalseAndToDateGreaterThanAndRoomId(booking.getFromDate(), booking.getRoom().getId());
 
-        if (result.size() != 0) throw new ArgumentInvalidException("booking date is not valid");
+        //if (result.size() != 0) throw new ArgumentInvalidException("booking date is not valid");
         booking.setBookingDays(booking.createBookingDays());
         booking.setFullPrice(booking.calcFullPrice());
         Booking savedBooking = bookingRepository.save(booking);

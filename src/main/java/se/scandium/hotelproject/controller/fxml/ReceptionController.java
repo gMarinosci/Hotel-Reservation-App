@@ -37,6 +37,8 @@ public class ReceptionController {
     @FXML
     private JFXButton addCustomerButton;
     @FXML
+    private JFXButton addBookingButton;
+    @FXML
     private JFXRippler rippler;
     @FXML
     private JFXHamburger burger;

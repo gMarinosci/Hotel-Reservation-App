@@ -46,7 +46,7 @@ public class AdminController {
     private JFXRippler rippler;
     @FXML
     private JFXHamburger burger;
-
+    @FXML
     private JFXPopup popup;
 
 

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="595.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="se.scandium.hotelproject.controller.fxml.BookRoomController">
+    <children>
+        <AnchorPane layoutY="-6.0" prefHeight="63.0" prefWidth="700.0" style="-fx-background-color: #424242;">
+            <children>
+                <Label alignment="CENTER" layoutX="269.0" layoutY="11.0" prefHeight="41.0" prefWidth="163.0" text="Add Booking" textFill="WHITE">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+            </children>
+        </AnchorPane>
+        <VBox layoutX="134.0" layoutY="77.0" prefHeight="518.0" prefWidth="433.0" spacing="5.0" style="-fx-padding: 10px;">
+            <children>
+            <JFXComboBox fx:id="CustomerComboBox" focusColor="#9a0007" layoutX="20.0" layoutY="20.0" prefHeight="34.0" prefWidth="510.0" promptText="Customers" style="-fx-font-size: 14px;" unFocusColor="#424242" />
+                <JFXComboBox fx:id="RoomComboBox" focusColor="#9a0007" prefHeight="34.0" prefWidth="510.0" promptText="Available room" style="-fx-font-size: 14px;" unFocusColor="#424242" />
+            <JFXTextField fx:id="NumberOfPeopleField" focusColor="#9a0007" layoutX="20.0" layoutY="176.0" prefHeight="34.0" prefWidth="329.0" promptText="Number of Customers" unFocusColor="#424242">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </JFXTextField>
+            <SplitPane dividerPositions="0.5012165450121655" prefHeight="31.0" prefWidth="418.0">
+               <items>
+                  <DatePicker fx:id="fromDatePicker" prefHeight="25.0" prefWidth="205.0" promptText="From" />
+                  <DatePicker fx:id="toDatePicker" prefHeight="25.0" prefWidth="205.0" promptText="To" />
+               </items>
+            </SplitPane>
+            <HBox prefHeight="36.0" prefWidth="413.0">
+               <children>
+                  <Label fx:id="breakfastLabel" prefHeight="36.0" prefWidth="71.0" text="Breakfast">
+                     <font>
+                        <Font size="14.0" />
+                     </font></Label>
+                  <CheckBox fx:id="bfCheckBox" mnemonicParsing="false" prefHeight="36.0" prefWidth="148.0" text="Yes">
+                     <font>
+                        <Font size="14.0" />
+                     </font></CheckBox>
+               </children>
+            </HBox>
+            <HBox layoutX="20.0" layoutY="134.0" prefHeight="36.0" prefWidth="413.0">
+               <children>
+                  <Label fx:id="lunchLabel" prefHeight="36.0" prefWidth="71.0" text="Lunch">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <CheckBox fx:id="lnCheckBox" mnemonicParsing="false" prefHeight="36.0" prefWidth="148.0" text="Yes">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </CheckBox>
+               </children>
+            </HBox>
+            <JFXComboBox fx:id="payTypeComboBox" focusColor="#9a0007" layoutX="20.0" layoutY="98.0" prefHeight="34.0" prefWidth="510.0" promptText="Payment Type" style="-fx-font-size: 14px;" unFocusColor="#424242" />
+            <SplitPane dividerPositions="0.6958637469586375" prefHeight="37.0" prefWidth="413.0">
+               <items>
+                  <Label fx:id="priceLabel" prefHeight="57.0" prefWidth="411.0" text="Total Amount ">
+                     <font>
+                        <Font size="14.0" />
+                     </font>
+                  </Label>
+                  <Button fx:id="calculateButton" mnemonicParsing="false" prefHeight="25.0" prefWidth="187.0" text="Calculate" />
+               </items>
+            </SplitPane>
+                
+                <JFXButton fx:id="addButton" prefHeight="41.0" prefWidth="413.0" style="-fx-background-color: #0bc76f;-fx-font-weight: bold;-fx-font-size: 14px;" text="Save" textFill="#f8f7f7" />
+            <VBox prefHeight="33.0" prefWidth="413.0" />
+            </children>
+            <padding>
+                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+            </padding>
+        </VBox>
+
+    </children>
+
+</AnchorPane>

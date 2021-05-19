@@ -5,12 +5,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import net.rgielen.fxweaver.core.FxWeaver;
 import net.rgielen.fxweaver.core.FxmlView;
@@ -89,7 +92,7 @@ public class CustomerListController {
     @FXML
     private JFXButton updateButton;
     @FXML
-    private ToggleGroup group;
+    private JFXButton addBookingButton;
 
     private void loadDateTable() {
         customerDtoList = customerService.getAll();
@@ -130,10 +133,19 @@ public class CustomerListController {
     @FXML
     void initialize() {
         setGender();
-        group = new ToggleGroup();
         loadDateTable();
         deleteButton.setOnAction(this::deleteCustomerAction);
         updateButton.setOnAction(this::updateCustomerAction);
+        addBookingButton.setOnAction(this::loadBookingDialog);
+    }
+
+    @FXML
+    private void loadBookingDialog(ActionEvent event) {
+        Scene scene = new Scene(fxWeaver.loadView(BookRoomController.class));
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.showAndWait();
     }
 
     private void setSelectedDataToUpdateForm() {
@@ -147,7 +159,6 @@ public class CustomerListController {
             zipCodeField.setText(selectedCustomerDto.getZipCode());
         }
     }
-
 
     private void updateCustomerAction(ActionEvent event) {
         if (validateAndBuildCustomerData()) {
@@ -294,4 +305,8 @@ public class CustomerListController {
         alert.initOwner(owner);
         alert.show();
     }
+
+
 }
+
+
