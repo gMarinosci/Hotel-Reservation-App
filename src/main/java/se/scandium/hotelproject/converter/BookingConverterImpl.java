@@ -70,6 +70,7 @@ public class BookingConverterImpl implements BookingConverter {
             booking.setNumberOfPersons(dto.getNumberOfPersons());
             booking.setFullPrice(dto.getFullPrice());
             booking.setBookingDays(dto.getBookingDays());
+            booking.setPayType(dto.getPayType());
 
             CustomerDto customerDto = dto.getCustomer();
             if (customerDto != null) {

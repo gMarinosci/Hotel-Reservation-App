@@ -96,9 +96,9 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = bookingConverter.convertDtoToBooking(bookingDto);
         bookingRepository.resetBookingDate(bookingDto.getId());
         // check booking dates
-        List<Booking> result = bookingRepository.findAllByStatusFalseAndToDateGreaterThanAndRoomId(booking.getFromDate(), booking.getRoom().getId());
+        //List<Booking> result = bookingRepository.findAllByStatusFalseAndToDateGreaterThanAndRoomId(booking.getFromDate(), booking.getRoom().getId());
 
-        if (result.size() != 0) throw new ArgumentInvalidException("booking date is not valid");
+        //if (result.size() != 0) throw new ArgumentInvalidException("booking date is not valid");
         booking.setBookingDays(booking.createBookingDays());
         booking.setFullPrice(booking.calcFullPrice());
         Booking savedBooking = bookingRepository.save(booking);

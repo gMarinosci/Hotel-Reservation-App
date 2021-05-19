@@ -76,6 +76,7 @@ public class BookRoomController {
     private JFXButton addButton;
     @FXML
     private Text errorText;
+
     @FXML
     void initialize() {
         bookingDto = new BookingDto();
@@ -90,11 +91,12 @@ public class BookRoomController {
         if (validateAndBuildData()) {
             try {
                 BookingDto savedBookingDto = bookingService.update(bookingDto);
+                resetForm();
                 System.out.println(savedBookingDto);
             } catch (RecordNotFoundException e) {
                 e.printStackTrace();
                 errorText.setText("BookingNotFoundException");
-                showAlert(Alert.AlertType.ERROR, addButton.getScene().getWindow(), "Error!", "UserNotFoundException");
+                showAlert(Alert.AlertType.ERROR, addButton.getScene().getWindow(), "Error!", "BookingFoundException");
             }
         }
     }
@@ -147,7 +149,7 @@ public class BookRoomController {
             return false;
         }
         bookingDto.setPayType(payType);
-
+        System.out.println(bookingDto.getPayType());
         //Double finalPrice = booking.calcFullPrice();
         //priceLabel.setText("Final Price:" + (Double.toString(finalPrice)));
 
@@ -176,7 +178,19 @@ public class BookRoomController {
         bookingDto.setFromDate(fromDate);
         bookingDto.setToDate(toDate);
         bookingDto.setFullPrice(bookingDto.calcFullPrice());
-        priceLabel.setText("Final Price: " + Double.toString(bookingDto.getFullPrice()));
+        priceLabel.setText("Total Amount: " + Double.toString(bookingDto.getFullPrice()));
+    }
+
+    private void resetForm() {
+        CustomerComboBox.setItems(null);
+        RoomComboBox.setItems(null);
+        fromDatePicker.setValue(null);
+        toDatePicker.setValue(null);
+        NumberOfPeopleField.setText(null);
+        lnCheckBox.setSelected(false);
+        bfCheckBox.setSelected(false);
+        payTypeComboBox.setItems(null);
+        priceLabel.setText("Total Amount: ");
     }
 
     private void showAlert(Alert.AlertType alertType, Window owner, String title, String message) {
