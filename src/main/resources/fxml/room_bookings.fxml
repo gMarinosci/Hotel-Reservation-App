@@ -15,21 +15,36 @@
                     <PropertyValueFactory property="id" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="customerColumn" prefWidth="75.0" text="Customer">
+<!--            <TableColumn fx:id="customerColumn" prefWidth="75.0" text="Customer">-->
+<!--                <cellValueFactory>-->
+<!--                    <PropertyValueFactory property="Customer" />-->
+<!--                </cellValueFactory>-->
+<!--            </TableColumn>-->
+            <TableColumn fx:id="customerFirstNameColumn" prefWidth="75.0" text="First Name">
                 <cellValueFactory>
-                    <PropertyValueFactory property="Customer" />
+                    <PropertyValueFactory property="firstName" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="roomIdColumn" prefWidth="75.0" text="Room ID">
+            <TableColumn fx:id="customerLastNameColumn" prefWidth="75.0" text="Last Name">
                 <cellValueFactory>
-                    <PropertyValueFactory property="Room ID" />
+                    <PropertyValueFactory property="lastName" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="reservedColumn" prefWidth="75.0" text="Reserved">
+<!--            <TableColumn fx:id="roomIdColumn" prefWidth="75.0" text="Room ID">-->
+<!--                <cellValueFactory>-->
+<!--                    <PropertyValueFactory property="room" />-->
+<!--                </cellValueFactory>-->
+<!--            </TableColumn>-->
+            <TableColumn fx:id="roomTypeColumn" prefWidth="75.0" text="Room Type">
                 <cellValueFactory>
-                    <PropertyValueFactory property="Reserved" />
+                    <PropertyValueFactory property="roomType" />
                 </cellValueFactory>
             </TableColumn>
+<!--            <TableColumn fx:id="reservedColumn" prefWidth="75.0" text="Reserved">-->
+<!--                <cellValueFactory>-->
+<!--                    <PropertyValueFactory property="status" />-->
+<!--                </cellValueFactory>-->
+<!--            </TableColumn>-->
             <TableColumn fx:id="startDateColumn" prefWidth="75.0" text="Start Date">
                 <cellValueFactory>
                     <PropertyValueFactory property="fromDate" />
@@ -45,29 +60,29 @@
                     <PropertyValueFactory property="pay" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="noOfPersonsColumn" prefWidth="100.0" text="No of Person">
+            <TableColumn fx:id="noOfPersonsColumn" prefWidth="100.0" text="No of Persons">
                 <cellValueFactory>
                     <PropertyValueFactory property="numberOfPersons" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="paymentColumn" prefWidth="75.0" text="Payment">
+            <TableColumn fx:id="paymentColumn" prefWidth="100.0" text="Payment">
                 <cellValueFactory>
                     <PropertyValueFactory property="payType" />
                 </cellValueFactory>
             </TableColumn>
             <TableColumn fx:id="fullPriceColumn" prefWidth="75.0" text="fullPrice">
                 <cellValueFactory>
-                    <PropertyValueFactory property="Full Price" />
+                    <PropertyValueFactory property="fullPrice" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="breakfastColumn" prefWidth="75.0" text="Breakfast">
+            <TableColumn fx:id="breakfastColumn" prefWidth="50.0" text="Breakfast">
                 <cellValueFactory>
-                    <PropertyValueFactory property="Breakfast" />
+                    <PropertyValueFactory property="breakfast" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="lunchColumn" prefWidth="75.0" text="Lunch">
+            <TableColumn fx:id="lunchColumn" prefWidth="50.0" text="Lunch">
                 <cellValueFactory>
-                    <PropertyValueFactory property="Lunch" />
+                    <PropertyValueFactory property="lunch" />
                 </cellValueFactory>
             </TableColumn>
         </columns>

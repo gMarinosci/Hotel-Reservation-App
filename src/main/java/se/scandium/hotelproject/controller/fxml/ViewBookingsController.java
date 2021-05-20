@@ -2,6 +2,7 @@ package se.scandium.hotelproject.controller.fxml;
 
 import com.jfoenix.controls.*;
 import com.sun.prism.shader.AlphaOne_Color_AlphaTest_Loader;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -49,7 +50,11 @@ public class ViewBookingsController {
     @FXML
     private TableColumn<BookingDto, String> customerColumn;
     @FXML
+    private TableColumn<BookingDto, String> customerNameColumn;
+    @FXML
     private TableColumn<BookingDto, Integer> roomIdColumn;
+    @FXML
+    private TableColumn<BookingDto, String> roomTypeColumn;
     @FXML
     private TableColumn<BookingDto, Boolean> reservedColumn;
     @FXML
@@ -61,7 +66,7 @@ public class ViewBookingsController {
     @FXML
     private TableColumn<BookingDto, Integer> noOfPersonsColumn;
     @FXML
-    private TableColumn<BookingDto, String> paymentColumn;
+    private TableColumn<BookingDto, Integer> paymentColumn;
     @FXML
     private TableColumn<BookingDto, Double> fullPriceColumn;
     @FXML
@@ -80,26 +85,35 @@ public class ViewBookingsController {
         // Create table columns
         bookingIdColumn = new TableColumn<>("Booking ID");
         customerColumn = new TableColumn<>("Customer");
+        customerNameColumn = new TableColumn<>("Customer Name");
         roomIdColumn = new TableColumn<>("Room ID");
+        roomTypeColumn = new TableColumn<>("Room ID");
         reservedColumn = new TableColumn<>("Reserved");
         startDateColumn = new TableColumn<>("Start Date");
         endDateColumn = new TableColumn<>("End Date");
         paidColumn = new TableColumn<>("Paid");
         noOfPersonsColumn = new TableColumn<>("No of Persons");
-        paymentColumn = new TableColumn<>("Payment");
+        paymentColumn = new TableColumn<>("Pay Method");
         fullPriceColumn = new TableColumn<>("Full Price");
         breakfastColumn = new TableColumn<>("Breakfast");
         lunchColumn = new TableColumn<>("Lunch");
 
         bookingIdColumn.setCellValueFactory(new PropertyValueFactory<>("Booking ID"));
         customerColumn.setCellValueFactory(new PropertyValueFactory<>("Customer"));
+        customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("Customer Name"));
         roomIdColumn.setCellValueFactory(new PropertyValueFactory<>("Room ID"));
+        roomTypeColumn.setCellValueFactory(new PropertyValueFactory<>("Room Type"));
+//        roomIdColumn.setCellValueFactory(cellData -> {
+//
+//            final String roomType = cellData.getValue().getRoom().getType().name();
+//            return new SimpleStringProperty(roomType);
+//        });
         reservedColumn.setCellValueFactory(new PropertyValueFactory<>("Reserved"));
         startDateColumn.setCellValueFactory(new PropertyValueFactory<>("Start Date"));
         endDateColumn.setCellValueFactory(new PropertyValueFactory<>("End Date"));
         paidColumn.setCellValueFactory(new PropertyValueFactory<>("Paid"));
         noOfPersonsColumn.setCellValueFactory(new PropertyValueFactory<>("No of Persons"));
-        paymentColumn.setCellValueFactory(new PropertyValueFactory<>("Payment"));
+        paymentColumn.setCellValueFactory(new PropertyValueFactory<>("Pay Method"));
         fullPriceColumn.setCellValueFactory(new PropertyValueFactory<>("Full Price"));
         breakfastColumn.setCellValueFactory(new PropertyValueFactory<>("Breakfast"));
         lunchColumn.setCellValueFactory(new PropertyValueFactory<>("Lunch"));

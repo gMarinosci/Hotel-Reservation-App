@@ -7,6 +7,7 @@ import se.scandium.hotelproject.dto.CustomerDto;
 import se.scandium.hotelproject.dto.RoomDto;
 import se.scandium.hotelproject.entity.Booking;
 import se.scandium.hotelproject.entity.Customer;
+import se.scandium.hotelproject.entity.PayType;
 import se.scandium.hotelproject.entity.Room;
 
 @Component
@@ -37,18 +38,21 @@ public class BookingConverterImpl implements BookingConverter {
             dto.setBreakfast(booking.isBreakfast());
             dto.setLunch(booking.isLunch());
             dto.setPay(booking.isPay());
+            dto.setPayType(booking.getPayType());
             dto.setNumberOfPersons(booking.getNumberOfPersons());
             dto.setFullPrice(booking.getFullPrice());
             dto.setBookingDays(booking.getBookingDays());
 
             Customer customer = booking.getCustomer();
             if (customer != null) {
+                dto.setLastName(customer.getLastName());
+                dto.setFirstName(customer.getFirstName());
                 dto.setCustomer(customerConverter.convertEntityToDto(customer));
             }
-
             Room room = booking.getRoom();
             if (room != null) {
                 dto.setRoom(roomConverter.convertEntityToDto(room));
+                dto.setRoomType(room.getType().name());
             }
 
         }
@@ -70,7 +74,9 @@ public class BookingConverterImpl implements BookingConverter {
             booking.setNumberOfPersons(dto.getNumberOfPersons());
             booking.setFullPrice(dto.getFullPrice());
             booking.setBookingDays(dto.getBookingDays());
+           //// booking.setPayType(dto.cast(PayType)dto.getPayType());\
             booking.setPayType(dto.getPayType());
+
 
             CustomerDto customerDto = dto.getCustomer();
             if (customerDto != null) {

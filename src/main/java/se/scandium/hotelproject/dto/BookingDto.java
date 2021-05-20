@@ -24,9 +24,13 @@ public class BookingDto {
     private int numberOfPersons;
     private double fullPrice;
     private CustomerDto customer;
+    private String lastName;
+    private String firstName;
     private RoomDto room;
     private boolean status;
     private List<LocalDate> bookingDays;
+    private String paymentMethod;
+    private String roomType;
 
     public List<LocalDate> createBookingDays() {
         long noOfDaysBetween = ChronoUnit.DAYS.between(fromDate, toDate);
