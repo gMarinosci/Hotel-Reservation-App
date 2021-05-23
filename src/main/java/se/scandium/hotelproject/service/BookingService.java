@@ -3,6 +3,7 @@ package se.scandium.hotelproject.service;
 import se.scandium.hotelproject.dto.BookingDto;
 import se.scandium.hotelproject.dto.RoomDto;
 import se.scandium.hotelproject.entity.Room;
+import se.scandium.hotelproject.entity.RoomType;
 import se.scandium.hotelproject.exception.RecordNotFoundException;
 
 import java.time.LocalDate;
@@ -35,5 +36,6 @@ public interface BookingService {
     //As a reception staff, I can see all the bookings for a specific day
     List<BookingDto> getBookingListBySpecificDay(LocalDate fromDate, LocalDate toDate);
 
+    List<RoomDto> getAvailableRooms (LocalDate fromDate, LocalDate toDate, RoomType roomType);
 
 }
