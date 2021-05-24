@@ -38,7 +38,6 @@ public class BookRoomController {
     private final RoomService roomService;
     private final FxWeaver fxWeaver;
     private BookingDto bookingDto;
-    private Booking booking;
 
     @Autowired
     public BookRoomController(BookingService bookingService,CustomerService customerService, RoomService roomService, FxWeaver fxWeaver) {

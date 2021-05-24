@@ -90,7 +90,7 @@ public class ReceptionController {
     }
 
     void loadAddBookingInDialog(ActionEvent event) {
-        Scene scene = new Scene(fxWeaver.loadView(BookRoomController.class));
+        Scene scene = new Scene(fxWeaver.loadView(BookingController.class));
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);

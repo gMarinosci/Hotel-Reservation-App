@@ -136,10 +136,10 @@ public class ViewBookingsController {
     }
 
     private void refreshTableAction(ActionEvent event){
-    RoomDto selectedRoomDto = roomComboBox.getValue();
-    List<BookingDto> bookingDtoList = bookingService.getBookingListByRoomId(selectedRoomDto.getId());
-    data = FXCollections.observableArrayList(bookingDtoList);
-    bookingDtoTableView.setItems(data);
+        RoomDto selectedRoomDto = roomComboBox.getValue();
+        List<BookingDto> bookingDtoList = bookingService.getBookingListByRoomId(selectedRoomDto.getId());
+        data = FXCollections.observableArrayList(bookingDtoList);
+        bookingDtoTableView.setItems(data);
     }
 
 }

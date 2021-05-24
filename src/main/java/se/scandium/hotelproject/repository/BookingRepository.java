@@ -4,7 +4,10 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import se.scandium.hotelproject.dto.RoomDto;
 import se.scandium.hotelproject.entity.Booking;
+import se.scandium.hotelproject.entity.Room;
+import se.scandium.hotelproject.entity.RoomType;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -37,4 +40,7 @@ public interface BookingRepository extends CrudRepository<Booking, Integer> {
     @Query("UPDATE Booking b SET b.fromDate = null, b.toDate = null WHERE b.id = :id and b.status = false")
     void resetBookingDate(@Param("id") int id);
 
+    @Modifying(clearAutomatically = true)
+    @Query("select distinct b.room from Booking b where b.room.type = :roomType and ((b.fromDate <= :toDate) and (b.toDate >= :fromDate))")
+    List<Room> findAllUnavailableRooms(@Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate, @Param("roomType")RoomType roomType);
 }

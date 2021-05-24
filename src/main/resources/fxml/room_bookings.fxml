@@ -70,7 +70,7 @@
                     <PropertyValueFactory property="payType" />
                 </cellValueFactory>
             </TableColumn>
-            <TableColumn fx:id="fullPriceColumn" prefWidth="75.0" text="fullPrice">
+            <TableColumn fx:id="fullPriceColumn" prefWidth="75.0" text="FullPrice">
                 <cellValueFactory>
                     <PropertyValueFactory property="fullPrice" />
                 </cellValueFactory>

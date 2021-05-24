@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="815.0" prefWidth="1362.0" xmlns="http://javafx.com/javafx/16"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="se.scandium.hotelproject.controller.fxml.BookingController">
+    <AnchorPane layoutY="-6.0" prefHeight="63.0" prefWidth="1362.0" style="-fx-background-color: #424242;">
+        <Label fx:id="screenLabel" alignment="CENTER" layoutX="572.0" layoutY="12.0" prefHeight="41.0"
+               prefWidth="163.0" text="Booking Info" textFill="WHITE">
+            <font>
+                <Font size="24.0"/>
+            </font>
+        </Label>
+    </AnchorPane>
+    <VBox layoutX="43.0" layoutY="68.0" prefHeight="585.0" prefWidth="475.0">
+        <AnchorPane prefHeight="584.0" prefWidth="475.0">
+            <children>
+                <TabPane layoutX="138.0" layoutY="128.0" prefHeight="475.0" prefWidth="475.0"
+                         tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="128.0" AnchorPane.leftAnchor="0.0"
+                         AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <tabs>
+                        <Tab fx:id="customerInfoTab" text="Customer Info">
+                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="606.0" prefWidth="475.0">
+                                <Label fx:id="personalInfoLabel" layoutX="167.0" layoutY="23.0"
+                                       prefHeight="20.0" prefWidth="142.0" text="Personal Information">
+                                    <font>
+                                        <Font size="16.0"/>
+                                    </font>
+                                </Label>
+                                <VBox layoutX="50.0" layoutY="63.0" prefHeight="110.0" prefWidth="376.0"
+                                      spacing="15.0">
+                                    <TextField id="firstNameText" fx:id="firstNameText"
+                                               promptText="First Name"/>
+                                    <TextField id="lastNameText" fx:id="lastNameText"
+                                               promptText="Last Name"/>
+                                    <Pane prefHeight="22.0" prefWidth="376.0">
+                                        <DatePicker id="dateOfBirth" fx:id="birthPicker"
+                                                    layoutY="-1.0" prefHeight="25.0"
+                                                    prefWidth="163.0" promptText="Date of Birth"/>
+                                        <ComboBox id="genderComboBox" fx:id="genderComboBox"
+                                                  layoutX="213.0" layoutY="-1.0" prefHeight="25.0"
+                                                  prefWidth="163.0" promptText="Gender"/>
+                                    </Pane>
+                                </VBox>
+                                <Label fx:id="addressLabel" layoutX="183.0" layoutY="197.0"
+                                       prefHeight="20.0" prefWidth="110.0" text="Address Details">
+                                    <font>
+                                        <Font size="16.0"/>
+                                    </font>
+                                </Label>
+                                <VBox layoutX="50.0" layoutY="230.0" prefHeight="110.0" prefWidth="376.0"
+                                      spacing="15.0">
+                                    <TextField id="streetText" fx:id="streetText" promptText="Street"/>
+                                    <TextField id="cityText" fx:id="cityText" promptText="City"/>
+                                    <Pane prefHeight="22.0" prefWidth="376.0">
+                                        <children>
+                                            <TextField id="countryText" fx:id="countryText"
+                                                       layoutY="-1.0" prefHeight="25.0"
+                                                       prefWidth="203.0" promptText="Country"/>
+                                            <TextField id="zipCodeText" fx:id="zipCodeText"
+                                                       layoutX="230.0" layoutY="-1.0" prefHeight="25.0"
+                                                       prefWidth="145.0" promptText="Zip  Code"/>
+                                        </children>
+                                    </Pane>
+                                </VBox>
+                            </AnchorPane>
+                        </Tab>
+                        <Tab fx:id="bookingInfoTab" text="Booking Details">
+                            <content>
+                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="542.0" prefWidth="475.0">
+                                    <VBox layoutX="64.0" layoutY="64.0" prefHeight="240.0" prefWidth="348.0"
+                                          spacing="15.0">
+                                        <Pane prefHeight="30.0" prefWidth="348.0">
+                                            <DatePicker fx:id="fromDatePicker" layoutY="4.0"
+                                                        prefHeight="25.0" prefWidth="163.0"
+                                                        promptText="From"/>
+                                            <DatePicker fx:id="toDatePicker" layoutX="185.0"
+                                                        layoutY="4.0" prefHeight="25.0"
+                                                        prefWidth="163.0" promptText="To"/>
+                                        </Pane>
+                                        <TextField fx:id="peopleText" promptText="Number of People"/>
+                                        <ComboBox fx:id="payTypeComboBox" prefHeight="25.0"
+                                                  prefWidth="349.0" promptText="Payment Type"/>
+                                        <Pane layoutX="10.0" layoutY="10.0" prefHeight="30.0"
+                                              prefWidth="348.0">
+                                            <children>
+                                                <Label fx:id="lunchLabel" layoutY="8.0" prefHeight="18.0"
+                                                       prefWidth="61.0" text="Lunch">
+                                                    <font>
+                                                        <Font size="14.0"/>
+                                                    </font>
+                                                </Label>
+                                                <CheckBox fx:id="lnCheckBox" layoutX="93.0" layoutY="8.0"
+                                                          mnemonicParsing="false" text="Yes"/>
+                                            </children>
+                                        </Pane>
+                                        <Pane layoutX="10.0" layoutY="95.0" prefHeight="30.0"
+                                              prefWidth="348.0">
+                                            <Label fx:id="breakfastLabel" layoutY="8.0"
+                                                   prefHeight="18.0" prefWidth="61.0" text="Breakfast">
+                                                <font>
+                                                    <Font size="14.0"/>
+                                                </font>
+                                            </Label>
+                                            <CheckBox fx:id="bfCheckBox" layoutX="93.0" layoutY="8.0"
+                                                      mnemonicParsing="false" text="Yes"/>
+                                        </Pane>
+                                    </VBox>
+                                </AnchorPane>
+                            </content>
+                        </Tab>
+                    </tabs>
+                </TabPane>
+                <Pane layoutX="57.0" layoutY="529.0" prefHeight="41.0" prefWidth="371.0">
+                    <Label fx:id="priceLabel" layoutY="11.0" text="Total Amount: ">
+                        <font>
+                            <Font size="16.0"/>
+                        </font>
+                    </Label>
+                    <Button fx:id="calcButton" layoutX="287.0" layoutY="8.0" mnemonicParsing="false"
+                            prefHeight="25.0" prefWidth="77.0" text="Calculate"/>
+                </Pane>
+            </children>
+        </AnchorPane>
+    </VBox>
+    <SplitPane dividerPositions="0.08389261744966443" layoutX="542.0" layoutY="61.0" orientation="VERTICAL"
+               prefHeight="747.0" prefWidth="810.0">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="97.0" prefWidth="485.0">
+            <JFXComboBox fx:id="roomTypeComboBox" layoutX="23.0" layoutY="17.0" prefHeight="26.0"
+                         prefWidth="210.0" promptText="Room Type"/>
+            <JFXButton fx:id="searchButton" layoutX="269.0" layoutY="13.0" prefHeight="34.0" prefWidth="182.0"
+                       style="-fx-background-color: #0bc76f;-fx-font-weight: bold;-fx-font-size: 14px;"
+                       text="Search">
+                <font>
+                    <Font size="19.0"/>
+                </font>
+            </JFXButton>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="412.0" prefWidth="453.0">
+            <TableView fx:id="availableRoomsTable" layoutX="284.0" layoutY="202.0" prefHeight="679.0"
+                       prefWidth="808.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                       AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <columns>
+                    <TableColumn fx:id="idColumn" prefWidth="75.0" text="Room ID"/>
+                    <TableColumn fx:id="roomNameColumn" prefWidth="75.0" text="Room Name"/>
+                    <TableColumn fx:id="roomTypeColumn" prefWidth="142.0" text="Room Type"/>
+                    <TableColumn fx:id="locationColumn" prefWidth="185.0" text="Location"/>
+                    <TableColumn fx:id="descriptionColumn" prefWidth="330.0" text="Description"/>
+                </columns>
+            </TableView>
+        </AnchorPane>
+    </SplitPane>
+    <JFXButton fx:id="saveButton" layoutX="96.0" layoutY="653.0" prefHeight="34.0" prefWidth="371.0"
+               style="-fx-background-color: #0bc76f;-fx-font-weight: bold;-fx-font-size: 14px;" text="Save Booking">
+        <font>
+          <Font size="19.0"/>
+        </font>
+    </JFXButton>
+</AnchorPane>

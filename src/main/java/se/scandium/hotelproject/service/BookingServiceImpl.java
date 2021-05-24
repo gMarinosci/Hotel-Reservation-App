@@ -2,6 +2,7 @@ package se.scandium.hotelproject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import se.scandium.hotelproject.converter.BookingConverter;
 import se.scandium.hotelproject.converter.CustomerConverter;
@@ -12,6 +13,7 @@ import se.scandium.hotelproject.dto.RoomDto;
 import se.scandium.hotelproject.entity.Booking;
 import se.scandium.hotelproject.entity.Customer;
 import se.scandium.hotelproject.entity.Room;
+import se.scandium.hotelproject.entity.RoomType;
 import se.scandium.hotelproject.exception.ArgumentInvalidException;
 import se.scandium.hotelproject.exception.RecordNotFoundException;
 import se.scandium.hotelproject.repository.BookingRepository;
@@ -46,12 +48,15 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<RoomDto> searchAvailableFreeDates(LocalDate date) {
+    @Transactional//(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
+    public List<RoomDto> searchAvailableRooms(LocalDate fromDate, LocalDate toDate, RoomType roomType) {
         List<Room> roomList = new ArrayList<>();
-        roomRepository.findAll().forEach(roomList::add);
-        List<Room> unAvailableRooms = bookingRepository.findAllByStatusFalseAndToDateGreaterThan(date).stream().map(Booking::getRoom).collect(Collectors.toList());
-        roomList.removeAll(unAvailableRooms);
-        System.out.println("roomList =###########  " + roomList);
+        roomRepository.findAllByRoomType(roomType).forEach(roomList::add);
+        List<Room> unAvailableRooms = bookingRepository.findAllUnavailableRooms(fromDate, toDate, roomType);
+        if (unAvailableRooms.isEmpty() == false) {
+            roomList.removeAll(unAvailableRooms);
+        }
+        //System.out.println("roomList =###########  " + roomList);
         return roomList.stream().map(room -> roomConverter.convertEntityToDto(room)).collect(Collectors.toList());
     }
 
@@ -161,9 +166,17 @@ public class BookingServiceImpl implements BookingService {
 
     @Override
     public List<BookingDto> getBookingListBySpecificDay(LocalDate fromDate, LocalDate toDate) {
-        if (fromDate == null && toDate == null) throw new ArgumentInvalidException("date is not valid");
+        if (fromDate == null || toDate == null) throw new ArgumentInvalidException("date is not valid");
         return bookingRepository.findAllByStatusFalseAndFromDateGreaterThanEqualAndToDateLessThan(fromDate, toDate).stream()
                 .map(booking -> bookingConverter.convertBookingToDto(booking))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<RoomDto> getAvailableRooms(LocalDate fromDate, LocalDate toDate, RoomType roomType) {
+        if (fromDate == null || toDate == null) throw new ArgumentInvalidException("Dates are not valid");
+        return bookingRepository.findAllUnavailableRooms(fromDate, toDate, roomType).stream()
+                .map(room -> roomConverter.convertEntityToDto(room))
                 .collect(Collectors.toList());
     }
 }
