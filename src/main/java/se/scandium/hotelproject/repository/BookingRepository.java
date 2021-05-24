@@ -41,6 +41,6 @@ public interface BookingRepository extends CrudRepository<Booking, Integer> {
     void resetBookingDate(@Param("id") int id);
 
     @Modifying(clearAutomatically = true)
-    @Query("select distinct b.room from Booking b where b.room.type = :roomType and ((b.fromDate <= :toDate) and (b.toDate >= :fromDate))")
-    List<Room> findAllUnavailableRooms(@Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate, @Param("roomType")RoomType roomType);
+    @Query("select distinct b.room from Booking b where b.room.type = :roomType and (:toDate <= b.fromDate or :fromDate >= b.toDate)")
+    List<Room> findAllAvailableRooms(@Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate, @Param("roomType")RoomType roomType);
 }
