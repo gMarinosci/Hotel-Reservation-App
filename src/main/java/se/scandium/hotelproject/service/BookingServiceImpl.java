@@ -48,13 +48,15 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    @Transactional(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
+    @Transactional//(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
     public List<RoomDto> searchAvailableRooms(LocalDate fromDate, LocalDate toDate, RoomType roomType) {
         List<Room> roomList = new ArrayList<>();
         roomRepository.findAllByRoomType(roomType).forEach(roomList::add);
-        List<Room> unAvailableRooms = bookingRepository.findAllAvailableRooms(fromDate, toDate, roomType);
-        roomList.removeAll(unAvailableRooms);
-        System.out.println("roomList =###########  " + roomList);
+        List<Room> unAvailableRooms = bookingRepository.findAllUnavailableRooms(fromDate, toDate, roomType);
+        if (unAvailableRooms.isEmpty() == false) {
+            roomList.removeAll(unAvailableRooms);
+        }
+        //System.out.println("roomList =###########  " + roomList);
         return roomList.stream().map(room -> roomConverter.convertEntityToDto(room)).collect(Collectors.toList());
     }
 
@@ -173,7 +175,7 @@ public class BookingServiceImpl implements BookingService {
     @Override
     public List<RoomDto> getAvailableRooms(LocalDate fromDate, LocalDate toDate, RoomType roomType) {
         if (fromDate == null || toDate == null) throw new ArgumentInvalidException("Dates are not valid");
-        return bookingRepository.findAllAvailableRooms(fromDate, toDate, roomType).stream()
+        return bookingRepository.findAllUnavailableRooms(fromDate, toDate, roomType).stream()
                 .map(room -> roomConverter.convertEntityToDto(room))
                 .collect(Collectors.toList());
     }

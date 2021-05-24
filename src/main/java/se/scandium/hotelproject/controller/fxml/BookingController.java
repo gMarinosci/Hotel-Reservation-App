@@ -265,7 +265,6 @@ public class BookingController {
             return false;
         }
         bookingDto.setRoom(selectedRoomDto);
-        bookingDto.setCustomer(customerDto);
 
         return true;
     }
@@ -313,8 +312,9 @@ public class BookingController {
 
         if (validateData()) {
             try {
-                BookingDto savedBookingDto = bookingService.update(bookingDto);
                 CustomerDto savedCustomerDto = customerService.saveOrUpdate(customerDto);
+                bookingDto.setCustomer(savedCustomerDto);
+                BookingDto savedBookingDto = bookingService.update(bookingDto);
                 resetForm();
             } catch (RecordNotFoundException e) {
                 e.printStackTrace();
