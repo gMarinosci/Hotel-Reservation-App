@@ -4,6 +4,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
+import se.scandium.hotelproject.dto.RoomDto;
 import se.scandium.hotelproject.entity.Booking;
 import se.scandium.hotelproject.entity.Room;
 import se.scandium.hotelproject.entity.RoomType;
@@ -40,6 +41,6 @@ public interface BookingRepository extends CrudRepository<Booking, Integer> {
     void resetBookingDate(@Param("id") int id);
 
     @Modifying(clearAutomatically = true)
-    @Query("SELECT DISTINCT Room FROM Booking b WHERE (b.toDate <= :fromDate OR b.fromDate >= :toDate) AND b.room.type = :roomType")
+    @Query("select distinct b.room from Booking b where b.room.type = :roomType and (:toDate <= b.fromDate or :fromDate >= b.toDate)")
     List<Room> findAllAvailableRooms(@Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate, @Param("roomType")RoomType roomType);
 }

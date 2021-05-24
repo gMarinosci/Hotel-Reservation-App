@@ -2,6 +2,7 @@ package se.scandium.hotelproject.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import se.scandium.hotelproject.converter.BookingConverter;
 import se.scandium.hotelproject.converter.CustomerConverter;
@@ -47,10 +48,11 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<RoomDto> searchAvailableFreeDates(LocalDate date) {
+    @Transactional(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
+    public List<RoomDto> searchAvailableRooms(LocalDate fromDate, LocalDate toDate, RoomType roomType) {
         List<Room> roomList = new ArrayList<>();
-        roomRepository.findAll().forEach(roomList::add);
-        List<Room> unAvailableRooms = bookingRepository.findAllByStatusFalseAndToDateGreaterThan(date).stream().map(Booking::getRoom).collect(Collectors.toList());
+        roomRepository.findAllByRoomType(roomType).forEach(roomList::add);
+        List<Room> unAvailableRooms = bookingRepository.findAllAvailableRooms(fromDate, toDate, roomType);
         roomList.removeAll(unAvailableRooms);
         System.out.println("roomList =###########  " + roomList);
         return roomList.stream().map(room -> roomConverter.convertEntityToDto(room)).collect(Collectors.toList());

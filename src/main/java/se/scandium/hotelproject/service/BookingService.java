@@ -13,7 +13,7 @@ public interface BookingService {
 
 
     //As a reception staff, I can search for available free dates for rooms
-    List<RoomDto> searchAvailableFreeDates(LocalDate date);
+    List<RoomDto> searchAvailableRooms(LocalDate fromDate, LocalDate toDate, RoomType roomType);
 
     //As a reception staff, I must be able to search for a booking
     BookingDto findById(int bookingId) throws RecordNotFoundException;

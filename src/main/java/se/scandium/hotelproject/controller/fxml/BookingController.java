@@ -2,9 +2,13 @@ package se.scandium.hotelproject.controller.fxml;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import javafx.beans.Observable;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.text.Text;
 import javafx.stage.Window;
 import net.rgielen.fxweaver.core.FxWeaver;
@@ -14,11 +18,9 @@ import org.springframework.stereotype.Component;
 import se.scandium.hotelproject.dto.BookingDto;
 import se.scandium.hotelproject.dto.CustomerDto;
 import se.scandium.hotelproject.dto.RoomDto;
-import se.scandium.hotelproject.entity.Gender;
-import se.scandium.hotelproject.entity.PayType;
-import se.scandium.hotelproject.entity.Room;
-import se.scandium.hotelproject.entity.RoomType;
+import se.scandium.hotelproject.entity.*;
 import se.scandium.hotelproject.exception.ArgumentInvalidException;
+import se.scandium.hotelproject.exception.RecordNotFoundException;
 import se.scandium.hotelproject.service.BookingService;
 import se.scandium.hotelproject.service.CustomerService;
 import se.scandium.hotelproject.service.RoomService;
@@ -26,6 +28,7 @@ import se.scandium.hotelproject.service.RoomService;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.List;
 
 @Component
 @FxmlView("/fxml/booking_form.fxml")
@@ -38,6 +41,7 @@ public class BookingController {
     private BookingDto bookingDto;
     private CustomerDto customerDto;
     private RoomDto selectedRoomDto;
+    private ObservableList<RoomDto> data;
 
     @Autowired
     public BookingController (CustomerService customerService, BookingService bookingService, RoomService roomService, FxWeaver fxWeaver) {
@@ -118,6 +122,7 @@ public class BookingController {
     void initialize() {
         bookingDto = new BookingDto();
         customerDto = new CustomerDto();
+        loadTable();
         setGenderComboBox();
         setPayTypeComboBox();
         setRoomTypeComboBox();
@@ -135,6 +140,12 @@ public class BookingController {
                 this.selectedRoomDto = newSelection;
             }
         });
+
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        roomNameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        roomTypeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
+        locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
+        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
     }
 
     private boolean validateData() {
@@ -248,10 +259,34 @@ public class BookingController {
         boolean breakfast = this.bfCheckBox.isSelected();
         bookingDto.setBreakfast(breakfast);
 
+        if (selectedRoomDto == null) {
+            errorText.setText("Select an available room");
+            showAlert(Alert.AlertType.WARNING, saveButton.getScene().getWindow(), "Warning!", errorText.getText());
+            return false;
+        }
+        bookingDto.setRoom(selectedRoomDto);
+        bookingDto.setCustomer(customerDto);
 
         return true;
     }
 
+    private void resetForm() {
+        firstNameText.setText(null);
+        lastNameText.setText(null);
+        birthPicker.setValue(null);
+        genderComboBox.setItems(null);
+        streetText.setText(null);
+        cityText.setText(null);
+        countryText.setText(null);
+        zipCodeText.setText(null);
+        fromDatePicker.setValue(null);
+        toDatePicker.setValue(null);
+        peopleText.setText(null);
+        payTypeComboBox.setItems(null);
+        lnCheckBox.setSelected(false);
+        bfCheckBox.setSelected(false);
+        priceLabel.setText("Total Amount: ");
+    }
 
 
     public void setGenderComboBox() {
@@ -276,10 +311,29 @@ public class BookingController {
 
     private void saveBooking (ActionEvent event) {
 
+        if (validateData()) {
+            try {
+                BookingDto savedBookingDto = bookingService.update(bookingDto);
+                CustomerDto savedCustomerDto = customerService.saveOrUpdate(customerDto);
+                resetForm();
+            } catch (RecordNotFoundException e) {
+                e.printStackTrace();
+                errorText.setText("Record not found");
+                showAlert(Alert.AlertType.WARNING, saveButton.getScene().getWindow(), "Warning!", errorText.getText());
+            }
+        }
+
     }
 
     private void showAvailableRooms (ActionEvent event) {
-
+        RoomType roomType = roomTypeComboBox.getValue();
+        if (roomType == null) {
+            errorText.setText("Select an available room");
+            showAlert(Alert.AlertType.WARNING, searchButton.getScene().getWindow(), "Warning!", errorText.getText());
+        }
+        List<RoomDto> availableRooms = bookingService.searchAvailableRooms(fromDatePicker.getValue(), toDatePicker.getValue(), roomType);
+        data = FXCollections.observableArrayList(availableRooms);
+        availableRoomsTable.setItems(data);
     }
 
     private void calcTotalAmount (ActionEvent event) {
