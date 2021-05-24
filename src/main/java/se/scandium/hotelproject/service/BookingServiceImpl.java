@@ -50,11 +50,14 @@ public class BookingServiceImpl implements BookingService {
     @Override
     @Transactional//(propagation= Propagation.REQUIRED, readOnly=true, noRollbackFor=Exception.class)
     public List<RoomDto> searchAvailableRooms(LocalDate fromDate, LocalDate toDate, RoomType roomType) {
-
-        List<Room> availableRooms = bookingRepository.findAllAvailableRooms(fromDate, toDate, roomType);
-
+        List<Room> roomList = new ArrayList<>();
+        roomRepository.findAllByRoomType(roomType).forEach(roomList::add);
+        List<Room> unAvailableRooms = bookingRepository.findAllUnavailableRooms(fromDate, toDate, roomType);
+        if (unAvailableRooms.isEmpty() == false) {
+            roomList.removeAll(unAvailableRooms);
+        }
         //System.out.println("roomList =###########  " + roomList);
-        return availableRooms.stream().map(room -> roomConverter.convertEntityToDto(room)).collect(Collectors.toList());
+        return roomList.stream().map(room -> roomConverter.convertEntityToDto(room)).collect(Collectors.toList());
     }
 
     @Override
@@ -169,11 +172,11 @@ public class BookingServiceImpl implements BookingService {
                 .collect(Collectors.toList());
     }
 
-   // @Override
-    //public List<RoomDto> getAvailableRooms(LocalDate fromDate, LocalDate toDate, RoomType roomType) {
-     //   if (fromDate == null || toDate == null) throw new ArgumentInvalidException("Dates are not valid");
-       // return bookingRepository.findAllUnavailableRooms(fromDate, toDate, roomType).stream()
-       //         .map(room -> roomConverter.convertEntityToDto(room))
-       //         .collect(Collectors.toList());
-   // }
+    @Override
+    public List<RoomDto> getAvailableRooms(LocalDate fromDate, LocalDate toDate, RoomType roomType) {
+        if (fromDate == null || toDate == null) throw new ArgumentInvalidException("Dates are not valid");
+        return bookingRepository.findAllUnavailableRooms(fromDate, toDate, roomType).stream()
+                .map(room -> roomConverter.convertEntityToDto(room))
+                .collect(Collectors.toList());
+    }
 }

@@ -36,6 +36,6 @@ public interface BookingService {
     //As a reception staff, I can see all the bookings for a specific day
     List<BookingDto> getBookingListBySpecificDay(LocalDate fromDate, LocalDate toDate);
 
-    //List<RoomDto> getAvailableRooms (LocalDate fromDate, LocalDate toDate, RoomType roomType);
+    List<RoomDto> getAvailableRooms (LocalDate fromDate, LocalDate toDate, RoomType roomType);
 
 }
