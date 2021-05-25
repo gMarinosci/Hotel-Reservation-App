@@ -1,5 +1,6 @@
 package se.scandium.hotelproject.controller.fxml;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.jfoenix.controls.*;
 import com.sun.prism.shader.AlphaOne_Color_AlphaTest_Loader;
 import javafx.beans.property.SimpleStringProperty;
@@ -18,10 +19,12 @@ import org.springframework.stereotype.Component;
 import se.scandium.hotelproject.dto.BookingDto;
 import se.scandium.hotelproject.dto.RoomDto;
 import se.scandium.hotelproject.entity.Booking;
+import se.scandium.hotelproject.entity.Room;
 import se.scandium.hotelproject.exception.RecordNotFoundException;
 import se.scandium.hotelproject.service.BookingService;
 import se.scandium.hotelproject.service.RoomService;
 
+import javax.swing.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -32,6 +35,7 @@ public class ViewBookingsController {
     private BookingService bookingService;
     private final FxWeaver fxWeaver;
     private BookingDto selectedBookingDto;
+    private Booking selectedBooking;
     private List<BookingDto> bookingDtoList;
     private ObservableList<BookingDto> data;
     private RoomService roomService;
@@ -77,6 +81,8 @@ public class ViewBookingsController {
     private JFXButton refreshButton;
     @FXML
     private ComboBox<RoomDto> roomComboBox;
+    @FXML
+    private Button PayButton;
 
 
 
@@ -127,8 +133,10 @@ public class ViewBookingsController {
     @FXML
     void initialize() {
         loadDateTable();
+        loadTable();
         setRoomComboBox();
         refreshButton.setOnAction(this::refreshTableAction);
+        PayButton.setOnAction(this::setAsPaid);
     }
 
     private void setRoomComboBox(){
@@ -142,4 +150,24 @@ public class ViewBookingsController {
         bookingDtoTableView.setItems(data);
     }
 
+    private void setAsPaid(ActionEvent event){
+        try{
+            bookingService.updatePaymentStatus(selectedBookingDto.getId(), true);}
+        catch(RecordNotFoundException recordNotFoundException) {
+            recordNotFoundException.printStackTrace();
+        }
+
+        loadDateTable();
+        System.out.println(selectedBookingDto);
+
+    }
+
+    private void loadTable() {
+        bookingDtoTableView.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                System.out.println("newSelection = " + newSelection);
+                this.selectedBookingDto = newSelection;
+            }
+        });
+    }
 }

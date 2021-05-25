@@ -69,6 +69,7 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    @Transactional
     public void updatePaymentStatus(int bookingId, boolean pay) throws RecordNotFoundException {
         if (bookingId == 0) throw new ArgumentInvalidException("bookingId is not valid");
         Optional<Booking> bookingOptional = bookingRepository.findById(bookingId);
