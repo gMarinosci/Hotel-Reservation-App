@@ -38,4 +38,6 @@ public interface BookingService {
 
     List<RoomDto> getAvailableRooms (LocalDate fromDate, LocalDate toDate, RoomType roomType);
 
+    List<BookingDto> getListByRoomName(String name);
+
 }

@@ -80,7 +80,7 @@ public class ViewBookingsController {
     @FXML
     private JFXButton refreshButton;
     @FXML
-    private ComboBox<RoomDto> roomComboBox;
+    private ComboBox<String> roomComboBox;
     @FXML
     private Button PayButton;
 
@@ -140,12 +140,12 @@ public class ViewBookingsController {
     }
 
     private void setRoomComboBox(){
-    roomComboBox.getItems().addAll(roomService.getAll());
+    roomComboBox.getItems().addAll(roomService.getAllRoomNames());
     }
 
     private void refreshTableAction(ActionEvent event){
-        RoomDto selectedRoomDto = roomComboBox.getValue();
-        List<BookingDto> bookingDtoList = bookingService.getBookingListByRoomId(selectedRoomDto.getId());
+        String selectedRoom = roomComboBox.getValue();
+        List<BookingDto> bookingDtoList = bookingService.getListByRoomName(selectedRoom);
         data = FXCollections.observableArrayList(bookingDtoList);
         bookingDtoTableView.setItems(data);
     }

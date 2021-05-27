@@ -148,7 +148,7 @@ public class RoomListController {
             roomNameField.setText(selectedRoomDto.getName());
             roomPriceField.setText(selectedRoomDto.getPrice() + "");
             roomSizeField.setText(selectedRoomDto.getSize() + "");
-            //roomTypeComboBox.setItems(selectedRoomDto.);
+            roomTypeComboBox.setValue(selectedRoomDto.getType());
             roomDetailsDescTextArea.setText(selectedRoomDto.getDescription());
             roomDetailsLocationField.setText(selectedRoomDto.getLocation());
             roomDetailsIsBedCheckBox.setSelected(selectedRoomDto.isBeds());
@@ -180,7 +180,7 @@ public class RoomListController {
         roomNameField.setText(null);
         roomPriceField.setText(null);
         roomSizeField.setText(null);
-        roomTypeComboBox.setItems(null);
+        roomTypeComboBox.setValue(null);
         isReserveRadioButtonN.setSelected(true);
         roomDetailsDescTextArea.setText(null);
         roomDetailsLocationField.setText(null);

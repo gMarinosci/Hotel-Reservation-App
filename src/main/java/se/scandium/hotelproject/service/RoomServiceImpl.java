@@ -68,4 +68,9 @@ public class RoomServiceImpl implements RoomService {
             roomRepository.deleteById(roomId);
         else throw new RecordNotFoundException("record not found");
     }
+
+    @Override
+    public List<String> getAllRoomNames() {
+        return roomRepository.findAllRoomNames();
+    }
 }

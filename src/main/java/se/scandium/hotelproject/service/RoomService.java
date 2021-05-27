@@ -15,4 +15,5 @@ public interface RoomService {
 
     void deleteById(int roomId) throws RecordNotFoundException;
 
+    List<String> getAllRoomNames();
 }

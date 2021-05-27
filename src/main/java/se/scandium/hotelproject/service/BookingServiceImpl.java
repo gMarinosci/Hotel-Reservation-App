@@ -56,7 +56,6 @@ public class BookingServiceImpl implements BookingService {
         if (unAvailableRooms.isEmpty() == false) {
             roomList.removeAll(unAvailableRooms);
         }
-        //System.out.println("roomList =###########  " + roomList);
         return roomList.stream().map(room -> roomConverter.convertEntityToDto(room)).collect(Collectors.toList());
     }
 
@@ -162,6 +161,13 @@ public class BookingServiceImpl implements BookingService {
     public List<BookingDto> getBookingListByRoomId(int roomId) {
         if (roomId == 0) throw new ArgumentInvalidException("room id is not valid");
         List<Booking> bookings = bookingRepository.findAllByRoom_IdAndStatusFalse(roomId);
+        return bookings.stream().map(booking -> bookingConverter.convertBookingToDto(booking)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookingDto> getListByRoomName(String roomName) {
+        if (roomName == null) throw new ArgumentInvalidException("room is not valid");
+        List<Booking> bookings = bookingRepository.findAllByRoom_NameAndStatusFalse(roomName);
         return bookings.stream().map(booking -> bookingConverter.convertBookingToDto(booking)).collect(Collectors.toList());
     }
 

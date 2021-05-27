@@ -17,4 +17,7 @@ public interface RoomRepository extends CrudRepository<Room,Integer> {
     @Query("select distinct r from Room r where r.type = :roomType")
     List<Room> findAllByRoomType(@Param("roomType") RoomType roomType);
 
+    @Modifying(clearAutomatically = true)
+    @Query("select r.name from Room r")
+    List<String> findAllRoomNames();
 }
