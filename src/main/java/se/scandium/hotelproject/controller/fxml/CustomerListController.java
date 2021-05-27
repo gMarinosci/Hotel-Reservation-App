@@ -179,7 +179,7 @@ public class CustomerListController {
         nameField.setText(null);
         surnameField.setText(null);
         ageField.setText(null);
-        genderComboBox.setItems(null);
+        genderComboBox.setValue(null);
         countryField.setText(null);
         cityField.setText(null);
         streetField.setText(null);
