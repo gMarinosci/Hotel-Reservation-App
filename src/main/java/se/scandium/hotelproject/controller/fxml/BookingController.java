@@ -273,7 +273,7 @@ public class BookingController {
         firstNameText.setText(null);
         lastNameText.setText(null);
         birthPicker.setValue(null);
-        genderComboBox.setItems(null);
+        genderComboBox.setValue(null);
         streetText.setText(null);
         cityText.setText(null);
         countryText.setText(null);
@@ -281,7 +281,7 @@ public class BookingController {
         fromDatePicker.setValue(null);
         toDatePicker.setValue(null);
         peopleText.setText(null);
-        payTypeComboBox.setItems(null);
+        payTypeComboBox.setValue(null);
         lnCheckBox.setSelected(false);
         bfCheckBox.setSelected(false);
         priceLabel.setText("Total Amount: ");
