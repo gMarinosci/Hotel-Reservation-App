@@ -26,7 +26,11 @@ public class PopupController {
 
     @FXML
     void exitClickHandler() {
-        Platform.exit();
+        Stage stage = new Stage();
+        stage.setScene(new Scene(fxWeaver.loadView(LoginController.class), 600, 400));
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+
     }
 
     @FXML

@@ -4,8 +4,11 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -50,6 +53,7 @@ public class LoginController {
 
     @FXML
     private void initialize() {
+        loginButton.setDefaultButton(true);
         loginButton.setOnAction(event -> {
             String username = usernameField.getText();
             String pwd = passwordField.getText();
@@ -80,6 +84,8 @@ public class LoginController {
         UserHolder holder = UserHolder.getInstance();
         holder.setUserView(userView);
     }
+
+
 
     private void loadControl(String fxmlName) {
         Stage stage = new Stage();
