@@ -171,10 +171,17 @@ public class BookingServiceImpl implements BookingService {
         return bookings.stream().map(booking -> bookingConverter.convertBookingToDto(booking)).collect(Collectors.toList());
     }
 
+//    @Override
+//    public List<BookingDto> getBookingListBySpecificDay(LocalDate checkDate) {
+//        if (checkDate == null) throw new ArgumentInvalidException("date is not valid");
+//        return bookingRepository.findAllByFromDateGreaterThanEqualAndToDateLessThanEqual(checkDate).stream()
+//                .map(booking -> bookingConverter.convertBookingToDto(booking))
+//                .collect(Collectors.toList());
+//    }
     @Override
-    public List<BookingDto> getBookingListBySpecificDay(LocalDate fromDate, LocalDate toDate) {
-        if (fromDate == null || toDate == null) throw new ArgumentInvalidException("date is not valid");
-        return bookingRepository.findAllByStatusFalseAndFromDateGreaterThanEqualAndToDateLessThan(fromDate, toDate).stream()
+    public List<BookingDto> getBookingListSpecificDay(LocalDate checkDay) {
+        if (checkDay == null) throw new ArgumentInvalidException("date is not valid");
+        return bookingRepository.findAllByFromDateIsLessThanEqualAndToDateIsGreaterThanEqual(checkDay, checkDay).stream()
                 .map(booking -> bookingConverter.convertBookingToDto(booking))
                 .collect(Collectors.toList());
     }
@@ -186,4 +193,12 @@ public class BookingServiceImpl implements BookingService {
                 .map(room -> roomConverter.convertEntityToDto(room))
                 .collect(Collectors.toList());
     }
+
+    public List<BookingDto> getBookingByLastName(String lastName) {
+        if (lastName == null) throw new ArgumentInvalidException("room is not valid");
+        List<Booking> bookings = bookingRepository.findBookingByLastName(lastName);
+        return bookings.stream().map(booking -> bookingConverter.convertBookingToDto(booking)).collect(Collectors.toList());
+    }
+
+
 }

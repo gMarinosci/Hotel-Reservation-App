@@ -19,7 +19,10 @@ import org.springframework.stereotype.Component;
 import se.scandium.hotelproject.dto.BookingDto;
 import se.scandium.hotelproject.dto.RoomDto;
 import se.scandium.hotelproject.entity.Booking;
+import se.scandium.hotelproject.entity.Filter;
 import se.scandium.hotelproject.entity.Room;
+import se.scandium.hotelproject.entity.UserType;
+import se.scandium.hotelproject.exception.ArgumentInvalidException;
 import se.scandium.hotelproject.exception.RecordNotFoundException;
 import se.scandium.hotelproject.service.BookingService;
 import se.scandium.hotelproject.service.RoomService;
@@ -82,7 +85,15 @@ public class ViewBookingsController {
     @FXML
     private ComboBox<String> roomComboBox;
     @FXML
-    private Button PayButton;
+    private JFXButton PayButton;
+    @FXML
+    private DatePicker checkSpecificDateBooking;
+    @FXML
+    private ComboBox<Filter> filterComboBox;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private JFXButton filterButton;
 
 
 
@@ -109,11 +120,6 @@ public class ViewBookingsController {
         customerNameColumn.setCellValueFactory(new PropertyValueFactory<>("Customer Name"));
         roomIdColumn.setCellValueFactory(new PropertyValueFactory<>("Room ID"));
         roomTypeColumn.setCellValueFactory(new PropertyValueFactory<>("Room Type"));
-//        roomIdColumn.setCellValueFactory(cellData -> {
-//
-//            final String roomType = cellData.getValue().getRoom().getType().name();
-//            return new SimpleStringProperty(roomType);
-//        });
         reservedColumn.setCellValueFactory(new PropertyValueFactory<>("Reserved"));
         startDateColumn.setCellValueFactory(new PropertyValueFactory<>("Start Date"));
         endDateColumn.setCellValueFactory(new PropertyValueFactory<>("End Date"));
@@ -126,7 +132,6 @@ public class ViewBookingsController {
 
         data = FXCollections.observableArrayList(bookingDtoList);
         bookingDtoTableView.setItems(data);
-        //bookingDtoTableView.getItems().addAll(bookingDtoList);
 
     }
 
@@ -135,6 +140,8 @@ public class ViewBookingsController {
         loadDateTable();
         loadTable();
         setRoomComboBox();
+        setFilterComboBox();
+        filterButton.setOnAction(this::filterTableAction);
         refreshButton.setOnAction(this::refreshTableAction);
         PayButton.setOnAction(this::setAsPaid);
     }
@@ -143,12 +150,48 @@ public class ViewBookingsController {
     roomComboBox.getItems().addAll(roomService.getAllRoomNames());
     }
 
-    private void refreshTableAction(ActionEvent event){
-        String selectedRoom = roomComboBox.getValue();
-        List<BookingDto> bookingDtoList = bookingService.getListByRoomName(selectedRoom);
-        data = FXCollections.observableArrayList(bookingDtoList);
-        bookingDtoTableView.setItems(data);
+    public void setFilterComboBox() {
+        filterComboBox.getItems().add(Filter.ROOM);
+        filterComboBox.getItems().add(Filter.DAY);
+        filterComboBox.getItems().add(Filter.CUSTOMER_NAME);
     }
+
+    private void refreshTableAction(ActionEvent event){
+        List<BookingDto> bookingdto = bookingService.getAlBooking();
+        data = FXCollections.observableArrayList(bookingdto);
+        bookingDtoTableView.setItems(data);
+
+    }
+    private void filterTableAction(ActionEvent event){
+            Filter selectedFilter = filterComboBox.getValue();
+            switch(selectedFilter){
+                case ROOM:
+                    String selectedRoom = roomComboBox.getValue();
+                    List<BookingDto> bookingDtoList = bookingService.getListByRoomName(selectedRoom);
+                    data = FXCollections.observableArrayList(bookingDtoList);
+                    bookingDtoTableView.setItems(data);
+                    break;
+                case DAY:
+                    LocalDate checkDay = checkSpecificDateBooking.getValue();
+                    bookingDtoList = bookingService.getBookingListSpecificDay(checkDay);
+                    data = FXCollections.observableArrayList(bookingDtoList);
+                    bookingDtoTableView.setItems(data);
+                    break;
+                case CUSTOMER_NAME:
+                    String searchName = searchField.getText();
+                    bookingDtoList = bookingService.getBookingByLastName(searchName);
+                    data = FXCollections.observableArrayList(bookingDtoList);
+                    bookingDtoTableView.setItems(data);
+                    break;
+            }
+        }
+//        String selectedRoom = roomComboBox.getValue();
+//        LocalDate checkDay = checkSpecificDateBooking.getValue();
+//        List<BookingDto> bookingDtoList = bookingService.getBookingListSpecificDay(checkDay);
+//        List<BookingDto> bookingDtoList = bookingService.getListByRoomName(selectedRoom);
+//        data = FXCollections.observableArrayList(bookingDtoList);
+//        bookingDtoTableView.setItems(data);
+
 
     private void setAsPaid(ActionEvent event){
         try{

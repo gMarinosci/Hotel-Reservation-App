@@ -39,6 +39,7 @@ public class Booking {
     @JoinColumn(name = "room_id")
     private Room room;
 
+
     public double calcFullPrice() {
         long noOfDaysBetween;
         if (fromDate.isAfter(toDate) || toDate.isBefore(fromDate) || fromDate.isEqual(toDate))

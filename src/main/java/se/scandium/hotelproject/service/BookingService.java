@@ -34,10 +34,14 @@ public interface BookingService {
     List<BookingDto> getBookingListByRoomId(int roomId);
 
     //As a reception staff, I can see all the bookings for a specific day
-    List<BookingDto> getBookingListBySpecificDay(LocalDate fromDate, LocalDate toDate);
+//    List<BookingDto> getBookingListBySpecificDay(LocalDate fromDate, LocalDate toDate);
 
     List<RoomDto> getAvailableRooms (LocalDate fromDate, LocalDate toDate, RoomType roomType);
 
+    List<BookingDto> getBookingListSpecificDay(LocalDate checkDay);
+
     List<BookingDto> getListByRoomName(String name);
+
+    List<BookingDto> getBookingByLastName(String lastName);
 
 }

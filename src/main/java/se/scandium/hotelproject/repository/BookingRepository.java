@@ -29,9 +29,12 @@ public interface BookingRepository extends CrudRepository<Booking, Integer> {
 
     List<Booking> findAllByStatusFalseAndFromDateGreaterThanEqualAndToDateLessThan(LocalDate fromDate, LocalDate toDate);
 
+    ///List <Booking> findAllBySpecificBookedDay(LocalDate checkDay);
+
     List<Booking> findAllByStatusFalseAndToDateGreaterThan(LocalDate date);
 
     List<Booking> findAllByRoom_NameAndStatusFalse(String roomName);
+
 
     @Modifying(clearAutomatically = true)
     @Query("UPDATE Booking b SET b.status = :status WHERE b.id = :id")
@@ -41,7 +44,22 @@ public interface BookingRepository extends CrudRepository<Booking, Integer> {
     @Query("UPDATE Booking b SET b.fromDate = null, b.toDate = null WHERE b.id = :id and b.status = false")
     void resetBookingDate(@Param("id") int id);
 
+//    @Query("select distinct b.Booking")
+//    SELECT * FROM Booking
+//    WHERE NOT (From_date > @RangeTill OR To_date < @RangeFrom)
+
+//    @Modifying(clearAutomatically = true)
+//    @Query("select distinct Booking from Booking b where not (( b.fromDate > :checkDay) and (b.toDate < :checkDay))")
+
+    List<Booking> findAllByFromDateIsLessThanEqualAndToDateIsGreaterThanEqual(LocalDate checkDate, LocalDate checkDate2);
+
+    @Modifying(clearAutomatically = true)
+    @Query("select distinct b from Booking b where :lastName = b.customer.lastName")
+    List<Booking> findBookingByLastName(@Param("lastName") String lastName);
+
     @Modifying(clearAutomatically = true)
     @Query("select distinct b.room from Booking b where b.room.type = :roomType and ((b.fromDate < :toDate) and (b.toDate > :fromDate))")
     List<Room> findAllUnavailableRooms(@Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate, @Param("roomType")RoomType roomType);
 }
+
+///@Param("fromDate") LocalDate fromDate, @Param("toDate") LocalDate toDate

@@ -96,8 +96,12 @@
              </Label>
          </children>
       </AnchorPane>
-      <ComboBox fx:id="roomComboBox" layoutX="54.0" layoutY="63.0" prefWidth="150.0" promptText="Select a room" />
+       <ComboBox fx:id="filterComboBox" layoutX="54.0" layoutY="63.0" prefWidth="150.0" promptText="Select Filter" />
+      <ComboBox fx:id="roomComboBox" layoutX="54.0" layoutY="93.0" prefWidth="150.0" promptText="Select a room" />
+       <DatePicker fx:id="checkSpecificDateBooking" layoutX= "54.0" layoutY="123" prefHeight="25.0" prefWidth="150.0" promptText="Search for a specific day"/>
+       <TextField fx:id="searchField" layoutX= "54.0" layoutY="153" prefHeight="25.0" prefWidth="150.0" promptText="Search for a name" />
       <JFXButton fx:id="refreshButton" layoutX="54.0" layoutY="538.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #0bc76f;" text="Refresh" />
-      <Button fx:id="PayButton" layoutX="54.0" layoutY="503.0" mnemonicParsing="false" prefHeight="7.0" prefWidth="150.0" text="Marked as Paid" />
+       <JFXButton fx:id="filterButton" layoutX="54.0" layoutY="508.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="150.0" style="-fx-background-color: #0bc76f;" text="Filter" />
+      <JFXButton fx:id="PayButton" layoutX="54.0" layoutY="478.0" mnemonicParsing="false" prefHeight="7.0" prefWidth="150.0" style="-fx-background-color: #0bc76f;" text="Marked as Paid" />
    </children>
 </AnchorPane>
