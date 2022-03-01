@@ -2,6 +2,7 @@ package assignment3;
 
 import java.io.IOException;
 import java.net.*;
+import java.nio.ByteBuffer;
 
 public class TFTPServer 
 {
@@ -129,7 +130,11 @@ public class TFTPServer
 	private int ParseRQ(byte[] buf, StringBuffer requestedFile) 
 	{
 		// See "TFTP Formats" in TFTP specification for the RRQ/WRQ request contents
-		
+		ByteBuffer wrap = ByteBuffer.wrap(buf);
+		short opcode = wrap.getShort();
+
+		requestedFile.append(wrap.get(2));
+
 		return opcode;
 	}
 
