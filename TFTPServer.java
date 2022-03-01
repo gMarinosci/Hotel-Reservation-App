@@ -1,9 +1,7 @@
 package assignment3;
 
-import java.net.DatagramSocket;
-import java.net.InetSocketAddress;
-import java.net.SocketAddress;
-import java.net.SocketException;
+import java.io.IOException;
+import java.net.*;
 
 public class TFTPServer 
 {
@@ -60,7 +58,7 @@ public class TFTPServer
 			final StringBuffer requestedFile= new StringBuffer();
 			final int reqtype = ParseRQ(buf, requestedFile);
 
-			new Thread() 
+			new Thread()
 			{
 				public void run() 
 				{
@@ -109,7 +107,15 @@ public class TFTPServer
 		// Receive packet
 		
 		// Get client address and port from the packet
-		
+		DatagramPacket packet = new DatagramPacket(buf, buf.length);
+
+		try {
+			socket.receive(packet);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		InetSocketAddress socketAddress = new InetSocketAddress(packet.getAddress(), packet.getPort());
 		return socketAddress;
 	}
 
