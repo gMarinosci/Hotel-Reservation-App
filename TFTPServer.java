@@ -1,6 +1,6 @@
 package assignment3;
 
-import java.io.IOException;
+import java.io.*;
 import java.net.*;
 import java.nio.ByteBuffer;
 
@@ -8,7 +8,7 @@ public class TFTPServer
 {
 	public static final int TFTPPORT = 4970;
 	public static final int BUFSIZE = 516;
-	public static final String READDIR = "/home/username/read/"; //custom address at your PC
+	public static final String READDIR = "/Users/gabrielemarinosci/IdeaProjects/compnets_ass3/out/production/compnets_ass3/assignment3/"; //custom address at your PC
 	public static final String WRITEDIR = "/home/username/write/"; //custom address at your PC
 	// OP codes
 	public static final int OP_RRQ = 1;
@@ -72,7 +72,7 @@ public class TFTPServer
 						
 						System.out.printf("%s request for %s from %s using port %d\n",
 								(reqtype == OP_RRQ)?"Read":"Write",
-								clientAddress.getHostName(), clientAddress.getPort());  
+								clientAddress.getHostName(), clientAddress.getAddress(), clientAddress.getPort());
 								
 						// Read request
 						if (reqtype == OP_RRQ) 
@@ -132,9 +132,17 @@ public class TFTPServer
 		// See "TFTP Formats" in TFTP specification for the RRQ/WRQ request contents
 		ByteBuffer wrap = ByteBuffer.wrap(buf);
 		short opcode = wrap.getShort();
+		int delimiter = -1;
 
-		requestedFile.append(wrap.get(2));
+		for (int i = 2; i < buf.length; i++) {
+			if (buf[i] == 0) {
+				delimiter = i;
+				break;
+			}
+		}
 
+		String fileName = new String(buf, 2, delimiter-2);
+		requestedFile.append(fileName);
 		return opcode;
 	}
 
@@ -145,22 +153,55 @@ public class TFTPServer
 	 * @param requestedFile (name of file to read/write)
 	 * @param opcode (RRQ or WRQ)
 	 */
-	private void HandleRQ(DatagramSocket sendSocket, String requestedFile, int opcode) 
-	{		
+	private void HandleRQ(DatagramSocket sendSocket, String requestedFile, int opcode)
+	{
+		File file = new File(requestedFile);
+		byte[] buf = new byte[BUFSIZE-4];
+
 		if(opcode == OP_RRQ)
 		{
 			// See "TFTP Formats" in TFTP specification for the DATA and ACK packet contents
-			boolean result = send_DATA_receive_ACK(params);
+			FileInputStream in = null;
+			try {
+				in = new FileInputStream(file);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			try {
+				in.read(buf);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			DatagramPacket dataPacket = createDataPacket((short) 1, buf);
+
+			try {
+				boolean result = send_DATA_receive_ACK(sendSocket, dataPacket);
+				in.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+
 		}
 		else if (opcode == OP_WRQ) 
 		{
-			boolean result = receive_DATA_send_ACK(params);
+			FileOutputStream out = null;
+
+			try {
+				out = new FileOutputStream(file);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			boolean result = receive_DATA_send_ACK(sendSocket, out);
 		}
 		else 
 		{
 			System.err.println("Invalid request. Sending an error packet.");
 			// See "TFTP Formats" in TFTP specification for the ERROR packet contents
-			send_ERR(params);
+			//send_ERR(params);
 			return;
 		}		
 	}
@@ -168,15 +209,55 @@ public class TFTPServer
 	/**
 	To be implemented
 	*/
-	private boolean send_DATA_receive_ACK(params)
-	{return true;}
+	private boolean send_DATA_receive_ACK(DatagramSocket socket, DatagramPacket packet) throws IOException {
+
+		byte[] buf = new byte[4];
+		DatagramPacket ackPacket = new DatagramPacket(buf, buf.length);
+
+		socket.send(packet);
+		System.out.println("sent");
+		socket.receive(ackPacket);
+		System.out.println("received");
+		return true;
+	}
 	
-	private boolean receive_DATA_send_ACK(params)
-	{return true;}
+	private boolean receive_DATA_send_ACK(DatagramSocket socket, FileOutputStream out)
+	{
+		byte[] buf = new byte[BUFSIZE];
+		DatagramPacket packet = new DatagramPacket(buf, buf.length);
+
+		try {
+			socket.receive(packet);
+			System.out.println("packet received");
+			socket.send(createAckPacket((short) 0));
+			System.out.println("ack sent");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return true;
+	}
 	
-	private void send_ERR(params)
-	{}
-	
+	//private void send_ERR(params)
+	//{}
+
+	private DatagramPacket createAckPacket(short block) {
+
+		ByteBuffer buf = ByteBuffer.allocate(4);
+		buf.putShort((short) OP_ACK);
+		buf.putShort(block);
+
+		return new DatagramPacket(buf.array(), buf.array().length);
+	}
+
+	private DatagramPacket createDataPacket(short blockNum, byte[] data) {
+		ByteBuffer buf = ByteBuffer.allocate(BUFSIZE);
+		buf.putShort((short) OP_DAT);
+		buf.putShort(blockNum);
+		buf.put(data, 0, data.length);
+
+		return new DatagramPacket(buf.array(), buf.array().length);
+	}
 }
 
 
