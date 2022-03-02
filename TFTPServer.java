@@ -229,11 +229,20 @@ public class TFTPServer
 
 		try {
 			socket.receive(packet);
+			byte[] data = packet.getData();
+			out.write(data, 4, packet.getLength() - 4);
 			System.out.println("packet received");
 			socket.send(createAckPacket((short) 0));
 			System.out.println("ack sent");
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+
+		try {
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.err.println("could not close stream");
 		}
 
 		return true;
