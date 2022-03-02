@@ -157,6 +157,7 @@ public class TFTPServer
 	{
 		File file = new File(requestedFile);
 		byte[] buf = new byte[BUFSIZE-4];
+		int dataLength = 0;
 
 		if(opcode == OP_RRQ)
 		{
@@ -169,12 +170,12 @@ public class TFTPServer
 			}
 
 			try {
-				in.read(buf);
+				dataLength = in.read(buf);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 
-			DatagramPacket dataPacket = createDataPacket((short) 1, buf);
+			DatagramPacket dataPacket = createDataPacket((short) 1, buf, dataLength);
 
 			try {
 				boolean result = send_DATA_receive_ACK(sendSocket, dataPacket);
@@ -250,13 +251,13 @@ public class TFTPServer
 		return new DatagramPacket(buf.array(), buf.array().length);
 	}
 
-	private DatagramPacket createDataPacket(short blockNum, byte[] data) {
+	private DatagramPacket createDataPacket(short blockNum, byte[] data, int len) {
 		ByteBuffer buf = ByteBuffer.allocate(BUFSIZE);
 		buf.putShort((short) OP_DAT);
 		buf.putShort(blockNum);
-		buf.put(data, 0, data.length);
+		buf.put(data, 0, len);
 
-		return new DatagramPacket(buf.array(), buf.array().length);
+		return new DatagramPacket(buf.array(), 4 + len);
 	}
 }
 
