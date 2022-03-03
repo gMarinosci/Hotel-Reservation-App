@@ -243,16 +243,18 @@ public class TFTPServer
 				} else if (ackNum == -1) {
 					return false;
 				} else {
+					attempt++;
 					throw new SocketTimeoutException();
 				}
 			} catch (SocketTimeoutException e) {
+				attempt++;
 				System.out.println("Request timed out. Sending packet again");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 
-		return true;
+		return false;
 	}
 	
 	private boolean receive_DATA_send_ACK(DatagramSocket socket, FileOutputStream out)
