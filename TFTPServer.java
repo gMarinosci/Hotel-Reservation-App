@@ -163,25 +163,37 @@ public class TFTPServer
 		{
 			// See "TFTP Formats" in TFTP specification for the DATA and ACK packet contents
 			FileInputStream in = null;
+			short blockNum = 1;
+
 			try {
 				in = new FileInputStream(file);
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
 			}
 
-			try {
-				dataLength = in.read(buf);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			while (true) {
 
-			DatagramPacket dataPacket = createDataPacket((short) 1, buf, dataLength);
+				try {
+					dataLength = in.read(buf);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 
-			try {
+				DatagramPacket dataPacket = createDataPacket((blockNum, buf, dataLength);
 				boolean result = send_DATA_receive_ACK(sendSocket, dataPacket);
-				in.close();
-			} catch (IOException e) {
-				e.printStackTrace();
+
+				if (!result) {
+					System.err.println("Oh damn sorry dawg, something went wrong...");
+				}
+
+				if (dataLength < BUFSIZE - 4) {
+					try {
+						in.close();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					break;
+				}
 			}
 
 
@@ -210,15 +222,36 @@ public class TFTPServer
 	/**
 	To be implemented
 	*/
-	private boolean send_DATA_receive_ACK(DatagramSocket socket, DatagramPacket packet) throws IOException {
+	private boolean send_DATA_receive_ACK(DatagramSocket socket, DatagramPacket packet)  {
 
 		byte[] buf = new byte[4];
 		DatagramPacket ackPacket = new DatagramPacket(buf, buf.length);
+		int attempt = 0;
 
-		socket.send(packet);
-		System.out.println("sent");
-		socket.receive(ackPacket);
-		System.out.println("received");
+		while (attempt < 6) {
+			try {
+				socket.send(packet);
+				System.out.println("sent");
+				socket.setSoTimeout(5000);
+				socket.receive(ackPacket);
+				System.out.println("received");
+
+				short ackNum = getBlockNum(ackPacket);
+
+				if (ackNum == getBlockNum(packet)) {
+					return true;
+				} else if (ackNum == -1) {
+					return false;
+				} else {
+					throw new SocketTimeoutException();
+				}
+			} catch (SocketTimeoutException e) {
+				System.out.println("Request timed out. Sending packet again");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
 		return true;
 	}
 	
@@ -251,16 +284,18 @@ public class TFTPServer
 	//private void send_ERR(params)
 	//{}
 
-	private DatagramPacket createAckPacket(short block) {
+	private DatagramPacket createAckPacket(short blockNum) {
 
 		ByteBuffer buf = ByteBuffer.allocate(4);
 		buf.putShort((short) OP_ACK);
-		buf.putShort(block);
+		buf.putShort(blockNum);
 
 		return new DatagramPacket(buf.array(), buf.array().length);
 	}
 
+
 	private DatagramPacket createDataPacket(short blockNum, byte[] data, int len) {
+
 		ByteBuffer buf = ByteBuffer.allocate(BUFSIZE);
 		buf.putShort((short) OP_DAT);
 		buf.putShort(blockNum);
@@ -268,6 +303,20 @@ public class TFTPServer
 
 		return new DatagramPacket(buf.array(), 4 + len);
 	}
+
+
+	private short getBlockNum(DatagramPacket packet) {
+
+		ByteBuffer buf = ByteBuffer.wrap(packet.getData());
+		short opcode = buf.getShort();
+
+		if (opcode == OP_ERR) {
+			return -1;
+		}
+
+		return buf.getShort();
+	}
+	//private DatagramPacket createErrorPacket()
 }
 
 
