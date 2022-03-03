@@ -179,7 +179,7 @@ public class TFTPServer
 					e.printStackTrace();
 				}
 
-				DatagramPacket dataPacket = createDataPacket((blockNum, buf, dataLength);
+				DatagramPacket dataPacket = createDataPacket(blockNum, buf, dataLength);
 				boolean result = send_DATA_receive_ACK(sendSocket, dataPacket);
 
 				if (!result) {
@@ -194,6 +194,7 @@ public class TFTPServer
 					}
 					break;
 				}
+				blockNum++;
 			}
 
 
@@ -239,10 +240,12 @@ public class TFTPServer
 				short ackNum = getBlockNum(ackPacket);
 
 				if (ackNum == getBlockNum(packet)) {
+					System.out.println("all working");
 					return true;
 				} else if (ackNum == -1) {
 					return false;
 				} else {
+					System.out.println("wtf is happening");
 					attempt++;
 					throw new SocketTimeoutException();
 				}
