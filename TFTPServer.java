@@ -228,7 +228,7 @@ public class TFTPServer
 		DatagramPacket ackPacket = new DatagramPacket(buf, buf.length);
 		int attempt = 0;
 
-		while (attempt < 6) {
+		while (attempt < 10) {
 			try {
 				socket.send(packet);
 				System.out.println("sent");
