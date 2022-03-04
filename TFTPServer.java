@@ -184,6 +184,7 @@ public class TFTPServer
 
 				if (!result) {
 					System.err.println("Oh damn sorry dawg, something went wrong...");
+					break;
 				}
 
 				if (dataLength < BUFSIZE - 4) {
@@ -201,15 +202,12 @@ public class TFTPServer
 		}
 		else if (opcode == OP_WRQ) 
 		{
-			FileOutputStream out = null;
 
-			try {
-				out = new FileOutputStream(file);
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
+			boolean result = receive_DATA_send_ACK(sendSocket, file);
+
+			if (!result) {
+				System.err.println("Something went wrong");
 			}
-
-			boolean result = receive_DATA_send_ACK(sendSocket, out);
 		}
 		else 
 		{
@@ -260,30 +258,72 @@ public class TFTPServer
 		return false;
 	}
 	
-	private boolean receive_DATA_send_ACK(DatagramSocket socket, FileOutputStream out)
+	private boolean receive_DATA_send_ACK(DatagramSocket socket, File file)
 	{
 		byte[] buf = new byte[BUFSIZE];
 		DatagramPacket packet = new DatagramPacket(buf, buf.length);
+		int attempt = 0;
+
+		FileOutputStream out = null;
+		short blockNum = 1;
 
 		try {
-			socket.receive(packet);
-			byte[] data = packet.getData();
-			out.write(data, 4, packet.getLength() - 4);
-			System.out.println("packet received");
-			socket.send(createAckPacket((short) 0));
-			System.out.println("ack sent");
-		} catch (IOException e) {
+			out = new FileOutputStream(file);
+		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
 
-		try {
-			out.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-			System.err.println("could not close stream");
+		while (true) {
+
+			while (attempt < 10) {
+				try {
+					socket.send(createAckPacket(blockNum));
+					System.out.println("ack sent");
+					socket.setSoTimeout(5000);
+					socket.receive(packet);
+					byte[] data = packet.getData();
+					out.write(data, 4, packet.getLength() - 4);
+					System.out.println("packet received");
+
+					short dataBlockNum = getBlockNum(packet);
+
+					if (dataBlockNum == blockNum) {
+						break;
+					} else if (dataBlockNum == -1) {
+						return false;
+					} else {
+						System.err.println("wtf is happening");
+						throw new SocketTimeoutException();
+					}
+
+				} catch (SocketTimeoutException e){
+					attempt++;
+					System.out.println("Request timed out. Sending packet again");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				//try {
+				//	out.close();
+				//} catch (IOException e) {
+				//	e.printStackTrace();
+				//	System.err.println("could not close stream");
+				//}
+			}
+			if (packet.getLength() - 4 < BUFSIZE -4) {
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+				break;
+			}
+
+			blockNum++;
 		}
 
-		return true;
+		return false;
 	}
 	
 	//private void send_ERR(params)
