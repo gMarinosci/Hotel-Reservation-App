@@ -164,7 +164,7 @@ public class TFTPServer
 			// See "TFTP Formats" in TFTP specification for the DATA and ACK packet contents
 			FileInputStream in = null;
 			short blockNum = 1;
-
+//
 			try {
 				in = new FileInputStream(file);
 			} catch (FileNotFoundException e) {
