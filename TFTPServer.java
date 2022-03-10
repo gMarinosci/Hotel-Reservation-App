@@ -8,8 +8,8 @@ public class TFTPServer
 {
 	public static final int TFTPPORT = 4970;
 	public static final int BUFSIZE = 516;
-	public static final String READDIR = "/Users/gabrielemarinosci/IdeaProjects/compnets_ass3/out/production/compnets_ass3/assignment3/"; //custom address at your PC
-	public static final String WRITEDIR = "/home/username/write/"; //custom address at your PC
+	public static final String READDIR = "/Users/gabrielemarinosci/IdeaProjects/compnets_ass3/files/"; //custom address at your PC
+	public static final String WRITEDIR = "/Users/gabrielemarinosci/IdeaProjects/compnets_ass3/files/"; //custom address at your PC
 	// OP codes
 	public static final int OP_RRQ = 1;
 	public static final int OP_WRQ = 2;
@@ -273,6 +273,12 @@ public class TFTPServer
 			e.printStackTrace();
 		}
 
+		try {
+			socket.send(createAckPacket((short) 0));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
 		while (true) {
 
 			while (attempt < 10) {
@@ -312,14 +318,21 @@ public class TFTPServer
 			}
 			if (packet.getLength() - 4 < BUFSIZE -4) {
 				try {
+					socket.send(createAckPacket(blockNum));
 					out.close();
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-
 				break;
 			}
-
+			if (packet.getLength() - 4 < BUFSIZE -4) {
+				try {
+					out.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				break;
+			}
 			blockNum++;
 		}
 
