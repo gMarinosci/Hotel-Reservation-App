@@ -281,8 +281,8 @@ public class TFTPServer
 			System.err.println("File already exists");
 			//Here I implemented response with code 6 but python script
 			//expects code 4
-			//send_ERR(socket, (short) ERR_EXISTS, "File already exists");
-			send_ERR(socket, (short) ERR_BADOP, "File already exists");
+			send_ERR(socket, (short) ERR_EXISTS, "File already exists");
+			//send_ERR(socket, (short) ERR_BADOP, "File already exists");
 			return false;
 		}
 		FileOutputStream out = null;
