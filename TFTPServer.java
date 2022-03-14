@@ -70,39 +70,36 @@ public class TFTPServer
 			final StringBuffer requestedFile= new StringBuffer();
 			final int reqtype = ParseRQ(buf, requestedFile);
 
-			new Thread()
-			{
-				public void run() 
+			new Thread(() -> {
+				try
 				{
-					try 
-					{
-						DatagramSocket sendSocket= new DatagramSocket(0);
+					DatagramSocket sendSocket= new DatagramSocket(0);
 
-						// Connect to client
-						sendSocket.connect(clientAddress);						
-						
-						System.out.printf("%s request for %s from %s using port %d\n",
-								(reqtype == OP_RRQ)?"Read":"Write",
-								clientAddress.getHostName(), clientAddress.getAddress(), clientAddress.getPort());
-								
-						// Read request
-						if (reqtype == OP_RRQ) 
-						{      
-							requestedFile.insert(0, READDIR);
-							HandleRQ(sendSocket, requestedFile.toString(), OP_RRQ);
-						}
-						// Write request
-						else 
-						{                       
-							requestedFile.insert(0, WRITEDIR);
-							HandleRQ(sendSocket,requestedFile.toString(),OP_WRQ);  
-						}
-						sendSocket.close();
-					} 
-					catch (SocketException e) 
-						{e.printStackTrace();}
+					// Connect to client
+					sendSocket.connect(clientAddress);
+
+					System.out.printf("%s request for %s from %s using port %d\n",
+							(reqtype == OP_RRQ)?"Read":"Write",
+							clientAddress.getHostName(), clientAddress.getAddress(), clientAddress.getPort());
+
+					// Read request
+					if (reqtype == OP_RRQ)
+					{
+						requestedFile.insert(0, READDIR);
+						HandleRQ(sendSocket, requestedFile.toString(), OP_RRQ);
+					}
+
+					// Write request
+					else
+					{
+						requestedFile.insert(0, WRITEDIR);
+						HandleRQ(sendSocket,requestedFile.toString(),OP_WRQ);
+					}
+					sendSocket.close();
 				}
-			}.start();
+				catch (SocketException e)
+					{e.printStackTrace();}
+			}).start();
 		}
 	}
 	
@@ -114,11 +111,6 @@ public class TFTPServer
 	 */
 	private InetSocketAddress receiveFrom(DatagramSocket socket, byte[] buf) 
 	{
-		// Create datagram packet
-		
-		// Receive packet
-		
-		// Get client address and port from the packet
 		DatagramPacket packet = new DatagramPacket(buf, buf.length);
 
 		try {
@@ -140,7 +132,6 @@ public class TFTPServer
 	 */
 	private int ParseRQ(byte[] buf, StringBuffer requestedFile) 
 	{
-		// See "TFTP Formats" in TFTP specification for the RRQ/WRQ request contents
 		ByteBuffer wrap = ByteBuffer.wrap(buf);
 		short opcode = wrap.getShort();
 		int delimiter = -1;
@@ -175,7 +166,7 @@ public class TFTPServer
 			FileInputStream in = null;
 			short blockNum = 1;
 			boolean result;
-//
+
 			try {
 				in = new FileInputStream(file);
 			} catch (FileNotFoundException e) {
@@ -212,8 +203,8 @@ public class TFTPServer
 			} else {
 				System.out.println("Operation completed successfully\n");
 			}
-
 		}
+
 		else if (opcode == OP_WRQ) 
 		{
 
@@ -232,10 +223,14 @@ public class TFTPServer
 			return;
 		}		
 	}
-	
+
 	/**
-	To be implemented
-	*/
+	 * Handles RRQ
+	 *
+	 * @param socket socket used to send/receive packets
+	 * @param packet packet for sending data
+	 * @return false is something went wrong
+	 */
 	private boolean send_DATA_receive_ACK(DatagramSocket socket, DatagramPacket packet)  {
 
 		byte[] buf = new byte[4];
@@ -268,7 +263,14 @@ public class TFTPServer
 
 		return false;
 	}
-	
+
+	/**
+	 * Handles WRQ
+	 *
+	 * @param socket socket used to send/receive packets
+	 * @param file file to be written
+	 * @return false if something went wrong
+	 */
 	private boolean receive_DATA_send_ACK(DatagramSocket socket, File file)
 	{
 		byte[] buf = new byte[BUFSIZE];
@@ -317,8 +319,6 @@ public class TFTPServer
 						out.write(data, 4, packet.getLength() - 4);
 					}
 
-
-
 					short dataBlockNum = getBlockNum(packet);
 
 					if (dataBlockNum == blockNum) {
@@ -326,7 +326,6 @@ public class TFTPServer
 					} else if (dataBlockNum == -1) {
 						return false;
 					} else {
-						System.err.println("wtf is happening");
 						throw new SocketTimeoutException();
 					}
 
@@ -355,7 +354,14 @@ public class TFTPServer
 
 		return true;
 	}
-	
+
+	/**
+	 * Creates and sends error packet to the clients
+	 *
+	 * @param socket socket used to send/receive packets
+	 * @param errCode reference code of the error as described in RFC1350
+	 * @param errMsg Error message
+	 */
 	private void send_ERR(DatagramSocket socket, short errCode, String errMsg) {
 
 		ByteBuffer buf = ByteBuffer.allocate(BUFSIZE);
@@ -374,6 +380,11 @@ public class TFTPServer
 		}
 	}
 
+	/**
+	 * Reads the info obtained from the error packet
+	 *
+	 * @param buf buffer containing error info
+	 */
 	private void readError(ByteBuffer buf) {
 
 		short errCode = buf.getShort();
@@ -388,6 +399,12 @@ public class TFTPServer
 		}
 	}
 
+	/**
+	 * Creates ack packet to be sent to the client
+	 *
+	 * @param blockNum block number of the current block
+	 * @return ack packet
+	 */
 	private DatagramPacket createAckPacket(short blockNum) {
 
 		ByteBuffer buf = ByteBuffer.allocate(4);
@@ -397,7 +414,14 @@ public class TFTPServer
 		return new DatagramPacket(buf.array(), buf.array().length);
 	}
 
-
+	/**
+	 * Creates Data packet to be sent to the client
+	 *
+	 * @param blockNum block number of the current block
+	 * @param data data read from the file
+	 * @param len length of the data read from file
+	 * @return data packet
+	 */
 	private DatagramPacket createDataPacket(short blockNum, byte[] data, int len) {
 
 		ByteBuffer buf = ByteBuffer.allocate(BUFSIZE);
@@ -408,7 +432,12 @@ public class TFTPServer
 		return new DatagramPacket(buf.array(), 4 + len);
 	}
 
-
+	/**
+	 * Returns the block number of the given packet
+	 *
+	 * @param packet
+	 * @return -1 if the packet is an error packet
+	 */
 	private short getBlockNum(DatagramPacket packet) {
 
 		ByteBuffer buf = ByteBuffer.wrap(packet.getData());
