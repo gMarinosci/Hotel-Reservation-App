@@ -1,5 +1,7 @@
 # HotelProject
 
+## NOTE: As you may notice by looking at the code, it all may look a little bit confusing, that is because thiw was meant to be a project for groups of 8-10 people, but my group was made of only 3 people so we could not finish it 100%. But because of my group being so small, the teacher still graded the project with a B, and I got an A as final grade for my efforts in the project 
+
 The project this year is to create a hotel booking system for a small hotel.
 You are going to create a desktop application using JavaFX and connect it to a MySQL database.
 The system should work for a hotel with about 20 -- 80 rooms, but you want to make it as flexible as possible.
